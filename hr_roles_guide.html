@@ -36,7 +36,6 @@
   .hero h1 { font-family: 'Unbounded', sans-serif; font-size: clamp(24px, 4vw, 46px); font-weight: 700; line-height: 1.15; color: white; max-width: 700px; margin-bottom: 24px; position: relative; z-index: 10; }
   .hero h1 em { font-style: normal; color: var(--accent); }
   .hero-sub { font-size: 16px; color: #8fa0b8; line-height: 1.75; max-width: 520px; margin-bottom: 40px; position: relative; z-index: 10; }
-  .cta-row { display: flex; gap: 12px; flex-wrap: wrap; position: relative; z-index: 10; }
 
   /* CONTAINER & LAYOUT */
   .container { max-width: 1020px; margin: 0 auto; padding: 0 32px; }
@@ -70,7 +69,7 @@
   .edge.dashed { stroke-dasharray: 5 4; }
   .edge.dimmed { opacity: 0.06; }
   
-  /* DRAWER PANEL */
+  /* DRAWER PANEL (Desktop) */
   .map-panel { 
     position: absolute; right: 0; top: 0; bottom: 0;
     width: 300px; background: white; 
@@ -175,11 +174,45 @@
     
     .hero { padding: 36px 20px 40px; }
     .container { padding: 0 16px; }
-    .map-inner { flex-direction: column; height: 500px; }
+    
+    /* Делаем область графа удобнее для скролла */
+    .map-inner { flex-direction: column; height: 60vh; min-height: 450px; }
     .graph-area { overflow: auto; }
-    svg.graph { min-width: 600px; }
-    .map-panel { width: 100%; border-left: none; border-top: 1.5px solid var(--border); top: auto; transform: translateY(105%); box-shadow: 0 -8px 24px rgba(0,0,0,0.06); }
-    .map-panel.open { transform: translateY(0); }
+    svg.graph { min-width: 660px; } 
+    
+    /* МАГИЯ BOTTOM SHEET 
+      Отвязываем панель от контейнера и крепим к экрану поверх всего
+    */
+    .map-panel { 
+      position: fixed; 
+      top: auto; 
+      bottom: 0; 
+      left: 0;
+      width: 100%; 
+      height: auto;
+      max-height: 85vh; /* Не перекрываем экран полностью */
+      border-left: none; 
+      border-top: 1px solid var(--border); 
+      border-radius: 24px 24px 0 0; /* Скругления сверху */
+      transform: translateY(110%); /* Прячем за нижний край */
+      box-shadow: 0 -12px 40px rgba(45,63,92,0.15); 
+      z-index: 2000; /* Строго поверх липкой шапки */
+    }
+    .map-panel.open { 
+      transform: translateY(0); 
+    }
+    /* Сдвигаем крестик закрытия и добавляем ему фон для кликабельности */
+    .mp-close {
+      top: 20px;
+      right: 24px;
+      padding: 10px;
+      margin: -10px;
+      background: white;
+      border-radius: 50%;
+    }
+    .mp-header {
+      padding: 24px 40px 16px 24px;
+    }
   }
 </style>
 </head>
@@ -291,7 +324,7 @@ let currentLang = 'ru';
 // БЕЗОПАСНАЯ ФУНКЦИЯ ПЕРЕВОДА (Предохранитель от ошибок)
 function set(id, val, isHtml = false) {
   const el = document.getElementById(id);
-  if (!el) return; // Если элемент не найден — игнорируем, ничего не ломаем
+  if (!el) return;
   isHtml ? el.innerHTML = val : el.textContent = val;
 }
 
@@ -726,8 +759,8 @@ function setLang(lang) {
   set('nav-guide', u.navGuide);
 
   set('hero-eyebrow', u.eyebrow);
-  set('hero-title', u.title); // Теперь понимает твой новый ID из hero
-  set('ui-title', u.title);   // И старый тоже (на всякий случай)
+  set('hero-title', u.title);
+  set('ui-title', u.title);
   set('hero-sub', u.desc);
   set('ui-desc', u.desc);
   set('ui-footer-credit', u.footerCredit, true);
