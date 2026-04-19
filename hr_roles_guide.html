@@ -51,9 +51,9 @@
   /* MAP SECTION */
   .map-section { padding: 0; }
   .map-wrap { border: 1.5px solid var(--border); border-radius: 16px; overflow: hidden; background: var(--cream); position: relative; }
-  .map-inner { display: flex; height: 600px; position: relative; }
-  .graph-area { flex: 1; overflow: auto; }
-  svg.graph { display: block; min-width: 820px; }
+  .map-inner { display: flex; height: 740px; position: relative; }
+  .graph-area { flex: 1; display: flex; justify-content: center; overflow: hidden; }
+  svg.graph { display: block; width: 100%; height: 100%; max-width: 700px; }
   .node-g { cursor: pointer; }
   .node-g.dimmed { opacity: 0.15; transition: opacity 0.2s; }
   .edge { fill: none; stroke-width: 1.5; transition: opacity 0.2s; }
@@ -159,8 +159,9 @@
   @media (max-width: 700px) {
     .hero { padding: 28px 20px 36px; }
     .container { padding: 0 16px; }
-    .map-inner { flex-direction: column; height: auto; }
-    .graph-area { height: 360px; }
+    .map-inner { flex-direction: column; height: 500px; }
+    .graph-area { overflow: auto; }
+    svg.graph { min-width: 600px; }
     .map-panel { width: 100%; border-left: none; border-top: 1.5px solid var(--border); top: auto; transform: translateY(105%); box-shadow: 0 -8px 24px rgba(0,0,0,0.06); }
     .map-panel.open { transform: translateY(0); }
   }
@@ -225,7 +226,7 @@
         <div class="map-wrap">
           <div class="map-inner">
             <div class="graph-area">
-              <svg class="graph" id="svg" viewBox="0 0 820 590"></svg>
+              <svg class="graph" id="svg" viewBox="0 0 660 760"></svg>
             </div>
             <div class="map-panel" id="panel"></div>
           </div>
@@ -408,8 +409,10 @@ const FUNCS = {
 };
 
 /* ── GRAPH DATA ── */
-const COL_X = [60, 240, 420, 610];
-const ROW_H = 60, ROW_Y0 = 30, NW = 144, NH = 38;
+// Сдвигаем и сужаем сетку
+const COL_X = [75, 240, 405, 570]; 
+const ROW_H = 78, ROW_Y0 = 40, NW = 126, NH = 68; 
+
 function cx(r) { return COL_X[r.col]; }
 function cy(r) { return ROW_Y0 + r.row * ROW_H; }
 
@@ -477,7 +480,7 @@ function renderGraph() {
 
   COL_X.forEach((x, i) => {
     if (i === 0) return;
-    out += `<line x1="${x-NW/2-8}" y1="4" x2="${x-NW/2-8}" y2="586" stroke="rgba(0,0,0,0.04)" stroke-width="1"/>`;
+    out += `<line x1="${x-NW/2-10}" y1="4" x2="${x-NW/2-10}" y2="736" stroke="rgba(0,0,0,0.04)" stroke-width="1"/>`;
   });
 
   EDGES.forEach((e, i) => {
@@ -487,14 +490,20 @@ function renderGraph() {
     out += `<path class="edge${e.z?' dashed':''}" id="e${i}" data-f="${e.f}" data-t="${e.t}" d="${path}" stroke="${dimEdge}" marker-end="url(#arr)"/>`;
   });
 
+  // Рендер узлов с использованием foreignObject для поддержки многострочного текста
   Object.entries(R).forEach(([id, role]) => {
     const tr = T[role.track];
     const x=cx(role)-NW/2, y=cy(role)-NH/2;
     const fill = tr.color + '18';
+    
     out += `<g class="node-g" id="n-${id}" onclick="pick('${id}')">
-      <rect x="${x}" y="${y}" width="${NW}" height="${NH}" rx="6" fill="${fill}" stroke="${tr.color}" stroke-width="1.2"/>
-      <text x="${cx(role)}" y="${y+12}" text-anchor="middle" font-size="8.5" font-weight="600" fill="${tr.color}" font-family="'Golos Text',sans-serif">${T[role.track].label}</text>
-      <text x="${cx(role)}" y="${y+27}" text-anchor="middle" font-size="11" font-weight="600" fill="#243040" font-family="'Unbounded',sans-serif">${role.label[currentLang]}</text>
+      <rect x="${x}" y="${y}" width="${NW}" height="${NH}" rx="8" fill="${fill}" stroke="${tr.color}" stroke-width="1.2"/>
+      <foreignObject x="${x}" y="${y}" width="${NW}" height="${NH}" style="pointer-events:none;">
+        <div xmlns="http://www.w3.org/1999/xhtml" style="display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;text-align:center;padding:4px 8px;box-sizing:border-box;">
+          <div style="font-size:8px;font-weight:600;color:${tr.color};margin-bottom:3px;font-family:'Golos Text',sans-serif;line-height:1.1;">${T[role.track].label}</div>
+          <div style="font-size:11px;font-weight:600;color:#243040;font-family:'Unbounded',sans-serif;line-height:1.3;word-wrap:break-word;">${role.label[currentLang]}</div>
+        </div>
+      </foreignObject>
     </g>`;
   });
 
@@ -550,7 +559,7 @@ function showPanel(id) {
   }).join('');
 
   panel.innerHTML = `
-    <div class="mp-close" onclick="closePanel()">✕</div>
+    <div class="mp-close" onclick="event.stopPropagation(); closePanel()">✕</div>
     <div class="mp-header">
       <div class="mp-track" style="color:${tr.color}">${tr.label}</div>
       <div class="mp-title">${role.label[l]}</div>
@@ -563,7 +572,6 @@ function showPanel(id) {
       ${toH?`<div class="mp-sec"><div class="mp-lbl">${l==='ru'?'Куда можно вырасти':'Growth paths'}</div><div class="mp-nav">${toH}</div></div>`:''}
     </div>`;
   
-  // Выдвигаем карточку
   setTimeout(() => panel.classList.add('open'), 10);
 }
 
@@ -717,6 +725,12 @@ window.addEventListener('DOMContentLoaded', () => {
   document.getElementById('btn-lang-en').classList.toggle('active', lang==='en');
   setLang(lang);
   updateCrossLinks();
+  
+  svg.addEventListener('click', (e) => {
+    if (!e.target.closest('.node-g')) {
+      closePanel();
+    }
+  });
 });
 </script>
 </body>
