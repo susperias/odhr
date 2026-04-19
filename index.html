@@ -189,7 +189,7 @@
       <div class="top-bar">
         <div class="hero-tag">ODHR Journal × Skailer</div>
         <div style="display:flex; gap:20px; align-items:center;">
-          <a href="home.html" class="nav-link cross-link" id="nav-home">Home</a>
+          <a href="home.html" class="nav-link cross-link" id="nav-home">Главная</a>
           <a href="hr_roles_guide.html" class="nav-link cross-link" id="nav-guide">Путеводитель по ролям →</a>
           <div class="lang-toggle">
             <button class="lang-btn" onclick="setLang('ru')" id="btn-lang-ru">RU</button>
@@ -197,8 +197,6 @@
           </div>
         </div>
       </div>
-      </div>
-    </div>
       <h1 id="i18n-hero-title">Диагностика HR для фаундеров</h1>
       <p id="i18n-hero-sub">Ответьте на несколько вопросов о вашей компании — и узнайте, на какой стадии вы находитесь, какие HR-роли нужны и какие функции они должны закрывать.</p>
     </div>
@@ -601,9 +599,7 @@
     document.getElementById('i18n-print-btn1').innerText = d.btnPrint;
     document.getElementById('i18n-print-back').innerText = d.btnBack;
     document.getElementById('nav-home').innerText = currentLang === 'en' ? 'Home' : 'Главная';
-    document.getElementById('nav-guide').innerText = 
-    
-    updateCrossLinks();
+    document.getElementById('nav-guide').innerText = currentLang === 'en' ? 'Roles Guide →' : 'Путеводитель по ролям →';
   }
 
   function updateCrossLinks() {
