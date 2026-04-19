@@ -172,7 +172,7 @@
 <div class="hero">
   <div class="container" style="padding: 0 32px;">
     <div class="top-bar">
-      <div class="hero-tag">ODHR Journal × Skailer</div>
+      <div class="hero-tag">ODHR Journal</div>
       <div style="display:flex;gap:20px;align-items:center;">
         <a href="home.html" class="nav-link cross-link" id="nav-home">Главная</a>
         <a href="index.html" class="nav-link cross-link" id="nav-diag">Диагностика</a>
@@ -204,7 +204,7 @@
         <div class="how-step"><div class="how-num">2</div><div class="how-text"><strong>Нажмите на неё</strong> — подсветятся все связанные роли, остальные потускнеют. Справа выедет карточка с деталями.</div></div>
         <div class="how-step"><div class="how-num">3</div><div class="how-text"><strong>В панели «Куда можно вырасти»</strong> — для каждого пути указаны конкретные компетенции, которые нужно развить для этого перехода.</div></div>
         <div class="how-step"><div class="how-num">4</div><div class="how-text"><strong>Нажмите на любую связанную роль</strong> прямо в панели — граф перейдет на нее. Так можно строить маршрут шаг за шагом.</div></div>
-        <div class="how-step"><div class="how-num">5</div><div class="how-text"><strong>Повторное нажатие на узел или крестик в панели</strong> закрывает ее и возвращает граф в исходное состояние.</div></div>
+        <div class="how-step"><div class="how-num">5</div><div class="how-text"><strong>Повторное нажатие на узел или пустое место на карте</strong> закрывает карточку и возвращает граф в исходное состояние.</div></div>
       </div>
     </div>
   </div>
@@ -257,7 +257,6 @@
       </div>
     </div>
     <div style="font-size:11px;color:#8fa0b8;text-align:right;line-height:1.7;" id="ui-footer-credit">
-      Данные по функциям:<br><a href="https://skailer.com" target="_blank" style="color:var(--accent);text-decoration:none;">Skailer.com</a>
     </div>
   </div>
 </footer>
@@ -636,7 +635,7 @@ const UI = {
     desc:'Интерактивный граф ролей, треков и переходов в HR-функции. Нажмите на любую роль — увидите что она делает, откуда приходят и куда можно вырасти.', 
     navHome:'Главная', 
     navDiag:'Диагностика', 
-    footerCredit:'Данные по функциям:<br><a href="https://skailer.com" target="_blank" style="color:var(--accent);text-decoration:none;">Skailer.com</a>',
+    footerCredit:' ',
     guideLabel: 'Как пользоваться картой',
     guideIntro: 'Карта показывает <strong>9 функциональных треков HR-функции</strong> и переходы между ролями внутри и между ними. Строки — треки, столбцы — уровни грейда от Entry до C-level. <strong>Сплошные линии</strong> — рост внутри трека, <strong>пунктирные</strong> — боковые переходы между функциями.',
     guideHowTo: 'Как читать граф',
@@ -658,7 +657,7 @@ const UI = {
     desc:'Interactive graph of roles, tracks and transitions in the HR function. Click any role to see what it does, where people come from, and where they can grow.', 
     navHome:'Home', 
     navDiag:'Diagnostic', 
-    footerCredit:'Function data:<br><a href="https://skailer.com" target="_blank" style="color:var(--accent);text-decoration:none;">Skailer.com</a>',
+    footerCredit:' ',
     guideLabel: 'How to use the map',
     guideIntro: 'The map shows <strong>9 functional tracks of the HR function</strong> and transitions between roles. Rows are tracks, columns are grade levels from Entry to C-level. <strong>Solid lines</strong> indicate growth within a track, <strong>dashed lines</strong> are lateral moves between functions.',
     guideHowTo: 'How to read the graph',
