@@ -14,7 +14,7 @@
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body { font-family: 'Golos Text', sans-serif; background: var(--paper); color: var(--ink); min-height: 100vh; overflow-x: hidden; }
 
-  /* NAV */
+  /* NAV & HERO */
   .hero { background: var(--ink); color: var(--paper); padding: 32px 40px 40px; position: relative; overflow: hidden; }
   .hero::before { content: 'HR'; position: absolute; right: -30px; top: -20px; font-family: 'Unbounded', sans-serif; font-size: 220px; font-weight: 700; opacity: 0.05; line-height: 1; pointer-events: none; }
   .top-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 32px; position: relative; z-index: 10; }
@@ -27,11 +27,29 @@
   .hero h1 { font-family: 'Unbounded', sans-serif; font-size: clamp(22px, 4vw, 40px); font-weight: 700; line-height: 1.15; max-width: 700px; margin-bottom: 12px; position: relative; z-index: 10; }
   .hero p { font-size: 15px; color: #8fa0b8; max-width: 560px; line-height: 1.7; position: relative; z-index: 10; }
 
-  /* CONTAINER */
+  /* CONTAINER & LAYOUT */
   .container { max-width: 1020px; margin: 0 auto; padding: 0 32px; }
+  
+  .main-layout { display: flex; gap: 32px; align-items: flex-start; }
+  .sidebar-left { width: 240px; flex-shrink: 0; }
+  .content-right { flex: 1; min-width: 0; }
+
+  /* GUIDE SECTION */
+  .guide-section { padding: 40px 0 32px; }
+  .section-label { font-family: 'Unbounded', sans-serif; font-size: 9px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--muted); margin-bottom: 20px; }
+  .guide-intro { font-size: 15px; color: var(--muted); line-height: 1.8; max-width: 680px; margin-bottom: 32px; }
+  .guide-intro strong { color: var(--ink); }
+
+  .how-to { background: var(--cream); border: 1.5px solid var(--border); border-radius: 14px; padding: 28px 32px; margin-bottom: 0; }
+  .how-to-title { font-family: 'Unbounded', sans-serif; font-size: 12px; font-weight: 700; letter-spacing: 1px; margin-bottom: 20px; }
+  .how-steps { display: flex; flex-direction: column; gap: 14px; }
+  .how-step { display: grid; grid-template-columns: 28px 1fr; gap: 12px; align-items: start; }
+  .how-num { font-family: 'Unbounded', sans-serif; font-size: 16px; font-weight: 700; color: var(--accent); line-height: 1.2; }
+  .how-text { font-size: 13px; color: var(--muted); line-height: 1.6; }
+  .how-text strong { color: var(--ink); font-weight: 600; }
 
   /* MAP SECTION */
-  .map-section { padding: 40px 0 0; }
+  .map-section { padding: 0; }
   .map-wrap { border: 1.5px solid var(--border); border-radius: 16px; overflow: hidden; background: var(--cream); }
   .map-inner { display: flex; height: 600px; }
   .graph-area { flex: 1; overflow: auto; }
@@ -41,6 +59,7 @@
   .edge { fill: none; stroke-width: 1.5; transition: opacity 0.2s; }
   .edge.dashed { stroke-dasharray: 5 4; }
   .edge.dimmed { opacity: 0.06; }
+  
   .map-panel { width: 280px; flex-shrink: 0; border-left: 1.5px solid var(--border); background: white; display: flex; flex-direction: column; overflow: hidden; }
   .mp-header { padding: 16px 18px 12px; border-bottom: 1px solid var(--border); flex-shrink: 0; }
   .mp-track { font-family: 'Unbounded', sans-serif; font-size: 9px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 3px; }
@@ -64,35 +83,27 @@
   .from-btn:hover { background: var(--paper); border-color: var(--ink); }
 
   /* LEGEND */
-  .legend-section { padding: 32px 0 0; }
-  .section-label { font-family: 'Unbounded', sans-serif; font-size: 9px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--muted); margin-bottom: 20px; }
-  .legend-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 10px; margin-bottom: 32px; }
-  .leg-card { border: 1px solid var(--border); border-radius: 10px; padding: 12px 16px; background: var(--cream); display: flex; align-items: flex-start; gap: 10px; }
+  .legend-section { padding: 0; }
+  .legend-grid { display: flex; flex-direction: column; gap: 10px; margin-bottom: 24px; }
+  .leg-card { border: 1px solid var(--border); border-radius: 10px; padding: 12px 14px; background: var(--cream); display: flex; align-items: flex-start; gap: 10px; }
   .leg-color { width: 10px; height: 10px; border-radius: 3px; flex-shrink: 0; margin-top: 3px; }
   .leg-name { font-family: 'Unbounded', sans-serif; font-size: 10px; font-weight: 700; margin-bottom: 3px; }
   .leg-desc { font-size: 11px; color: var(--muted); line-height: 1.5; }
 
-  .lines-legend { display: flex; gap: 24px; flex-wrap: wrap; margin-bottom: 0; }
-  .line-item { display: flex; align-items: center; gap: 10px; font-size: 12px; color: var(--muted); }
-  .line-solid { width: 32px; height: 2px; background: var(--ink); border-radius: 1px; }
-  .line-dashed { width: 32px; height: 2px; background: repeating-linear-gradient(90deg, var(--muted) 0, var(--muted) 5px, transparent 5px, transparent 9px); }
-
-  /* GUIDE SECTION */
-  .guide-section { padding: 40px 0 60px; }
-  .guide-intro { font-size: 15px; color: var(--muted); line-height: 1.8; max-width: 680px; margin-bottom: 40px; }
-  .guide-intro strong { color: var(--ink); }
-
-  .how-to { background: var(--cream); border: 1.5px solid var(--border); border-radius: 14px; padding: 28px 32px; margin-bottom: 40px; }
-  .how-to-title { font-family: 'Unbounded', sans-serif; font-size: 12px; font-weight: 700; letter-spacing: 1px; margin-bottom: 20px; }
-  .how-steps { display: flex; flex-direction: column; gap: 14px; }
-  .how-step { display: grid; grid-template-columns: 28px 1fr; gap: 12px; align-items: start; }
-  .how-num { font-family: 'Unbounded', sans-serif; font-size: 16px; font-weight: 700; color: var(--accent); line-height: 1.2; }
-  .how-text { font-size: 13px; color: var(--muted); line-height: 1.6; }
-  .how-text strong { color: var(--ink); font-weight: 600; }
+  .lines-legend { display: flex; flex-direction: column; gap: 12px; margin-bottom: 0; }
+  .line-item { display: flex; align-items: center; gap: 10px; font-size: 11px; color: var(--muted); }
+  .line-solid { width: 24px; height: 2px; background: var(--ink); border-radius: 1px; flex-shrink: 0; }
+  .line-dashed { width: 24px; height: 2px; background: repeating-linear-gradient(90deg, var(--muted) 0, var(--muted) 4px, transparent 4px, transparent 8px); flex-shrink: 0; }
 
   .divider { height: 1.5px; background: var(--border); margin: 40px 0; }
 
-  .functions-title { font-family: 'Unbounded', sans-serif; font-size: 14px; font-weight: 700; margin-bottom: 24px; }
+  /* FUNCTIONS SECTION */
+  .functions-section { padding-bottom: 60px; }
+  .functions-title { font-family: 'Unbounded', sans-serif; font-size: 14px; font-weight: 700; margin-bottom: 16px; }
+  
+  .disclaimer-text { font-size: 13px; color: var(--muted); background: rgba(90, 122, 138, 0.08); border-left: 3px solid var(--accent2); padding: 12px 16px; border-radius: 0 8px 8px 0; margin-bottom: 24px; line-height: 1.6; }
+  .disclaimer-text strong { color: var(--ink); font-family: 'Unbounded', sans-serif; font-size: 11px; letter-spacing: 1px; text-transform: uppercase; }
+
   .func-cards { display: flex; flex-direction: column; gap: 16px; }
   .func-card { border: 1.5px solid var(--border); border-radius: 14px; overflow: hidden; }
   .func-card-header { padding: 18px 24px; display: flex; align-items: center; gap: 14px; cursor: pointer; user-select: none; transition: background 0.15s; }
@@ -122,6 +133,14 @@
   .footer-links { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 10px; }
   .footer-link { display: inline-flex; align-items: center; gap: 8px; font-family: 'Unbounded', sans-serif; font-size: 10px; font-weight: 600; letter-spacing: 1px; color: white; text-decoration: none; padding: 10px 18px; border: 1.5px solid rgba(255,255,255,0.2); border-radius: 8px; transition: all 0.2s; }
   .footer-link:hover { border-color: var(--accent); color: var(--accent); }
+
+  @media (max-width: 960px) {
+    .main-layout { flex-direction: column; }
+    .sidebar-left { width: 100%; }
+    .legend-grid { flex-direction: row; flex-wrap: wrap; }
+    .lines-legend { flex-direction: row; flex-wrap: wrap; gap: 24px; }
+    .leg-card { flex: 1 1 200px; }
+  }
 
   @media (max-width: 700px) {
     .hero { padding: 28px 20px 36px; }
@@ -154,45 +173,17 @@
 
 <div class="container">
 
-  <!-- MAP -->
-  <div class="map-section">
-    <div class="map-wrap">
-      <div class="map-inner">
-        <div class="graph-area">
-          <svg class="graph" id="svg" viewBox="0 0 820 590" width="820" height="590"></svg>
-        </div>
-        <div class="map-panel" id="panel">
-          <div class="mp-body"><div class="mp-empty">Нажмите на роль чтобы увидеть детали и пути развития</div></div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- LEGEND -->
-  <div class="legend-section">
-    <div class="section-label">Легенда</div>
-    <div class="legend-grid" id="legendGrid"></div>
-    <div class="lines-legend">
-      <div class="line-item"><div class="line-solid"></div><span>Основной переход внутри трека</span></div>
-      <div class="line-item"><div class="line-dashed"></div><span>Боковой переход между треками (зигзаг)</span></div>
-    </div>
-  </div>
-
-  <div class="divider"></div>
-
-  <!-- GUIDE -->
   <div class="guide-section">
-    <div class="section-label">Как пользоваться картой</div>
-
-    <p class="guide-intro">
+    <div class="section-label" id="guide-label">Как пользоваться картой</div>
+    <p class="guide-intro" id="guide-intro">
       Карта показывает <strong>9 функциональных треков HR-функции</strong> и переходы между ролями внутри и между ними.
       Строки — треки, столбцы — уровни грейда от Entry до C-level.
       <strong>Сплошные линии</strong> — рост внутри трека, <strong>пунктирные</strong> — боковые переходы между функциями.
     </p>
 
     <div class="how-to">
-      <div class="how-to-title">Как читать граф</div>
-      <div class="how-steps">
+      <div class="how-to-title" id="guide-how-to">Как читать граф</div>
+      <div class="how-steps" id="guide-steps">
         <div class="how-step"><div class="how-num">1</div><div class="how-text"><strong>Найдите свою текущую роль</strong> — или роль, которую хотите занять. Каждый узел окрашен в цвет своего функционального трека.</div></div>
         <div class="how-step"><div class="how-num">2</div><div class="how-text"><strong>Нажмите на неё</strong> — подсветятся все связанные роли, остальные потускнеют. В панели справа появятся детали.</div></div>
         <div class="how-step"><div class="how-num">3</div><div class="how-text"><strong>В панели «Куда можно вырасти»</strong> — для каждого пути указаны конкретные компетенции, которые нужно развить для этого перехода.</div></div>
@@ -200,10 +191,43 @@
         <div class="how-step"><div class="how-num">5</div><div class="how-text"><strong>Повторное нажатие на роль</strong> снимает выделение и возвращает граф в исходное состояние.</div></div>
       </div>
     </div>
+  </div>
 
-    <div class="divider"></div>
+  <div class="main-layout">
+    <div class="sidebar-left">
+      <div class="legend-section">
+        <div class="section-label" id="legend-label">Легенда</div>
+        <div class="legend-grid" id="legendGrid"></div>
+        <div class="lines-legend">
+          <div class="line-item"><div class="line-solid"></div><span id="leg-line-solid">Основной переход внутри трека</span></div>
+          <div class="line-item"><div class="line-dashed"></div><span id="leg-line-dash">Боковой переход (зигзаг)</span></div>
+        </div>
+      </div>
+    </div>
 
-    <div class="functions-title">HR-функции: что это и когда появляются</div>
+    <div class="content-right">
+      <div class="map-section">
+        <div class="map-wrap">
+          <div class="map-inner">
+            <div class="graph-area">
+              <svg class="graph" id="svg" viewBox="0 0 820 590" width="820" height="590"></svg>
+            </div>
+            <div class="map-panel" id="panel">
+              <div class="mp-body"><div class="mp-empty">Нажмите на роль чтобы увидеть детали и пути развития</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="functions-section">
+    <div class="functions-title" id="func-main-title">HR-функции: что это и когда появляются</div>
+    <div class="disclaimer-text" id="func-disclaimer">
+      <strong>Обратите внимание:</strong> указанные стадии развития и численность команды — это ориентировочные бенчмарки для понимания эволюции функции. Реальная потребность зависит от специфики и стратегии конкретного бизнеса.
+    </div>
     <div class="func-cards" id="funcCards"></div>
   </div>
 
@@ -244,210 +268,134 @@ const T = {
 const FUNCS = {
   ta: {
     ru: {
-      name: 'Talent Acquisition (TA)',
-      stage: 'С первого найма',
+      name: 'Talent Acquisition (TA)', stage: 'С первого найма',
       desc: 'Отвечает за весь процесс привлечения и найма людей в компанию. Это не просто «размещение вакансий» — это система: воронка, оценка кандидатов, опыт кандидата, аналитика найма и стратегическое планирование потребности в людях.',
-      roles: [
-        { name: 'Рекрутер', desc: 'закрывает вакансии, ведёт кандидата от первого контакта до оффера' },
-        { name: 'TA Lead', desc: 'управляет командой рекрутеров, выстраивает процессы и метрики найма' },
-        { name: 'Head of TA', desc: 'TA-стратегия, workforce planning, employer brand как инструмент привлечения' },
-      ],
+      roles: [ { name: 'Рекрутер', desc: 'закрывает вакансии, ведёт кандидата от первого контакта до оффера' }, { name: 'TA Lead', desc: 'управляет командой рекрутеров, выстраивает процессы и метрики найма' }, { name: 'Head of TA', desc: 'TA-стратегия, workforce planning, employer brand как инструмент привлечения' } ],
       includes: ['Sourcing и pipeline','Структурированные интервью','Candidate experience','Hiring analytics','Workforce planning','Employer brand (совместно)'],
     },
     en: {
-      name: 'Talent Acquisition (TA)',
-      stage: 'From day one',
+      name: 'Talent Acquisition (TA)', stage: 'From day one',
       desc: 'Responsible for the full hiring process — sourcing, assessment, candidate experience, and strategic workforce planning. Not just filling roles, but building a hiring system.',
-      roles: [
-        { name: 'Recruiter', desc: 'owns the full hiring funnel from outreach to offer' },
-        { name: 'TA Lead', desc: 'manages recruiters, builds hiring processes and metrics' },
-        { name: 'Head of TA', desc: 'TA strategy, workforce planning, employer brand' },
-      ],
+      roles: [ { name: 'Recruiter', desc: 'owns the full hiring funnel from outreach to offer' }, { name: 'TA Lead', desc: 'manages recruiters, builds hiring processes and metrics' }, { name: 'Head of TA', desc: 'TA strategy, workforce planning, employer brand' } ],
       includes: ['Sourcing & pipeline','Structured interviews','Candidate experience','Hiring analytics','Workforce planning','Employer brand (shared)'],
     }
   },
   partner: {
     ru: {
-      name: 'HR Business Partnership (HRBP)',
-      stage: 'Рост: 50–250 человек',
+      name: 'HR Business Partnership (HRBP)', stage: 'Рост: ~50–250 человек',
       desc: 'HRBP — это HR, который работает внутри бизнес-юнита и отвечает за people-результаты в своей зоне. Он не просто исполняет HR-процессы, а является партнёром для руководителя: помогает с управлением командой, performance, изменениями и оргздоровьем.',
-      roles: [
-        { name: 'HR-Generalist', desc: 'закрывает несколько HR-направлений сразу — онбординг, базовые процессы, коммуникация' },
-        { name: 'HRBP', desc: 'стратегический партнёр бизнес-юнита, отвечает за people-метрики в своей зоне' },
-        { name: 'HR Director', desc: 'возглавляет HR-функцию, people-стратегия, влияние на P&L' },
-      ],
+      roles: [ { name: 'HR-Generalist', desc: 'закрывает несколько HR-направлений сразу — онбординг, базовые процессы, коммуникация' }, { name: 'HRBP', desc: 'стратегический партнёр бизнес-юнита, отвечает за people-метрики в своей зоне' }, { name: 'HR Director', desc: 'возглавляет HR-функцию, people-стратегия, влияние на P&L' } ],
       includes: ['Работа с менеджерами','Performance management','Org health мониторинг','Поддержка в изменениях','Удержание и вовлечённость','Оргдизайн (базовый)'],
     },
     en: {
-      name: 'HR Business Partnership (HRBP)',
-      stage: 'Growth: 50–250 people',
+      name: 'HR Business Partnership (HRBP)', stage: 'Growth: ~50–250 people',
       desc: 'HRBP works inside a business unit and owns people outcomes in their zone. Not just executing HR processes, but a genuine partner for business leaders — supporting team management, performance, org health and change.',
-      roles: [
-        { name: 'HR-Generalist', desc: 'covers multiple HR areas — onboarding, basic processes, team communication' },
-        { name: 'HRBP', desc: 'strategic partner for a business unit, owns people metrics in their zone' },
-        { name: 'HR Director', desc: 'leads the HR function, people strategy, P&L impact' },
-      ],
+      roles: [ { name: 'HR-Generalist', desc: 'covers multiple HR areas — onboarding, basic processes, team communication' }, { name: 'HRBP', desc: 'strategic partner for a business unit, owns people metrics in their zone' }, { name: 'HR Director', desc: 'leads the HR function, people strategy, P&L impact' } ],
       includes: ['Manager support','Performance management','Org health','Change support','Retention & engagement','Basic org design'],
     }
   },
   ops: {
     ru: {
-      name: 'HR Operations',
-      stage: 'Рост: 100+ человек',
+      name: 'HR Operations', stage: 'Рост: ~100+ человек',
       desc: 'HR Ops — операционный хребет HR-функции. Здесь живут все процессы, которые должны работать надёжно и без постоянного ручного контроля: данные сотрудников, онбординг, документы, системы, compliance. Хороший HR Ops делает так, чтобы всё просто работало.',
-      roles: [
-        { name: 'HR Ops Manager', desc: 'управляет HR-системами, автоматизирует процессы, данные и compliance' },
-        { name: 'HR Ops Director', desc: 'интегрированная HR-платформа, self-service, масштабируемые процессы' },
-      ],
+      roles: [ { name: 'HR Ops Manager', desc: 'управляет HR-системами, автоматизирует процессы, данные и compliance' }, { name: 'HR Ops Director', desc: 'интегрированная HR-платформа, self-service, масштабируемые процессы' } ],
       includes: ['HRIS и данные сотрудников','Онбординг и оффбординг процессы','Compliance и документооборот','HR-аналитика (базовая)','Автоматизация процессов','Self-service модели'],
     },
     en: {
-      name: 'HR Operations',
-      stage: 'Growth: 100+ people',
+      name: 'HR Operations', stage: 'Growth: ~100+ people',
       desc: 'HR Ops is the operational backbone of the HR function — employee data, onboarding, documents, systems, compliance. Good HR Ops makes everything just work.',
-      roles: [
-        { name: 'HR Ops Manager', desc: 'manages HR systems, automates processes, handles data and compliance' },
-        { name: 'HR Ops Director', desc: 'integrated HR platform, self-service, scalable operations' },
-      ],
+      roles: [ { name: 'HR Ops Manager', desc: 'manages HR systems, automates processes, handles data and compliance' }, { name: 'HR Ops Director', desc: 'integrated HR platform, self-service, scalable operations' } ],
       includes: ['HRIS & employee data','Onboarding & offboarding','Compliance & documents','Basic HR analytics','Process automation','Self-service models'],
     }
   },
   ld: {
     ru: {
-      name: 'Learning & Development (L&D)',
-      stage: 'Рост / Масштаб: 100+ человек',
+      name: 'Learning & Development (L&D)', stage: 'Рост / Масштаб: ~100+ человек',
       desc: 'L&D отвечает за развитие людей внутри компании: от онбординг-обучения до leadership programs. Ключевая задача — не просто организовать курсы, а выстроить систему, где развитие связано с performance и стратегическими целями бизнеса.',
-      roles: [
-        { name: 'L&D Manager', desc: 'IDP-системы, программы обучения, развитие менеджеров' },
-        { name: 'L&D Director', desc: 'succession planning, leadership programs, измерение ROI обучения' },
-      ],
+      roles: [ { name: 'L&D Manager', desc: 'IDP-системы, программы обучения, развитие менеджеров' }, { name: 'L&D Director', desc: 'succession planning, leadership programs, измерение ROI обучения' } ],
       includes: ['Онбординг-обучение','IDP (индивидуальные планы развития)','Менеджерские программы','Competency frameworks','Succession planning','Оценка эффективности обучения'],
     },
     en: {
-      name: 'Learning & Development (L&D)',
-      stage: 'Growth / Scale: 100+ people',
+      name: 'Learning & Development (L&D)', stage: 'Growth / Scale: ~100+ people',
       desc: 'L&D owns people development — from onboarding to leadership programs. The key is building a system where learning is tied to performance and business goals, not just running courses.',
-      roles: [
-        { name: 'L&D Manager', desc: 'IDP systems, learning programs, manager development' },
-        { name: 'L&D Director', desc: 'succession planning, leadership programs, learning ROI' },
-      ],
+      roles: [ { name: 'L&D Manager', desc: 'IDP systems, learning programs, manager development' }, { name: 'L&D Director', desc: 'succession planning, leadership programs, learning ROI' } ],
       includes: ['Onboarding learning','Individual development plans','Manager programs','Competency frameworks','Succession planning','Learning effectiveness measurement'],
     }
   },
   analytics: {
     ru: {
-      name: 'People Analytics',
-      stage: 'Масштаб: 250+ человек',
+      name: 'People Analytics', stage: 'Масштаб: ~250+ человек',
       desc: 'People Analytics переводит HR из режима интуиции в режим данных. Эта функция отвечает за то, чтобы решения по людям — найм, удержание, структура, компенсации — принимались на основе реальных данных, а не ощущений.',
-      roles: [
-        { name: 'HR Analyst', desc: 'дашборды, HR-метрики, data-driven решения' },
-        { name: 'People Analytics Lead', desc: 'предиктивные модели, early warning системы, связь HR с P&L' },
-      ],
+      roles: [ { name: 'HR Analyst', desc: 'дашборды, HR-метрики, data-driven решения' }, { name: 'People Analytics Lead', desc: 'предиктивные модели, early warning системы, связь HR с P&L' } ],
       includes: ['HR-дашборды и отчётность','Метрики найма и воронки','Анализ текучести','Предиктивные модели','eNPS и engagement analytics','Связь people-метрик с бизнесом'],
     },
     en: {
-      name: 'People Analytics',
-      stage: 'Scale: 250+ people',
+      name: 'People Analytics', stage: 'Scale: ~250+ people',
       desc: 'People Analytics shifts HR from intuition to data. This function ensures people decisions — hiring, retention, structure, comp — are based on real data, not gut feel.',
-      roles: [
-        { name: 'HR Analyst', desc: 'dashboards, HR metrics, data-driven decisions' },
-        { name: 'People Analytics Lead', desc: 'predictive models, early warning systems, HR-P&L linkage' },
-      ],
+      roles: [ { name: 'HR Analyst', desc: 'dashboards, HR metrics, data-driven decisions' }, { name: 'People Analytics Lead', desc: 'predictive models, early warning systems, HR-P&L linkage' } ],
       includes: ['HR dashboards & reporting','Hiring & funnel metrics','Attrition analysis','Predictive models','eNPS & engagement analytics','People-to-business metric linkage'],
     }
   },
   cb: {
     ru: {
-      name: 'Compensation & Benefits / Total Rewards',
-      stage: 'Масштаб: 250+ человек',
+      name: 'Compensation & Benefits / Total Rewards', stage: 'Масштаб: ~250+ человек',
       desc: 'C&B — это стык HR и финансов. Функция отвечает за то, чтобы система вознаграждения была справедливой, конкурентной и стратегически выверенной. Грейдинг, бонусные программы, equity, бенефиты — всё это инструменты влияния на поведение и мотивацию людей.',
-      roles: [
-        { name: 'C&B Specialist', desc: 'грейдинг, бенчмаркинг, опционные программы, equity' },
-        { name: 'Total Rewards Director', desc: 'стратегия total rewards, executive compensation, benefits design' },
-      ],
+      roles: [ { name: 'C&B Specialist', desc: 'грейдинг, бенчмаркинг, опционные программы, equity' }, { name: 'Total Rewards Director', desc: 'стратегия total rewards, executive compensation, benefits design' } ],
       includes: ['Job architecture и грейдинг','Зарплатные диапазоны и бенчмаркинг','Бонусные программы','Equity и ESOP','Benefits design','Pay equity анализ'],
     },
     en: {
-      name: 'Compensation & Benefits / Total Rewards',
-      stage: 'Scale: 250+ people',
+      name: 'Compensation & Benefits / Total Rewards', stage: 'Scale: ~250+ people',
       desc: 'C&B sits at the intersection of HR and finance. This function ensures the reward system is fair, competitive, and strategically sound — grading, bonuses, equity, benefits as tools to shape motivation and behaviour.',
-      roles: [
-        { name: 'C&B Specialist', desc: 'grading, benchmarking, option programs, equity' },
-        { name: 'Total Rewards Director', desc: 'total rewards strategy, executive comp, benefits design' },
-      ],
+      roles: [ { name: 'C&B Specialist', desc: 'grading, benchmarking, option programs, equity' }, { name: 'Total Rewards Director', desc: 'total rewards strategy, executive comp, benefits design' } ],
       includes: ['Job architecture & grading','Salary bands & benchmarking','Bonus programs','Equity & ESOP','Benefits design','Pay equity analysis'],
     }
   },
   hrtech: {
     ru: {
-      name: 'HR Tech & AI',
-      stage: 'Масштаб / Зрелость: 300+ человек',
+      name: 'HR Tech & AI', stage: 'Масштаб / Зрелость: ~300+ человек',
       desc: 'HR Tech — это будущее HR Ops. Вместо того чтобы просто поддерживать системы, HR Tech PM проектирует внутреннюю HR-экосистему: внедряет LLM-ассистентов, настраивает HRIS, создаёт автоматизированные workflow. По сути — продакт внутренних HR-инструментов.',
-      roles: [
-        { name: 'HR Tech PM', desc: 'продакт внутренних HR-инструментов, LLM-ассистенты, HRIS-экосистема' },
-        { name: 'Head of HR Tech', desc: 'HR tech стратегия, AI/Ops интеграция, архитектура систем' },
-      ],
+      roles: [ { name: 'HR Tech PM', desc: 'продакт внутренних HR-инструментов, LLM-ассистенты, HRIS-экосистема' }, { name: 'Head of HR Tech', desc: 'HR tech стратегия, AI/Ops интеграция, архитектура систем' } ],
       includes: ['HRIS-архитектура и интеграции','LLM-ассистенты для HR','Автоматизация HR workflow','AI в подборе и адаптации','HR data engineering','Vendor management'],
     },
     en: {
-      name: 'HR Tech & AI',
-      stage: 'Scale / Maturity: 300+ people',
+      name: 'HR Tech & AI', stage: 'Scale / Maturity: ~300+ people',
       desc: 'HR Tech is the future of HR Ops. Instead of just maintaining systems, HR Tech PM designs the internal HR ecosystem — LLM assistants, HRIS configuration, automated workflows. Essentially: product manager for internal HR tools.',
-      roles: [
-        { name: 'HR Tech PM', desc: 'internal HR tools product, LLM assistants, HRIS ecosystem' },
-        { name: 'Head of HR Tech', desc: 'HR tech strategy, AI/Ops integration, systems architecture' },
-      ],
+      roles: [ { name: 'HR Tech PM', desc: 'internal HR tools product, LLM assistants, HRIS ecosystem' }, { name: 'Head of HR Tech', desc: 'HR tech strategy, AI/Ops integration, systems architecture' } ],
       includes: ['HRIS architecture & integrations','LLM assistants for HR','HR workflow automation','AI in hiring & onboarding','HR data engineering','Vendor management'],
     }
   },
   brand: {
     ru: {
-      name: 'Employer Brand',
-      stage: 'Рост / Масштаб: IT-сектор',
+      name: 'Employer Brand', stage: 'Рост / Масштаб: IT-сектор',
       desc: 'Employer Brand — это то, как компания воспринимается как работодатель на рынке. В IT-секторе это особенно важно: без сильного бренда привлечь сильных технических специалистов сложно. Функция строит комьюнити, создаёт контент, организует мероприятия и работает с DevRel.',
-      roles: [
-        { name: 'Employer Brand Manager', desc: 'HR-бренд, комьюнити разработчиков, техно-PR' },
-        { name: 'DevRel Lead', desc: 'developer relations, хакатоны, Tech Brand, developer community' },
-      ],
+      roles: [ { name: 'Employer Brand Manager', desc: 'HR-бренд, комьюнити разработчиков, техно-PR' }, { name: 'DevRel Lead', desc: 'developer relations, хакатоны, Tech Brand, developer community' } ],
       includes: ['EVP (ценностное предложение)','Контент и социальные сети','Технические мероприятия','Developer community','Glassdoor и отзывы','Партнёрство с университетами'],
     },
     en: {
-      name: 'Employer Brand',
-      stage: 'Growth / Scale: tech sector',
+      name: 'Employer Brand', stage: 'Growth / Scale: tech sector',
       desc: 'Employer Brand is how the company is perceived as an employer. In tech, this is critical — without a strong brand it\'s hard to attract strong engineers. The function builds community, creates content, runs events and handles DevRel.',
-      roles: [
-        { name: 'Employer Brand Manager', desc: 'HR brand, developer community, tech PR' },
-        { name: 'DevRel Lead', desc: 'developer relations, hackathons, Tech Brand, community' },
-      ],
+      roles: [ { name: 'Employer Brand Manager', desc: 'HR brand, developer community, tech PR' }, { name: 'DevRel Lead', desc: 'developer relations, hackathons, Tech Brand, community' } ],
       includes: ['EVP (employer value proposition)','Content & social media','Tech events & hackathons','Developer community','Glassdoor & reviews','University partnerships'],
     }
   },
   od: {
     ru: {
-      name: 'Organizational Development (OD) / BizOps',
-      stage: 'Масштаб / Зрелость: 250+ человек',
+      name: 'Organizational Development (OD) / BizOps', stage: 'Масштаб / Зрелость: ~250+ человек',
       desc: 'OD — это целенаправленное изменение организации: её структуры, процессов и культуры. OD Manager смотрит на компанию как на систему и спрашивает: соответствует ли структура стратегии? Эффективны ли процессы принятия решений? Поддерживает ли культура нужное поведение? Это трек, из которого вырастают Chief of Staff и COO.',
-      roles: [
-        { name: 'OD Manager', desc: 'оргдизайн, управление изменениями, culture design, process design' },
-        { name: 'Chief of Staff / COO', desc: 'управление всей операционной системой бизнеса, переход от HR к operations' },
-      ],
+      roles: [ { name: 'OD Manager', desc: 'оргдизайн, управление изменениями, culture design, process design' }, { name: 'Chief of Staff / COO', desc: 'управление всей операционной системой бизнеса, переход от HR к operations' } ],
       includes: ['Организационный дизайн','Управление изменениями','Culture design','Rightsizing и реструктуризация','Процессное проектирование','Операционная эффективность'],
     },
     en: {
-      name: 'Organizational Development (OD) / BizOps',
-      stage: 'Scale / Maturity: 250+ people',
+      name: 'Organizational Development (OD) / BizOps', stage: 'Scale / Maturity: ~250+ people',
       desc: 'OD is about intentional organizational change — structure, processes, culture. The OD Manager looks at the company as a system: does structure match strategy? Are decision-making processes efficient? Does culture support the right behaviours? This is the track that leads to Chief of Staff and COO.',
-      roles: [
-        { name: 'OD Manager', desc: 'org design, change management, culture design, process design' },
-        { name: 'Chief of Staff / COO', desc: 'owns the full operational system of the business' },
-      ],
+      roles: [ { name: 'OD Manager', desc: 'org design, change management, culture design, process design' }, { name: 'Chief of Staff / COO', desc: 'owns the full operational system of the business' } ],
       includes: ['Organizational design','Change management','Culture design','Rightsizing & restructuring','Process design','Operational efficiency'],
     }
   },
 };
 
 /* ── GRAPH DATA ── */
-const COL_X = [80, 260, 440, 630];
+const COL_X = [60, 240, 420, 610]; // Сдвинуто левее после удаления названий треков
 const ROW_H = 60, ROW_Y0 = 30, NW = 144, NH = 38;
 function cx(r) { return COL_X[r.col]; }
 function cy(r) { return ROW_Y0 + r.row * ROW_H; }
@@ -520,13 +468,6 @@ function renderGraph() {
     out += `<line x1="${x-NW/2-8}" y1="4" x2="${x-NW/2-8}" y2="586" stroke="rgba(0,0,0,0.04)" stroke-width="1"/>`;
   });
 
-  // Track labels
-  const drawn = new Set();
-  Object.values(R).forEach(r => {
-    if (drawn.has(r.track)) return; drawn.add(r.track);
-    out += `<text x="5" y="${cy(r)+5}" font-size="8.5" font-weight="600" fill="${T[r.track].color}" font-family="'Golos Text',sans-serif" opacity="0.7">${T[r.track].label}</text>`;
-  });
-
   // Edges
   EDGES.forEach((e, i) => {
     const fr = R[e.f], tr = R[e.t]; if (!fr || !tr) return;
@@ -573,7 +514,9 @@ function resetHL() {
 }
 
 function emptyPanel() {
-  panel.innerHTML = `<div class="mp-body"><div class="mp-empty">Нажмите на роль чтобы увидеть детали и пути развития</div></div>`;
+  const l = currentLang;
+  const msg = l==='ru' ? 'Нажмите на роль чтобы увидеть детали и пути развития' : 'Click a role to see details and growth paths';
+  panel.innerHTML = `<div class="mp-body"><div class="mp-empty">${msg}</div></div>`;
 }
 
 function showPanel(id) {
@@ -661,22 +604,79 @@ function toggleFunc(header) {
 
 /* ── LANG ── */
 const UI = {
-  ru: { title:'Карта HR-карьеры', desc:'Интерактивный граф ролей, треков и переходов в HR-функции. Нажмите на любую роль — увидите что она делает, откуда приходят и куда можно вырасти.', navHome:'Главная', navDiag:'Диагностика', footerCredit:'Данные по ролям и функциям:<br><a href="https://skailer.com" target="_blank" style="color:var(--accent);text-decoration:none;">Skailer.com</a>' },
-  en: { title:'HR Career Map', desc:'Interactive graph of roles, tracks and transitions in the HR function. Click any role to see what it does, where people come from, and where they can grow.', navHome:'Home', navDiag:'Diagnostic', footerCredit:'Role and function data:<br><a href="https://skailer.com" target="_blank" style="color:var(--accent);text-decoration:none;">Skailer.com</a>' },
+  ru: { 
+    title:'Карта HR-карьеры', 
+    desc:'Интерактивный граф ролей, треков и переходов в HR-функции. Нажмите на любую роль — увидите что она делает, откуда приходят и куда можно вырасти.', 
+    navHome:'Главная', 
+    navDiag:'Диагностика', 
+    footerCredit:'Данные по ролям и функциям:<br><a href="https://skailer.com" target="_blank" style="color:var(--accent);text-decoration:none;">Skailer.com</a>',
+    guideLabel: 'Как пользоваться картой',
+    guideIntro: 'Карта показывает <strong>9 функциональных треков HR-функции</strong> и переходы между ролями внутри и между ними. Строки — треки, столбцы — уровни грейда от Entry до C-level. <strong>Сплошные линии</strong> — рост внутри трека, <strong>пунктирные</strong> — боковые переходы между функциями.',
+    guideHowTo: 'Как читать граф',
+    guideSteps: `
+        <div class="how-step"><div class="how-num">1</div><div class="how-text"><strong>Найдите свою текущую роль</strong> — или роль, которую хотите занять. Каждый узел окрашен в цвет своего функционального трека.</div></div>
+        <div class="how-step"><div class="how-num">2</div><div class="how-text"><strong>Нажмите на неё</strong> — подсветятся все связанные роли, остальные потускнеют. В панели справа появятся детали.</div></div>
+        <div class="how-step"><div class="how-num">3</div><div class="how-text"><strong>В панели «Куда можно вырасти»</strong> — для каждого пути указаны конкретные компетенции, которые нужно развить для этого перехода.</div></div>
+        <div class="how-step"><div class="how-num">4</div><div class="how-text"><strong>Нажмите на любую связанную роль</strong> прямо в панели — граф перейдёт на неё. Так можно строить маршрут шаг за шагом.</div></div>
+        <div class="how-step"><div class="how-num">5</div><div class="how-text"><strong>Повторное нажатие на роль</strong> снимает выделение и возвращает граф в исходное состояние.</div></div>
+    `,
+    legLabel: 'Легенда',
+    legSolid: 'Основной переход внутри трека',
+    legDash: 'Боковой переход (зигзаг)',
+    funcTitle: 'HR-функции: что это и когда появляются',
+    funcDisclaimer: '<strong>Обратите внимание:</strong> указанные стадии развития и численность команды — это ориентировочные бенчмарки для понимания эволюции функции. Реальная потребность зависит от специфики и стратегии конкретного бизнеса.'
+  },
+  en: { 
+    title:'HR Career Map', 
+    desc:'Interactive graph of roles, tracks and transitions in the HR function. Click any role to see what it does, where people come from, and where they can grow.', 
+    navHome:'Home', 
+    navDiag:'Diagnostic', 
+    footerCredit:'Role and function data:<br><a href="https://skailer.com" target="_blank" style="color:var(--accent);text-decoration:none;">Skailer.com</a>',
+    guideLabel: 'How to use the map',
+    guideIntro: 'The map shows <strong>9 functional tracks of the HR function</strong> and transitions between roles. Rows are tracks, columns are grade levels from Entry to C-level. <strong>Solid lines</strong> indicate growth within a track, <strong>dashed lines</strong> are lateral moves between functions.',
+    guideHowTo: 'How to read the graph',
+    guideSteps: `
+        <div class="how-step"><div class="how-num">1</div><div class="how-text"><strong>Find your current role</strong> — or the role you want. Each node is colored according to its functional track.</div></div>
+        <div class="how-step"><div class="how-num">2</div><div class="how-text"><strong>Click on it</strong> — connected roles will highlight, others will dim. Details will appear in the right panel.</div></div>
+        <div class="how-step"><div class="how-num">3</div><div class="how-text"><strong>In the "Growth paths" section</strong> — specific competencies needed for that transition are listed for each path.</div></div>
+        <div class="how-step"><div class="how-num">4</div><div class="how-text"><strong>Click any connected role</strong> right in the panel — the graph will navigate to it. You can build your route step by step.</div></div>
+        <div class="how-step"><div class="how-num">5</div><div class="how-text"><strong>Clicking the role again</strong> removes the selection and returns the graph to its initial state.</div></div>
+    `,
+    legLabel: 'Legend',
+    legSolid: 'Main transition within track',
+    legDash: 'Lateral transition (zigzag)',
+    funcTitle: 'HR Functions: what they are and when they appear',
+    funcDisclaimer: '<strong>Please note:</strong> the development stages and team sizes mentioned are approximate benchmarks to understand the evolution of the function. Actual needs depend on the specifics and strategy of a particular business.'
+  },
 };
 
 function setLang(lang) {
   currentLang = lang;
   document.getElementById('btn-lang-ru').classList.toggle('active', lang==='ru');
   document.getElementById('btn-lang-en').classList.toggle('active', lang==='en');
+  
   const u = UI[lang];
   document.getElementById('ui-title').textContent = u.title;
   document.getElementById('ui-desc').textContent = u.desc;
   document.getElementById('nav-home').textContent = u.navHome;
   document.getElementById('nav-diag').textContent = u.navDiag;
   document.getElementById('ui-footer-credit').innerHTML = u.footerCredit;
+  
+  document.getElementById('guide-label').textContent = u.guideLabel;
+  document.getElementById('guide-intro').innerHTML = u.guideIntro;
+  document.getElementById('guide-how-to').textContent = u.guideHowTo;
+  document.getElementById('guide-steps').innerHTML = u.guideSteps;
+  
+  document.getElementById('legend-label').textContent = u.legLabel;
+  document.getElementById('leg-line-solid').textContent = u.legSolid;
+  document.getElementById('leg-line-dash').textContent = u.legDash;
+  
+  document.getElementById('func-main-title').textContent = u.funcTitle;
+  document.getElementById('func-disclaimer').innerHTML = u.funcDisclaimer;
+
   renderGraph(); renderLegend(); renderFuncCards();
-  if (sel) { hlNodes(sel); showPanel(sel); }
+  if (sel) { hlNodes(sel); showPanel(sel); } else { emptyPanel(); }
+  
   const url = new URL(window.location);
   url.searchParams.set('lang', lang);
   window.history.pushState({}, '', url);
@@ -696,7 +696,7 @@ window.addEventListener('DOMContentLoaded', () => {
   currentLang = lang;
   document.getElementById('btn-lang-ru').classList.toggle('active', lang==='ru');
   document.getElementById('btn-lang-en').classList.toggle('active', lang==='en');
-  renderGraph(); renderLegend(); renderFuncCards();
+  setLang(lang); // Initialize translations and rendering
   updateCrossLinks();
 });
 </script>
