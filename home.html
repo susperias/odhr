@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ольга Гребенюк — HR & OD для растущих команд</title>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@300;400;600;700&family=Golos+Text:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdn.counter.dev/script.js" data-id="e4048f0d-d2cf-4262-ad50-083091bde640" data-utcoffset="2"></script>
+<style>
+  :root {
+    --ink: #2d3f5c; --paper: #f5f2ea; --cream: #faf8f2;
+    --accent: #f0a830; --accent2: #5a7a8a; --muted: #7a8a9a; --border: #d4d0c8;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Golos Text', sans-serif; background: var(--paper); color: var(--ink); min-height: 100vh; overflow-x: hidden; }
+
+  /* NAV */
+  .site-nav { background: var(--ink); padding: 0 40px; display: flex; justify-content: space-between; align-items: center; height: 56px; position: sticky; top: 0; z-index: 100; }
+  .nav-brand { font-family: 'Unbounded', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 2px; color: var(--accent); text-decoration: none; }
+  .nav-links { display: flex; gap: 24px; align-items: center; }
+  .nav-link { font-family: 'Unbounded', sans-serif; font-size: 9px; font-weight: 600; letter-spacing: 1px; color: rgba(255,255,255,0.55); text-decoration: none; transition: color 0.2s; text-transform: uppercase; }
+  .nav-link:hover { color: white; }
+  .nav-link.active { color: var(--accent); }
+  .lang-toggle { display: flex; gap: 2px; background: rgba(255,255,255,0.08); padding: 3px; border-radius: 20px; margin-left: 8px; }
+  .lang-btn { background: transparent; border: none; color: rgba(255,255,255,0.45); font-family: 'Unbounded', sans-serif; font-size: 9px; font-weight: 700; cursor: pointer; padding: 5px 10px; border-radius: 14px; transition: all 0.2s; letter-spacing: 1px; }
+  .lang-btn.active { background: white; color: var(--ink); }
+
+  /* CONTAINER */
+  .container { max-width: 920px; margin: 0 auto; padding: 0 32px; }
+
+  /* HERO */
+  .hero { background: var(--ink); padding: 72px 40px 80px; position: relative; overflow: hidden; }
+  .hero::before { content: 'OD'; position: absolute; right: -20px; top: -10px; font-family: 'Unbounded', sans-serif; font-size: 260px; font-weight: 700; opacity: 0.035; line-height: 1; pointer-events: none; color: white; }
+  .hero-eyebrow { font-family: 'Unbounded', sans-serif; font-size: 10px; font-weight: 600; letter-spacing: 3px; text-transform: uppercase; color: var(--accent); margin-bottom: 28px; }
+  .hero h1 { font-family: 'Unbounded', sans-serif; font-size: clamp(24px, 4vw, 46px); font-weight: 700; line-height: 1.15; color: white; max-width: 700px; margin-bottom: 24px; }
+  .hero h1 em { font-style: normal; color: var(--accent); }
+  .hero-sub { font-size: 16px; color: #8fa0b8; line-height: 1.75; max-width: 520px; margin-bottom: 40px; }
+  .cta-row { display: flex; gap: 12px; flex-wrap: wrap; }
+  .btn-primary { font-family: 'Unbounded', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 1px; padding: 14px 28px; background: var(--accent); color: var(--ink); border: none; border-radius: 8px; cursor: pointer; text-decoration: none; transition: all 0.2s; display: inline-block; }
+  .btn-primary:hover { background: #e09820; }
+  .btn-ghost { font-family: 'Unbounded', sans-serif; font-size: 11px; font-weight: 600; letter-spacing: 1px; padding: 14px 28px; background: transparent; color: rgba(255,255,255,0.7); border: 1.5px solid rgba(255,255,255,0.2); border-radius: 8px; cursor: pointer; text-decoration: none; transition: all 0.2s; display: inline-block; }
+  .btn-ghost:hover { border-color: white; color: white; }
+
+  /* SECTIONS */
+  .section { padding: 64px 0; }
+  .section-label { font-family: 'Unbounded', sans-serif; font-size: 9px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--muted); margin-bottom: 28px; }
+  .section-sub { font-size: 15px; color: var(--muted); line-height: 1.75; max-width: 540px; margin-bottom: 40px; }
+  .divider { height: 1.5px; background: var(--border); }
+
+  /* PAIN */
+  .pain-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .pain-card { border: 1.5px solid var(--border); border-radius: 12px; padding: 24px; background: var(--cream); }
+  .pain-card-title { font-size: 14px; font-weight: 600; margin-bottom: 8px; line-height: 1.4; }
+  .pain-card-desc { font-size: 13px; color: var(--muted); line-height: 1.6; }
+
+  /* HOW */
+  .how-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .how-card { padding: 28px 24px; border-radius: 12px; background: var(--ink); color: white; }
+  .how-num { font-family: 'Unbounded', sans-serif; font-size: 28px; font-weight: 700; color: var(--accent); margin-bottom: 16px; line-height: 1; }
+  .how-title { font-family: 'Unbounded', sans-serif; font-size: 13px; font-weight: 600; margin-bottom: 10px; }
+  .how-desc { font-size: 13px; color: #8fa0b8; line-height: 1.6; }
+
+  /* FORMATS */
+  .formats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .format-card { border: 1.5px solid var(--border); border-radius: 14px; padding: 32px; background: var(--cream); }
+  .format-tag { font-family: 'Unbounded', sans-serif; font-size: 9px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--accent); margin-bottom: 10px; }
+  .format-title { font-family: 'Unbounded', sans-serif; font-size: 15px; font-weight: 700; margin-bottom: 12px; line-height: 1.3; }
+  .format-desc { font-size: 13px; color: var(--muted); line-height: 1.7; margin-bottom: 20px; }
+  .format-list { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+  .format-list li { font-size: 12px; color: var(--ink); padding-left: 16px; position: relative; line-height: 1.5; }
+  .format-list li::before { content: '—'; position: absolute; left: 0; color: var(--accent); font-weight: 700; }
+
+  /* RESULTS */
+  .results-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+  .result-card { padding: 24px 16px; border-radius: 12px; background: var(--cream); border: 1.5px solid var(--border); text-align: center; }
+  .result-num { font-family: 'Unbounded', sans-serif; font-size: 24px; font-weight: 700; color: var(--accent); margin-bottom: 8px; line-height: 1; }
+  .result-desc { font-size: 11px; color: var(--muted); line-height: 1.5; }
+
+  /* TOOLS */
+  .tools-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .tool-card { border: 1.5px solid var(--border); border-radius: 14px; padding: 28px; background: var(--cream); text-decoration: none; color: var(--ink); display: flex; flex-direction: column; gap: 8px; transition: all 0.2s; position: relative; }
+  .tool-card::after { content: '→'; position: absolute; top: 24px; right: 24px; font-family: 'Unbounded', sans-serif; font-size: 16px; color: var(--border); transition: all 0.2s; }
+  .tool-card:hover { border-color: var(--ink); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(45,63,92,0.09); }
+  .tool-card:hover::after { color: var(--accent); }
+  .tool-emoji { font-size: 26px; line-height: 1; }
+  .tool-tag { font-family: 'Unbounded', sans-serif; font-size: 9px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); }
+  .tool-name { font-family: 'Unbounded', sans-serif; font-size: 13px; font-weight: 700; line-height: 1.3; padding-right: 24px; }
+  .tool-desc { font-size: 13px; color: var(--muted); line-height: 1.6; }
+
+  /* ABOUT */
+  .about-grid { display: grid; grid-template-columns: 1fr 300px; gap: 52px; align-items: start; }
+  .about-text p { font-size: 14px; line-height: 1.85; color: var(--muted); margin-bottom: 14px; max-width: 500px; }
+  .about-text p strong { color: var(--ink); }
+  .path-row { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 16px; }
+  .path-item { font-size: 11px; padding: 4px 12px; border-radius: 20px; background: white; border: 1.5px solid var(--border); color: var(--ink); }
+  .author-card { border: 1.5px solid var(--border); border-radius: 14px; padding: 28px; background: var(--cream); }
+  .author-name { font-family: 'Unbounded', sans-serif; font-size: 14px; font-weight: 700; margin-bottom: 4px; }
+  .author-role { font-size: 12px; color: var(--muted); line-height: 1.5; margin-bottom: 20px; }
+  .author-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 20px; }
+  .author-stat { background: white; border-radius: 8px; padding: 12px; text-align: center; border: 1px solid var(--border); }
+  .author-stat-num { font-family: 'Unbounded', sans-serif; font-size: 18px; font-weight: 700; color: var(--ink); display: block; }
+  .author-stat-label { font-size: 10px; color: var(--muted); }
+  .author-links { display: flex; flex-direction: column; gap: 8px; }
+  .author-link { display: flex; align-items: center; gap: 10px; font-family: 'Unbounded', sans-serif; font-size: 10px; font-weight: 600; letter-spacing: 1px; color: var(--ink); text-decoration: none; padding: 11px 16px; border: 1.5px solid var(--border); border-radius: 8px; transition: all 0.2s; }
+  .author-link:hover { border-color: var(--ink); color: var(--accent); }
+
+  /* CTA BLOCK */
+  .cta-block { background: var(--ink); border-radius: 20px; padding: 52px 48px; margin: 64px 0; display: grid; grid-template-columns: 1fr auto; gap: 40px; align-items: center; }
+  .cta-block-title { font-family: 'Unbounded', sans-serif; font-size: clamp(16px, 2.5vw, 24px); font-weight: 700; color: white; line-height: 1.2; margin-bottom: 10px; }
+  .cta-block-sub { font-size: 14px; color: #8fa0b8; line-height: 1.6; }
+
+  /* FOOTER */
+  .site-footer { background: var(--ink); color: white; padding: 40px; }
+  .footer-inner { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 24px; }
+  .footer-brand { font-family: 'Unbounded', sans-serif; font-size: 13px; font-weight: 700; letter-spacing: 2px; color: var(--accent); }
+  .footer-brand span { display: block; font-size: 10px; font-weight: 400; color: #8fa0b8; margin-top: 4px; letter-spacing: 1px; }
+  .footer-links { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 12px; }
+  .footer-link { display: inline-flex; align-items: center; gap: 8px; font-family: 'Unbounded', sans-serif; font-size: 10px; font-weight: 600; letter-spacing: 1px; color: white; text-decoration: none; padding: 10px 18px; border: 1.5px solid rgba(255,255,255,0.2); border-radius: 8px; transition: all 0.2s; }
+  .footer-link:hover { border-color: var(--accent); color: var(--accent); }
+  .footer-copy { font-size: 11px; color: #8fa0b8; text-align: right; line-height: 1.7; }
+
+  @media (max-width: 700px) {
+    .site-nav { padding: 0 20px; }
+    .nav-links { gap: 14px; }
+    .hero { padding: 48px 20px 56px; }
+    .container { padding: 0 20px; }
+    .pain-grid, .formats-grid, .tools-grid, .results-grid, .how-grid, .about-grid { grid-template-columns: 1fr; }
+    .results-grid { grid-template-columns: 1fr 1fr; }
+    .cta-block { grid-template-columns: 1fr; padding: 36px 24px; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="site-nav">
+  <a href="home.html" class="nav-brand">ODHR</a>
+  <div class="nav-links">
+    <a href="home.html" class="nav-link active cross-link" id="nav-home">Главная</a>
+    <a href="index.html" class="nav-link cross-link" id="nav-diag">Диагностика</a>
+    <a href="hr_roles_guide.html" class="nav-link cross-link" id="nav-guide">Роли</a>
+    <div class="lang-toggle">
+      <button class="lang-btn active" onclick="setLang('ru')" id="btn-lang-ru">RU</button>
+      <button class="lang-btn" onclick="setLang('en')" id="btn-lang-en">EN</button>
+    </div>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="container">
+    <div class="hero-eyebrow" id="hero-eyebrow">HR · OD · Организационный дизайн</div>
+    <h1 id="hero-title">Помогаю командам посмотреть свежим взглядом на то, что есть — и понять, <em>что сделать, чтобы в будущем тоже было хорошо</em></h1>
+    <p class="hero-sub" id="hero-sub">Работаю с растущими компаниями, где что-то не так, но сложно назвать что. Нахожу, где скрыто несоответствие между стратегией и тем, как компания реально устроена.</p>
+    <div class="cta-row">
+      <a href="mailto:grebenallka@gmail.com" class="btn-primary" id="cta-primary">Написать мне</a>
+      <a href="#tools" class="btn-ghost" id="cta-secondary">Посмотреть инструменты</a>
+    </div>
+  </div>
+</section>
+
+<div class="container">
+
+  <section class="section">
+    <div class="section-label" id="pain-label">Узнаёте себя?</div>
+    <div class="pain-grid">
+      <div class="pain-card"><div class="pain-card-title" id="p1t">Команда растёт, но быстрее не становится</div><div class="pain-card-desc" id="p1d">Нанимаете всё больше, а что-то всё равно не работает. Проблема не в людях — в структуре.</div></div>
+      <div class="pain-card"><div class="pain-card-title" id="p2t">Ценности декларируете — процессы противоречат</div><div class="pain-card-desc" id="p2d">Компания говорит, что гибка и человекоориентирована. Но оргструктура и система стимулов рассказывают другую историю.</div></div>
+      <div class="pain-card"><div class="pain-card-title" id="p3t">Все решения замыкаются на вас</div><div class="pain-card-desc" id="p3d">Ваши лиды — лучшие исполнители, но их не учили управлять. Ответственность размыта. Вы стали бутылочным горлышком.</div></div>
+      <div class="pain-card"><div class="pain-card-title" id="p4t">Чувствуете, что что-то не так — но не можете назвать что</div><div class="pain-card-desc" id="p4d">Компания растёт, цифры в порядке, но что-то не то. Уходят сильные люди. Энергия первых лет исчезла.</div></div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <section class="section">
+    <div class="section-label" id="how-label">Как я работаю</div>
+    <div class="how-grid">
+      <div class="how-card"><div class="how-num">01</div><div class="how-title" id="h1t">Диагностика</div><div class="how-desc" id="h1d">Смотрю на структуру, роли, процессы, принятие решений. Нахожу, где именно скрыто несоответствие между стратегией и тем, как компания реально устроена.</div></div>
+      <div class="how-card"><div class="how-num">02</div><div class="how-title" id="h2t">Проектирование</div><div class="how-desc" id="h2d">Вместе проектируем структуру, которая поддерживает ваши амбиции — не шаблон, а решение под ваш конкретный контекст, стадию и людей.</div></div>
+      <div class="how-card"><div class="how-num">03</div><div class="how-title" id="h3t">Сопровождение</div><div class="how-desc" id="h3d">Изменения без поддержки не приживаются. Остаюсь на переходный период — помогаю команде адаптироваться и слежу за тем, работает ли это на самом деле.</div></div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <section class="section">
+    <div class="section-label" id="fmt-label">Форматы сотрудничества</div>
+    <p class="section-sub" id="fmt-sub">Работаю в двух форматах — в зависимости от того, что нужно компании прямо сейчас.</p>
+    <div class="formats-grid">
+      <div class="format-card">
+        <div class="format-tag" id="f1tag">Проект</div>
+        <div class="format-title" id="f1title">Конкретная задача, ограниченные сроки</div>
+        <div class="format-desc" id="f1desc">Берём одну проблему и решаем её до конца. С чёткими этапами, результатами и сроками.</div>
+        <ul class="format-list" id="f1list">
+          <li>Диагностика структуры и ролей</li>
+          <li>Редизайн операционной модели</li>
+          <li>Выстраивание HR-функции с нуля</li>
+          <li>Внедрение матриц компетенций</li>
+        </ul>
+      </div>
+      <div class="format-card">
+        <div class="format-tag" id="f2tag">Парт-тайм фракция</div>
+        <div class="format-title" id="f2title">Ongoing-партнёр в команде</div>
+        <div class="format-desc" id="f2desc">Вхожу в команду на регулярной основе — как fractional CHRO или Head of People. Без найма в штат.</div>
+        <ul class="format-list" id="f2list">
+          <li>Стратегия HR и орг-дизайн</li>
+          <li>Поддержка CEO и лидов</li>
+          <li>Найм, культура, процессы</li>
+          <li>Управление изменениями</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <section class="section">
+    <div class="section-label" id="res-label">Результаты</div>
+    <div class="results-grid">
+      <div class="result-card"><div class="result-num">−30%</div><div class="result-desc" id="r1">операционных расходов через редизайн оргструктуры и ролей</div></div>
+      <div class="result-card"><div class="result-num">+27%</div><div class="result-desc" id="r2">индекс развития сотрудников после внедрения матриц компетенций</div></div>
+      <div class="result-card"><div class="result-num">−30%</div><div class="result-desc" id="r3">ручных HR-операций через сквозную автоматизацию</div></div>
+      <div class="result-card"><div class="result-num">+13pp</div><div class="result-desc" id="r4">рост NPS после внедрения фреймворка качества коммуникаций</div></div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <section class="section" id="tools">
+    <div class="section-label" id="tools-label">Инструменты</div>
+    <p class="section-sub" id="tools-sub">Бесплатные инструменты — чтобы начать разбираться самостоятельно.</p>
+    <div class="tools-grid">
+      <a href="index.html" class="tool-card cross-link">
+        <div class="tool-emoji">🎯</div>
+        <div class="tool-tag" id="t1tag">Диагностика</div>
+        <div class="tool-name" id="t1name">HR-диагностика для фаундеров</div>
+        <div class="tool-desc" id="t1desc">3 вопроса — поймёте статус HR-функции, какие роли нужны и что выстраивать в первую очередь.</div>
+      </a>
+      <a href="hr_roles_guide.html" class="tool-card cross-link">
+        <div class="tool-emoji">📋</div>
+        <div class="tool-tag" id="t2tag">Справочник</div>
+        <div class="tool-name" id="t2name">Путеводитель по HR-ролям</div>
+        <div class="tool-desc" id="t2desc">Архитектура HR-функции по стадиям роста: роли, зоны ответственности, процессы и сигналы.</div>
+      </a>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <section class="section">
+    <div class="section-label" id="about-label">Об авторе</div>
+    <div class="about-grid">
+      <div class="about-text">
+        <p id="ab1"><strong>13 лет внутри Яндекса</strong> — от PM в операционном департаменте до руководства HR-проектами и оргдизайном в растущих продуктах. Занималась оргдизайном до того, как узнала, что это так называется.</p>
+        <p id="ab2">Мой путь нелинейный. Но это не зигзаг — это <strong>три когнитивные линзы одновременно:</strong> бизнес, структура и люди.</p>
+        <p id="ab3">Работаю с компаниями на стадии масштабирования (50–300 человек), где что-то не так, но сложно назвать что. Мой входной вопрос всегда один: соответствует ли ваша структура вашей стратегии?</p>
+        <div class="path-row">
+          <span class="path-item" id="path1">Редактор</span>
+          <span class="path-item" id="path2">Учитель</span>
+          <span class="path-item" id="path3">Логистика</span>
+          <span class="path-item" id="path4">Медиапланер</span>
+          <span class="path-item" id="path5">Тимлид</span>
+          <span class="path-item" id="path6">Аналитика</span>
+          <span class="path-item">QC</span>
+          <span class="path-item" id="path7">HR-руководитель</span>
+        </div>
+      </div>
+      <div>
+        <div class="author-card">
+          <div class="author-name">Ольга Гребенюк</div>
+          <div class="author-role" id="a-role">HR · OD · Оргдизайн<br>Экс-Яндекс</div>
+          <div class="author-stats">
+            <div class="author-stat"><span class="author-stat-num">13+</span><span class="author-stat-label" id="s1">лет опыта</span></div>
+            <div class="author-stat"><span class="author-stat-num">50–300</span><span class="author-stat-label" id="s2">человек в командах</span></div>
+          </div>
+          <div class="author-links">
+            <a class="author-link" href="https://t.me/ODHRAMA" target="_blank">✈ Telegram — @ODHRAMA</a>
+            <a class="author-link" href="https://www.linkedin.com/in/ogrebenyuk" target="_blank">in LinkedIn</a>
+            <a class="author-link" href="mailto:grebenallka@gmail.com" id="a-email">✉ grebenallka@gmail.com</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="cta-block">
+    <div>
+      <div class="cta-block-title" id="cta-title">Чувствуете, что пора разобраться?</div>
+      <div class="cta-block-sub" id="cta-sub">Напишите — обсудим, что происходит в команде и чем могу помочь. Без обязательств.</div>
+    </div>
+    <a href="mailto:grebenallka@gmail.com" class="btn-primary" id="cta-btn">Написать мне →</a>
+  </div>
+
+</div>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-inner">
+      <div>
+        <div class="footer-brand">ODHR JOURNAL<span>HR · OD · People Management</span></div>
+        <div class="footer-links">
+          <a class="footer-link" href="https://t.me/ODHRAMA" target="_blank">✈ Telegram</a>
+          <a class="footer-link" href="https://www.linkedin.com/in/ogrebenyuk" target="_blank">in LinkedIn</a>
+        </div>
+      </div>
+      <div class="footer-copy" id="f-copy">Инструменты созданы совместно<br>с <a href="https://skailer.com" target="_blank" style="color:var(--accent);text-decoration:none;">Skailer.com</a></div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  let currentLang = 'ru';
+  const T = {
+    ru: {
+      navHome:'Главная', navDiag:'Диагностика', navGuide:'Роли',
+      eyebrow:'HR · OD · Организационный дизайн',
+      h1:'Помогаю командам посмотреть свежим взглядом на то, что есть — и понять, <em>что сделать, чтобы в будущем тоже было хорошо</em>',
+      sub:'Работаю с растущими компаниями, где что-то не так, но сложно назвать что. Нахожу, где скрыто несоответствие между стратегией и тем, как компания реально устроена.',
+      cta1:'Написать мне', cta2:'Посмотреть инструменты',
+      painLbl:'Узнаёте себя?',
+      p1t:'Команда растёт, но быстрее не становится', p1d:'Нанимаете всё больше, а что-то всё равно не работает. Проблема не в людях — в структуре.',
+      p2t:'Ценности декларируете — процессы противоречат', p2d:'Компания говорит, что гибка и человекоориентирована. Но оргструктура и система стимулов рассказывают другую историю.',
+      p3t:'Все решения замыкаются на вас', p3d:'Ваши лиды — лучшие исполнители, но их не учили управлять. Ответственность размыта. Вы стали бутылочным горлышком.',
+      p4t:'Чувствуете, что что-то не так — но не можете назвать что', p4d:'Компания растёт, цифры в порядке, но что-то не то. Уходят сильные люди. Энергия первых лет исчезла.',
+      howLbl:'Как я работаю',
+      h1t:'Диагностика', h1d:'Смотрю на структуру, роли, процессы, принятие решений. Нахожу, где именно скрыто несоответствие между стратегией и тем, как компания реально устроена.',
+      h2t:'Проектирование', h2d:'Вместе проектируем структуру, которая поддерживает ваши амбиции — не шаблон, а решение под ваш конкретный контекст, стадию и людей.',
+      h3t:'Сопровождение', h3d:'Изменения без поддержки не приживаются. Остаюсь на переходный период — помогаю команде адаптироваться и слежу за тем, работает ли это на самом деле.',
+      fmtLbl:'Форматы сотрудничества', fmtSub:'Работаю в двух форматах — в зависимости от того, что нужно компании прямо сейчас.',
+      f1tag:'Проект', f1t:'Конкретная задача, ограниченные сроки', f1d:'Берём одну проблему и решаем её до конца. С чёткими этапами, результатами и сроками.',
+      f1l:['Диагностика структуры и ролей','Редизайн операционной модели','Выстраивание HR-функции с нуля','Внедрение матриц компетенций'],
+      f2tag:'Парт-тайм фракция', f2t:'Ongoing-партнёр в команде', f2d:'Вхожу в команду на регулярной основе — как fractional CHRO или Head of People. Без найма в штат.',
+      f2l:['Стратегия HR и орг-дизайн','Поддержка CEO и лидов','Найм, культура, процессы','Управление изменениями'],
+      resLbl:'Результаты',
+      r1:'операционных расходов через редизайн оргструктуры и ролей',
+      r2:'индекс развития сотрудников после внедрения матриц компетенций',
+      r3:'ручных HR-операций через сквозную автоматизацию',
+      r4:'рост NPS после внедрения фреймворка качества коммуникаций',
+      toolsLbl:'Инструменты', toolsSub:'Бесплатные инструменты — чтобы начать разбираться самостоятельно.',
+      t1tag:'Диагностика', t1n:'HR-диагностика для фаундеров', t1d:'3 вопроса — поймёте статус HR-функции, какие роли нужны и что выстраивать в первую очередь.',
+      t2tag:'Справочник', t2n:'Путеводитель по HR-ролям', t2d:'Архитектура HR-функции по стадиям роста: роли, зоны ответственности, процессы и сигналы.',
+      aboutLbl:'Об авторе',
+      ab1:'<strong>13 лет внутри Яндекса</strong> — от PM в операционном департаменте до руководства HR-проектами и оргдизайном в растущих продуктах. Занималась оргдизайном до того, как узнала, что это так называется.',
+      ab2:'Мой путь нелинейный. Но это не зигзаг — это <strong>три когнитивные линзы одновременно:</strong> бизнес, структура и люди.',
+      ab3:'Работаю с компаниями на стадии масштабирования (50–300 человек), где что-то не так, но сложно назвать что. Мой входной вопрос всегда один: соответствует ли ваша структура вашей стратегии?',
+      paths:['Редактор','Учитель','Логистика','Медиапланер','Тимлид','Аналитика','QC','HR-руководитель'],
+      aRole:'HR · OD · Оргдизайн<br>Экс-Яндекс', s1:'лет опыта', s2:'человек в командах',
+      aEmail:'✉ grebenallka@gmail.com',
+      ctaT:'Чувствуете, что пора разобраться?', ctaS:'Напишите — обсудим, что происходит в команде и чем могу помочь. Без обязательств.', ctaB:'Написать мне →',
+      fCopy:'Инструменты созданы совместно<br>с <a href="https://skailer.com" target="_blank" style="color:var(--accent);text-decoration:none;">Skailer.com</a>',
+    },
+    en: {
+      navHome:'Home', navDiag:'Diagnostic', navGuide:'Roles',
+      eyebrow:'HR · OD · Org Design',
+      h1:'I help teams take a fresh look at what they have — and figure out <em>what to do so the future works too</em>',
+      sub:"I work with scaling companies where something feels off but it's hard to name what. I find where the misalignment between strategy and how the company is actually built is hiding.",
+      cta1:'Get in touch', cta2:'See the tools',
+      painLbl:'Sound familiar?',
+      p1t:"The team is growing but delivery isn't getting faster", p1d:"You keep hiring, but something is still broken. The problem isn't people — it's structure.",
+      p2t:'You declare values — but processes contradict them', p2d:"The company says it's agile and people-first. But the org chart and incentive systems tell a different story.",
+      p3t:'Every decision comes back to you', p3d:"Your leads are your best performers — but they weren't trained to manage. Accountability is blurred. You've become the bottleneck.",
+      p4t:"You sense something is wrong, but can't name it", p4d:"The company is growing, numbers are fine, but something feels off. Experienced people are leaving. The early energy is gone.",
+      howLbl:'How I work',
+      h1t:'Diagnostic', h1d:'We look at structure, roles, processes, and decision-making. I identify where the misalignment between strategy and how the company is actually built is hiding.',
+      h2t:'Design', h2d:'Together we design a structure that supports your ambitions — not a template, but a solution built around your specific context, stage, and people.',
+      h3t:'Support', h3d:"Change without support doesn't stick. I stay through the transition — helping the team adapt, making adjustments, and tracking whether it's actually working.",
+      fmtLbl:'How we can work together', fmtSub:'Two formats — depending on what the company needs right now.',
+      f1tag:'Project', f1t:'Specific task, defined timeline', f1d:'We take one problem and solve it end-to-end. Clear stages, deliverables and timeline.',
+      f1l:['Structure and role diagnostics','Operating model redesign','Building HR function from scratch','Competency matrix implementation'],
+      f2tag:'Fractional', f2t:'Ongoing partner in your team', f2d:"I join the team on a regular basis — as fractional CHRO or Head of People. No full-time hire needed.",
+      f2l:['HR strategy and org design','CEO and leadership support','Hiring, culture, processes','Change management'],
+      resLbl:'Results',
+      r1:'reduction in operational costs through org and role redesign',
+      r2:'employee development index after competency matrices',
+      r3:'reduction in manual HR operations through end-to-end automation',
+      r4:'NPS growth after communication quality framework',
+      toolsLbl:'Tools', toolsSub:'Free tools to start figuring things out on your own.',
+      t1tag:'Diagnostic', t1n:'HR Diagnostic for Founders', t1d:'3 questions — understand your HR function status, which roles you need and what to build first.',
+      t2tag:'Reference', t2n:'HR Roles Guide', t2d:'HR function architecture by growth stage: roles, ownership, processes and signals.',
+      aboutLbl:'About',
+      ab1:'<strong>13 years inside Yandex</strong> — from PM in operations to leading HR projects and org design across growing products. I learned org design by doing it, before I knew it had a name.',
+      ab2:"My background is non-linear. But that's not a detour — it's <strong>three cognitive lenses working simultaneously:</strong> business, structure, and people.",
+      ab3:"I work with scaling companies (50–300 people) where something is off but it's hard to name what. My entry question is always the same: does your structure match your strategy?",
+      paths:['Editor','Teacher','Logistics','Media planner','Team lead','Analytics','QC','HR lead'],
+      aRole:'HR · OD · Org Design<br>Ex-Yandex', s1:'years experience', s2:'people in teams',
+      aEmail:'✉ grebenallka@gmail.com',
+      ctaT:"Feel like it's time to figure things out?", ctaS:"Write to me — we'll talk about what's happening in your team and how I can help. No commitment.", ctaB:'Get in touch →',
+      fCopy:'Tools created together with<br><a href="https://skailer.com" target="_blank" style="color:var(--accent);text-decoration:none;">Skailer.com</a>',
+    }
+  };
+
+  function set(id, val, html) { const el = document.getElementById(id); if (!el) return; html ? el.innerHTML = val : el.textContent = val; }
+
+  function setLang(lang) {
+    currentLang = lang;
+    const l = T[lang];
+    document.getElementById('btn-lang-ru').classList.toggle('active', lang === 'ru');
+    document.getElementById('btn-lang-en').classList.toggle('active', lang === 'en');
+    set('nav-home', l.navHome); set('nav-diag', l.navDiag); set('nav-guide', l.navGuide);
+    set('hero-eyebrow', l.eyebrow);
+    set('hero-title', l.h1, true); set('hero-sub', l.sub);
+    set('cta-primary', l.cta1); set('cta-secondary', l.cta2);
+    set('pain-label', l.painLbl);
+    set('p1t', l.p1t); set('p1d', l.p1d); set('p2t', l.p2t); set('p2d', l.p2d);
+    set('p3t', l.p3t); set('p3d', l.p3d); set('p4t', l.p4t); set('p4d', l.p4d);
+    set('how-label', l.howLbl);
+    set('h1t', l.h1t); set('h1d', l.h1d); set('h2t', l.h2t); set('h2d', l.h2d); set('h3t', l.h3t); set('h3d', l.h3d);
+    set('fmt-label', l.fmtLbl); set('fmt-sub', l.fmtSub);
+    set('f1tag', l.f1tag); set('f1title', l.f1t); set('f1desc', l.f1d);
+    set('f1list', l.f1l.map(i => '<li>' + i + '</li>').join(''), true);
+    set('f2tag', l.f2tag); set('f2title', l.f2t); set('f2desc', l.f2d);
+    set('f2list', l.f2l.map(i => '<li>' + i + '</li>').join(''), true);
+    set('res-label', l.resLbl); set('r1', l.r1); set('r2', l.r2); set('r3', l.r3); set('r4', l.r4);
+    set('tools-label', l.toolsLbl); set('tools-sub', l.toolsSub);
+    set('t1tag', l.t1tag); set('t1name', l.t1n); set('t1desc', l.t1d);
+    set('t2tag', l.t2tag); set('t2name', l.t2n); set('t2desc', l.t2d);
+    set('about-label', l.aboutLbl);
+    set('ab1', l.ab1, true); set('ab2', l.ab2, true); set('ab3', l.ab3);
+    const pathIds = ['path1','path2','path3','path4','path5','path6','path7'];
+    const paths = l.paths.filter(p => p !== 'QC');
+    pathIds.forEach((id, i) => { if (paths[i]) set(id, paths[i]); });
+    set('a-role', l.aRole, true); set('s1', l.s1); set('s2', l.s2);
+    set('a-email', l.aEmail);
+    set('cta-title', l.ctaT); set('cta-sub', l.ctaS); set('cta-btn', l.ctaB);
+    set('f-copy', l.fCopy, true);
+    const url = new URL(window.location);
+    url.searchParams.set('lang', lang);
+    window.history.pushState({}, '', url);
+    updateCrossLinks();
+  }
+
+  function updateCrossLinks() {
+    document.querySelectorAll('.cross-link').forEach(link => {
+      const url = new URL(link.href, window.location.origin);
+      url.searchParams.set('lang', currentLang);
+      link.href = url.toString();
+    });
+  }
+
+  window.addEventListener('DOMContentLoaded', () => {
+    const lang = new URLSearchParams(location.search).get('lang') === 'en' ? 'en' : 'ru';
+    if (lang !== currentLang) setLang(lang);
+    else updateCrossLinks();
+  });
+</script>
+</body>
+</html>
