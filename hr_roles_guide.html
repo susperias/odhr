@@ -50,23 +50,37 @@
 
   /* MAP SECTION */
   .map-section { padding: 0; }
-  .map-wrap { border: 1.5px solid var(--border); border-radius: 16px; overflow: hidden; background: var(--cream); }
-  .map-inner { display: flex; height: 600px; }
+  .map-wrap { border: 1.5px solid var(--border); border-radius: 16px; overflow: hidden; background: var(--cream); position: relative; }
+  .map-inner { display: flex; height: 600px; position: relative; }
   .graph-area { flex: 1; overflow: auto; }
-  svg.graph { display: block; }
+  svg.graph { display: block; min-width: 820px; }
   .node-g { cursor: pointer; }
   .node-g.dimmed { opacity: 0.15; transition: opacity 0.2s; }
   .edge { fill: none; stroke-width: 1.5; transition: opacity 0.2s; }
   .edge.dashed { stroke-dasharray: 5 4; }
   .edge.dimmed { opacity: 0.06; }
   
-  .map-panel { width: 280px; flex-shrink: 0; border-left: 1.5px solid var(--border); background: white; display: flex; flex-direction: column; overflow: hidden; }
-  .mp-header { padding: 16px 18px 12px; border-bottom: 1px solid var(--border); flex-shrink: 0; }
+  /* DRAWER PANEL */
+  .map-panel { 
+    position: absolute; right: 0; top: 0; bottom: 0;
+    width: 300px; background: white; 
+    border-left: 1.5px solid var(--border); 
+    display: flex; flex-direction: column; 
+    transform: translateX(105%); 
+    transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+    box-shadow: -8px 0 24px rgba(0,0,0,0.06);
+    z-index: 20;
+  }
+  .map-panel.open { transform: translateX(0); }
+  
+  .mp-close { position: absolute; top: 16px; right: 18px; cursor: pointer; color: var(--muted); font-size: 18px; font-weight: 300; transition: color 0.2s; }
+  .mp-close:hover { color: var(--ink); }
+
+  .mp-header { padding: 16px 40px 12px 18px; border-bottom: 1px solid var(--border); flex-shrink: 0; position: relative; }
   .mp-track { font-family: 'Unbounded', sans-serif; font-size: 9px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 3px; }
   .mp-title { font-size: 15px; font-weight: 600; color: var(--ink); font-family: 'Unbounded', sans-serif; }
   .mp-stage { font-size: 11px; color: var(--muted); margin-top: 3px; }
   .mp-body { flex: 1; overflow-y: auto; padding: 14px 18px; }
-  .mp-empty { display: flex; align-items: center; justify-content: center; height: 100%; font-size: 13px; color: var(--muted); text-align: center; padding: 24px; line-height: 1.7; }
   .mp-sec { margin-bottom: 16px; }
   .mp-lbl { font-family: 'Unbounded', sans-serif; font-size: 9px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); margin-bottom: 7px; }
   .mp-desc { font-size: 12px; color: var(--muted); line-height: 1.65; }
@@ -147,7 +161,8 @@
     .container { padding: 0 16px; }
     .map-inner { flex-direction: column; height: auto; }
     .graph-area { height: 360px; }
-    .map-panel { width: 100%; border-left: none; border-top: 1.5px solid var(--border); max-height: 300px; }
+    .map-panel { width: 100%; border-left: none; border-top: 1.5px solid var(--border); top: auto; transform: translateY(105%); box-shadow: 0 -8px 24px rgba(0,0,0,0.06); }
+    .map-panel.open { transform: translateY(0); }
   }
 </style>
 </head>
@@ -185,10 +200,10 @@
       <div class="how-to-title" id="guide-how-to">Как читать граф</div>
       <div class="how-steps" id="guide-steps">
         <div class="how-step"><div class="how-num">1</div><div class="how-text"><strong>Найдите свою текущую роль</strong> — или роль, которую хотите занять. Каждый узел окрашен в цвет своего функционального трека.</div></div>
-        <div class="how-step"><div class="how-num">2</div><div class="how-text"><strong>Нажмите на неё</strong> — подсветятся все связанные роли, остальные потускнеют. В панели справа появятся детали.</div></div>
+        <div class="how-step"><div class="how-num">2</div><div class="how-text"><strong>Нажмите на неё</strong> — подсветятся все связанные роли, остальные потускнеют. Справа выедет карточка с деталями.</div></div>
         <div class="how-step"><div class="how-num">3</div><div class="how-text"><strong>В панели «Куда можно вырасти»</strong> — для каждого пути указаны конкретные компетенции, которые нужно развить для этого перехода.</div></div>
-        <div class="how-step"><div class="how-num">4</div><div class="how-text"><strong>Нажмите на любую связанную роль</strong> прямо в панели — граф перейдёт на неё. Так можно строить маршрут шаг за шагом.</div></div>
-        <div class="how-step"><div class="how-num">5</div><div class="how-text"><strong>Повторное нажатие на роль</strong> снимает выделение и возвращает граф в исходное состояние.</div></div>
+        <div class="how-step"><div class="how-num">4</div><div class="how-text"><strong>Нажмите на любую связанную роль</strong> прямо в панели — граф перейдет на нее. Так можно строить маршрут шаг за шагом.</div></div>
+        <div class="how-step"><div class="how-num">5</div><div class="how-text"><strong>Повторное нажатие на узел или крестик в панели</strong> закрывает ее и возвращает граф в исходное состояние.</div></div>
       </div>
     </div>
   </div>
@@ -210,11 +225,9 @@
         <div class="map-wrap">
           <div class="map-inner">
             <div class="graph-area">
-              <svg class="graph" id="svg" viewBox="0 0 820 590" width="820" height="590"></svg>
+              <svg class="graph" id="svg" viewBox="0 0 820 590"></svg>
             </div>
-            <div class="map-panel" id="panel">
-              <div class="mp-body"><div class="mp-empty">Нажмите на роль чтобы увидеть детали и пути развития</div></div>
-            </div>
+            <div class="map-panel" id="panel"></div>
           </div>
         </div>
       </div>
@@ -395,7 +408,7 @@ const FUNCS = {
 };
 
 /* ── GRAPH DATA ── */
-const COL_X = [60, 240, 420, 610]; // Сдвинуто левее после удаления названий треков
+const COL_X = [60, 240, 420, 610];
 const ROW_H = 60, ROW_Y0 = 30, NW = 144, NH = 38;
 function cx(r) { return COL_X[r.col]; }
 function cy(r) { return ROW_Y0 + r.row * ROW_H; }
@@ -462,13 +475,11 @@ function renderGraph() {
   const dimEdge = 'rgba(60,80,110,0.18)';
   let out = `<defs><marker id="arr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker></defs>`;
 
-  // Col separators
   COL_X.forEach((x, i) => {
     if (i === 0) return;
     out += `<line x1="${x-NW/2-8}" y1="4" x2="${x-NW/2-8}" y2="586" stroke="rgba(0,0,0,0.04)" stroke-width="1"/>`;
   });
 
-  // Edges
   EDGES.forEach((e, i) => {
     const fr = R[e.f], tr = R[e.t]; if (!fr || !tr) return;
     const x1=cx(fr)+NW/2, y1=cy(fr), x2=cx(tr)-NW/2, y2=cy(tr);
@@ -476,7 +487,6 @@ function renderGraph() {
     out += `<path class="edge${e.z?' dashed':''}" id="e${i}" data-f="${e.f}" data-t="${e.t}" d="${path}" stroke="${dimEdge}" marker-end="url(#arr)"/>`;
   });
 
-  // Nodes
   Object.entries(R).forEach(([id, role]) => {
     const tr = T[role.track];
     const x=cx(role)-NW/2, y=cy(role)-NH/2;
@@ -491,9 +501,17 @@ function renderGraph() {
   svg.innerHTML = out;
 }
 
+function closePanel() {
+  sel = null;
+  resetHL();
+  panel.classList.remove('open');
+}
+
 function pick(id) {
-  if (sel===id) { sel=null; resetHL(); emptyPanel(); return; }
-  sel=id; hlNodes(id); showPanel(id);
+  if (sel === id) { closePanel(); return; }
+  sel = id; 
+  hlNodes(id); 
+  showPanel(id);
 }
 
 function hlNodes(id) {
@@ -513,19 +531,15 @@ function resetHL() {
   document.querySelectorAll('.edge').forEach(p => { p.classList.remove('dimmed'); p.setAttribute('stroke','rgba(60,80,110,0.18)'); });
 }
 
-function emptyPanel() {
-  const l = currentLang;
-  const msg = l==='ru' ? 'Нажмите на роль чтобы увидеть детали и пути развития' : 'Click a role to see details and growth paths';
-  panel.innerHTML = `<div class="mp-body"><div class="mp-empty">${msg}</div></div>`;
-}
-
 function showPanel(id) {
   const role = R[id]; const tr = T[role.track];
   const l = currentLang;
+  
   const fromH = (role.from||[]).map(rid => {
     const r=R[rid]; if(!r) return '';
     return `<button class="from-btn" onclick="pick('${rid}')"><span class="rdot" style="background:${T[r.track].color}"></span>← ${r.label[l]}</button>`;
   }).join('');
+  
   const toH = (role.to||[]).map(rid => {
     const r=R[rid]; if(!r) return '';
     const e = EDGES.find(e=>e.f===id&&e.t===rid);
@@ -534,7 +548,9 @@ function showPanel(id) {
       ${(e?.s||[]).length?`<div class="mp-skills">${e.s.map(s=>`<span class="mp-sk">${s}</span>`).join('')}</div>`:''}
     </button>`;
   }).join('');
+
   panel.innerHTML = `
+    <div class="mp-close" onclick="closePanel()">✕</div>
     <div class="mp-header">
       <div class="mp-track" style="color:${tr.color}">${tr.label}</div>
       <div class="mp-title">${role.label[l]}</div>
@@ -546,6 +562,9 @@ function showPanel(id) {
       ${fromH?`<div class="mp-sec"><div class="mp-lbl">${l==='ru'?'Откуда приходят':'Where they come from'}</div><div class="mp-nav">${fromH}</div></div>`:''}
       ${toH?`<div class="mp-sec"><div class="mp-lbl">${l==='ru'?'Куда можно вырасти':'Growth paths'}</div><div class="mp-nav">${toH}</div></div>`:''}
     </div>`;
+  
+  // Выдвигаем карточку
+  setTimeout(() => panel.classList.add('open'), 10);
 }
 
 /* ── LEGEND ── */
@@ -615,10 +634,10 @@ const UI = {
     guideHowTo: 'Как читать граф',
     guideSteps: `
         <div class="how-step"><div class="how-num">1</div><div class="how-text"><strong>Найдите свою текущую роль</strong> — или роль, которую хотите занять. Каждый узел окрашен в цвет своего функционального трека.</div></div>
-        <div class="how-step"><div class="how-num">2</div><div class="how-text"><strong>Нажмите на неё</strong> — подсветятся все связанные роли, остальные потускнеют. В панели справа появятся детали.</div></div>
+        <div class="how-step"><div class="how-num">2</div><div class="how-text"><strong>Нажмите на неё</strong> — подсветятся все связанные роли, остальные потускнеют. Справа выедет карточка с деталями.</div></div>
         <div class="how-step"><div class="how-num">3</div><div class="how-text"><strong>В панели «Куда можно вырасти»</strong> — для каждого пути указаны конкретные компетенции, которые нужно развить для этого перехода.</div></div>
-        <div class="how-step"><div class="how-num">4</div><div class="how-text"><strong>Нажмите на любую связанную роль</strong> прямо в панели — граф перейдёт на неё. Так можно строить маршрут шаг за шагом.</div></div>
-        <div class="how-step"><div class="how-num">5</div><div class="how-text"><strong>Повторное нажатие на роль</strong> снимает выделение и возвращает граф в исходное состояние.</div></div>
+        <div class="how-step"><div class="how-num">4</div><div class="how-text"><strong>Нажмите на любую связанную роль</strong> прямо в панели — граф перейдет на нее. Так можно строить маршрут шаг за шагом.</div></div>
+        <div class="how-step"><div class="how-num">5</div><div class="how-text"><strong>Повторное нажатие на узел или крестик в панели</strong> закрывает ее и возвращает граф в исходное состояние.</div></div>
     `,
     legLabel: 'Легенда',
     legSolid: 'Основной переход внутри трека',
@@ -637,10 +656,10 @@ const UI = {
     guideHowTo: 'How to read the graph',
     guideSteps: `
         <div class="how-step"><div class="how-num">1</div><div class="how-text"><strong>Find your current role</strong> — or the role you want. Each node is colored according to its functional track.</div></div>
-        <div class="how-step"><div class="how-num">2</div><div class="how-text"><strong>Click on it</strong> — connected roles will highlight, others will dim. Details will appear in the right panel.</div></div>
+        <div class="how-step"><div class="how-num">2</div><div class="how-text"><strong>Click on it</strong> — connected roles will highlight, others will dim. Details will slide in from the right.</div></div>
         <div class="how-step"><div class="how-num">3</div><div class="how-text"><strong>In the "Growth paths" section</strong> — specific competencies needed for that transition are listed for each path.</div></div>
         <div class="how-step"><div class="how-num">4</div><div class="how-text"><strong>Click any connected role</strong> right in the panel — the graph will navigate to it. You can build your route step by step.</div></div>
-        <div class="how-step"><div class="how-num">5</div><div class="how-text"><strong>Clicking the role again</strong> removes the selection and returns the graph to its initial state.</div></div>
+        <div class="how-step"><div class="how-num">5</div><div class="how-text"><strong>Clicking the role again or the close button</strong> removes the selection and returns the graph to its initial state.</div></div>
     `,
     legLabel: 'Legend',
     legSolid: 'Main transition within track',
@@ -675,7 +694,7 @@ function setLang(lang) {
   document.getElementById('func-disclaimer').innerHTML = u.funcDisclaimer;
 
   renderGraph(); renderLegend(); renderFuncCards();
-  if (sel) { hlNodes(sel); showPanel(sel); } else { emptyPanel(); }
+  if (sel) { hlNodes(sel); showPanel(sel); } else { closePanel(); }
   
   const url = new URL(window.location);
   url.searchParams.set('lang', lang);
@@ -696,7 +715,7 @@ window.addEventListener('DOMContentLoaded', () => {
   currentLang = lang;
   document.getElementById('btn-lang-ru').classList.toggle('active', lang==='ru');
   document.getElementById('btn-lang-en').classList.toggle('active', lang==='en');
-  setLang(lang); // Initialize translations and rendering
+  setLang(lang);
   updateCrossLinks();
 });
 </script>
