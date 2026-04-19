@@ -37,14 +37,9 @@
   .hero h1 em { font-style: normal; color: var(--accent); }
   .hero-sub { font-size: 16px; color: #8fa0b8; line-height: 1.75; max-width: 520px; margin-bottom: 40px; position: relative; z-index: 10; }
   .cta-row { display: flex; gap: 12px; flex-wrap: wrap; position: relative; z-index: 10; }
-  .btn-primary { font-family: 'Unbounded', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 1px; padding: 14px 28px; background: var(--accent); color: var(--ink); border: none; border-radius: 8px; cursor: pointer; text-decoration: none; transition: all 0.2s; display: inline-block; }
-  .btn-primary:hover { background: #e09820; }
-  .btn-ghost { font-family: 'Unbounded', sans-serif; font-size: 11px; font-weight: 600; letter-spacing: 1px; padding: 14px 28px; background: transparent; color: rgba(255,255,255,0.7); border: 1.5px solid rgba(255,255,255,0.2); border-radius: 8px; cursor: pointer; text-decoration: none; transition: all 0.2s; display: inline-block; }
-  .btn-ghost:hover { border-color: white; color: white; }
 
   /* CONTAINER & LAYOUT */
   .container { max-width: 1020px; margin: 0 auto; padding: 0 32px; }
-  
   .main-layout { display: flex; gap: 32px; align-items: flex-start; }
   .sidebar-left { width: 240px; flex-shrink: 0; }
   .content-right { flex: 1; min-width: 0; }
@@ -293,6 +288,13 @@
 <script>
 let currentLang = 'ru';
 
+// БЕЗОПАСНАЯ ФУНКЦИЯ ПЕРЕВОДА (Предохранитель от ошибок)
+function set(id, val, isHtml = false) {
+  const el = document.getElementById(id);
+  if (!el) return; // Если элемент не найден — игнорируем, ничего не ломаем
+  isHtml ? el.innerHTML = val : el.textContent = val;
+}
+
 /* ── TRACKS ── */
 const T = {
   ta:       { label:'Talent Acquisition',    color:'#4A90D9' },
@@ -533,13 +535,13 @@ function renderGraph() {
     </g>`;
   });
 
-  svg.innerHTML = out;
+  if(svg) svg.innerHTML = out;
 }
 
 function closePanel() {
   sel = null;
   resetHL();
-  panel.classList.remove('open');
+  if(panel) panel.classList.remove('open');
 }
 
 function pick(id) {
@@ -567,6 +569,7 @@ function resetHL() {
 }
 
 function showPanel(id) {
+  if(!panel) return;
   const role = R[id]; const tr = T[role.track];
   const l = currentLang;
   
@@ -615,18 +618,22 @@ function renderLegend() {
     brand:     { ru:'Бренд работодателя',        en:'Employer brand' },
     od:        { ru:'Оргдизайн и операции',      en:'Org design & ops' },
   };
-  document.getElementById('legendGrid').innerHTML = Object.entries(T).map(([id, t]) =>
-    `<div class="leg-card">
-      <div class="leg-color" style="background:${t.color}"></div>
-      <div><div class="leg-name" style="color:${t.color}">${t.label}</div><div class="leg-desc">${descs[id][l]}</div></div>
-    </div>`
-  ).join('');
+  const lg = document.getElementById('legendGrid');
+  if(lg) {
+    lg.innerHTML = Object.entries(T).map(([id, t]) =>
+      `<div class="leg-card">
+        <div class="leg-color" style="background:${t.color}"></div>
+        <div><div class="leg-name" style="color:${t.color}">${t.label}</div><div class="leg-desc">${descs[id][l]}</div></div>
+      </div>`
+    ).join('');
+  }
 }
 
 /* ── FUNCTION CARDS ── */
 function renderFuncCards() {
   const l = currentLang;
   const cards = document.getElementById('funcCards');
+  if(!cards) return;
   cards.innerHTML = Object.entries(FUNCS).map(([tid, f]) => {
     const data = f[l]; const tr = T[tid];
     return `<div class="func-card">
@@ -676,7 +683,8 @@ const UI = {
     legSolid: 'Основной переход внутри трека',
     legDash: 'Боковой переход (зигзаг)',
     funcTitle: 'HR-функции: что это и когда появляются',
-    funcDisclaimer: '<strong>Обратите внимание:</strong> указанные стадии развития и численность команды — это ориентировочные бенчмарки для понимания эволюции функции. Реальная потребность зависит от специфики и стратегии конкретного бизнеса.'
+    funcDisclaimer: '<strong>Обратите внимание:</strong> указанные стадии развития и численность команды — это ориентировочные бенчмарки для понимания эволюции функции. Реальная потребность зависит от специфики и стратегии конкретного бизнеса.',
+    eyebrow: 'HR · OD · PM'
   },
   en: { 
     navHome:'Home', navDiag:'Diagnostic', navGuide:'Roles',
@@ -697,38 +705,44 @@ const UI = {
     legSolid: 'Main transition within track',
     legDash: 'Lateral transition (zigzag)',
     funcTitle: 'HR Functions: what they are and when they appear',
-    funcDisclaimer: '<strong>Please note:</strong> the development stages and team sizes mentioned are approximate benchmarks to understand the evolution of the function. Actual needs depend on the specifics and strategy of a particular business.'
+    funcDisclaimer: '<strong>Please note:</strong> the development stages and team sizes mentioned are approximate benchmarks to understand the evolution of the function. Actual needs depend on the specifics and strategy of a particular business.',
+    eyebrow: 'HR · OD · PM'
   },
 };
 
 function setLang(lang) {
   currentLang = lang;
-  document.getElementById('btn-lang-ru').classList.toggle('active', lang==='ru');
-  document.getElementById('btn-lang-en').classList.toggle('active', lang==='en');
+  
+  const btnRu = document.getElementById('btn-lang-ru');
+  const btnEn = document.getElementById('btn-lang-en');
+  if(btnRu) btnRu.classList.toggle('active', lang==='ru');
+  if(btnEn) btnEn.classList.toggle('active', lang==='en');
   
   const u = UI[lang];
   
-  // Обновляем МЕНЮ
-  document.getElementById('nav-home').textContent = u.navHome;
-  document.getElementById('nav-diag').textContent = u.navDiag;
-  document.getElementById('nav-guide').textContent = u.navGuide;
+  // ИСПОЛЬЗУЕМ БЕЗОПАСНЫЙ СЕТТЕР
+  set('nav-home', u.navHome);
+  set('nav-diag', u.navDiag);
+  set('nav-guide', u.navGuide);
 
-  // Обновляем HERO и контент
-  document.getElementById('ui-title').textContent = u.title;
-  document.getElementById('ui-desc').textContent = u.desc;
-  document.getElementById('ui-footer-credit').innerHTML = u.footerCredit;
+  set('hero-eyebrow', u.eyebrow);
+  set('hero-title', u.title); // Теперь понимает твой новый ID из hero
+  set('ui-title', u.title);   // И старый тоже (на всякий случай)
+  set('hero-sub', u.desc);
+  set('ui-desc', u.desc);
+  set('ui-footer-credit', u.footerCredit, true);
   
-  document.getElementById('guide-label').textContent = u.guideLabel;
-  document.getElementById('guide-intro').innerHTML = u.guideIntro;
-  document.getElementById('guide-how-to').textContent = u.guideHowTo;
-  document.getElementById('guide-steps').innerHTML = u.guideSteps;
+  set('guide-label', u.guideLabel);
+  set('guide-intro', u.guideIntro, true);
+  set('guide-how-to', u.guideHowTo);
+  set('guide-steps', u.guideSteps, true);
   
-  document.getElementById('legend-label').textContent = u.legLabel;
-  document.getElementById('leg-line-solid').textContent = u.legSolid;
-  document.getElementById('leg-line-dash').textContent = u.legDash;
+  set('legend-label', u.legLabel);
+  set('leg-line-solid', u.legSolid);
+  set('leg-line-dash', u.legDash);
   
-  document.getElementById('func-main-title').textContent = u.funcTitle;
-  document.getElementById('func-disclaimer').innerHTML = u.funcDisclaimer;
+  set('func-main-title', u.funcTitle);
+  set('func-disclaimer', u.funcDisclaimer, true);
 
   renderGraph(); renderLegend(); renderFuncCards();
   if (sel) { hlNodes(sel); showPanel(sel); } else { closePanel(); }
@@ -750,10 +764,8 @@ function updateCrossLinks() {
 window.addEventListener('DOMContentLoaded', () => {
   const lang = new URLSearchParams(location.search).get('lang')==='en' ? 'en' : 'ru';
   currentLang = lang;
-  document.getElementById('btn-lang-ru').classList.toggle('active', lang==='ru');
-  document.getElementById('btn-lang-en').classList.toggle('active', lang==='en');
+  
   setLang(lang);
-  updateCrossLinks();
   
   // Мобильное меню
   const menuBtn = document.getElementById('mobile-menu-btn');
@@ -765,11 +777,13 @@ window.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  svg.addEventListener('click', (e) => {
-    if (!e.target.closest('.node-g')) {
-      closePanel();
-    }
-  });
+  if(svg) {
+    svg.addEventListener('click', (e) => {
+      if (!e.target.closest('.node-g')) {
+        closePanel();
+      }
+    });
+  }
 });
 </script>
 </body>
