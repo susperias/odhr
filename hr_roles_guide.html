@@ -57,11 +57,16 @@
   .how-text { font-size: 13px; color: var(--muted); line-height: 1.6; }
   .how-text strong { color: var(--ink); font-weight: 600; }
 
-  /* MAP SECTION */
+  /* =========================================
+     MAP SECTION (REFACTORED FOR MOBILE)
+     ========================================= */
   .map-section { padding: 0; }
-  .map-wrap { border: 1.5px solid var(--border); border-radius: 16px; overflow: hidden; background: var(--cream); position: relative; }
-  .map-inner { display: flex; height: 740px; position: relative; }
-  .graph-area { flex: 1; display: flex; justify-content: center; overflow: hidden; }
+  .map-container-relative { position: relative; } /* Wrapper, no overflow hidden! */
+  .map-inner { 
+    display: flex; height: 740px; position: relative; 
+    border: 1.5px solid var(--border); border-radius: 16px; overflow: hidden; background: var(--cream);
+  }
+  .graph-area { flex: 1; display: flex; justify-content: center; overflow: auto; }
   svg.graph { display: block; width: 100%; height: 100%; max-width: 700px; }
   .node-g { cursor: pointer; }
   .node-g.dimmed { opacity: 0.15; transition: opacity 0.2s; }
@@ -69,11 +74,14 @@
   .edge.dashed { stroke-dasharray: 5 4; }
   .edge.dimmed { opacity: 0.06; }
   
-  /* DRAWER PANEL (Desktop) */
+  /* Overlay - Hidden on Desktop */
+  .panel-overlay { display: none; }
+
+  /* DRAWER PANEL (Desktop Mode) */
   .map-panel { 
     position: absolute; right: 0; top: 0; bottom: 0;
     width: 300px; background: white; 
-    border-left: 1.5px solid var(--border); 
+    border-left: 1.5px solid var(--border); border-radius: 0 16px 16px 0;
     display: flex; flex-direction: column; 
     transform: translateX(105%); 
     transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
@@ -112,7 +120,6 @@
   .leg-color { width: 10px; height: 10px; border-radius: 3px; flex-shrink: 0; margin-top: 3px; }
   .leg-name { font-family: 'Unbounded', sans-serif; font-size: 10px; font-weight: 700; margin-bottom: 3px; }
   .leg-desc { font-size: 11px; color: var(--muted); line-height: 1.5; }
-
   .lines-legend { display: flex; flex-direction: column; gap: 12px; margin-bottom: 0; }
   .line-item { display: flex; align-items: center; gap: 10px; font-size: 11px; color: var(--muted); }
   .line-solid { width: 24px; height: 2px; background: var(--ink); border-radius: 1px; flex-shrink: 0; }
@@ -123,10 +130,8 @@
   /* FUNCTIONS SECTION */
   .functions-section { padding-bottom: 60px; }
   .functions-title { font-family: 'Unbounded', sans-serif; font-size: 14px; font-weight: 700; margin-bottom: 16px; }
-  
   .disclaimer-text { font-size: 13px; color: var(--muted); background: rgba(90, 122, 138, 0.08); border-left: 3px solid var(--accent2); padding: 12px 16px; border-radius: 0 8px 8px 0; margin-bottom: 24px; line-height: 1.6; }
   .disclaimer-text strong { color: var(--ink); font-family: 'Unbounded', sans-serif; font-size: 11px; letter-spacing: 1px; text-transform: uppercase; }
-
   .func-cards { display: flex; flex-direction: column; gap: 16px; }
   .func-card { border: 1.5px solid var(--border); border-radius: 14px; overflow: hidden; }
   .func-card-header { padding: 18px 24px; display: flex; align-items: center; gap: 14px; cursor: pointer; user-select: none; transition: background 0.15s; }
@@ -157,13 +162,18 @@
   .footer-link { display: inline-flex; align-items: center; gap: 8px; font-family: 'Unbounded', sans-serif; font-size: 10px; font-weight: 600; letter-spacing: 1px; color: white; text-decoration: none; padding: 10px 18px; border: 1.5px solid rgba(255,255,255,0.2); border-radius: 8px; transition: all 0.2s; }
   .footer-link:hover { border-color: var(--accent); color: var(--accent); }
 
-  /* RESPONSIVE */
+  .mobile-swipe-hint { display: none; }
+
+  /* =========================================
+     RESPONSIVE (MOBILE FIXES)
+     ========================================= */
   @media (max-width: 960px) {
     .main-layout { flex-direction: column; }
     .sidebar-left { width: 100%; }
-    .legend-grid { flex-direction: row; flex-wrap: wrap; }
+    /* Делаем легенду скроллируемой горизонтально, чтобы не занимала пол-экрана */
+    .legend-grid { flex-direction: row; flex-wrap: nowrap; overflow-x: auto; padding-bottom: 12px; }
+    .leg-card { flex: 0 0 240px; }
     .lines-legend { flex-direction: row; flex-wrap: wrap; gap: 24px; }
-    .leg-card { flex: 1 1 200px; }
   }
 
   @media (max-width: 768px) {
@@ -174,45 +184,38 @@
     
     .hero { padding: 36px 20px 40px; }
     .container { padding: 0 16px; }
+
+    .mobile-swipe-hint { 
+      display: block; text-align: center; font-size: 11px; color: var(--muted); 
+      margin-bottom: 16px; font-family: 'Unbounded', sans-serif; text-transform: uppercase; letter-spacing: 1px;
+    }
     
-    /* Делаем область графа удобнее для скролла */
-    .map-inner { flex-direction: column; height: 60vh; min-height: 450px; }
-    .graph-area { overflow: auto; }
-    svg.graph { min-width: 660px; } 
+    .map-container-relative { position: static; } /* Важно: освобождаем fixed-панель из плена родителя */
+    .map-inner { height: 60vh; min-height: 450px; }
+    .graph-area { justify-content: flex-start; -webkit-overflow-scrolling: touch; } /* Чтобы граф начинался слева */
+    svg.graph { min-width: 760px; } 
+
+    /* Затемнение фона */
+    .panel-overlay {
+      display: block; position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(30, 42, 62, 0.5); backdrop-filter: blur(2px);
+      z-index: 1050; opacity: 0; pointer-events: none; transition: opacity 0.3s ease;
+    }
+    .panel-overlay.open { opacity: 1; pointer-events: auto; }
+
+    /* Шторка (Bottom Sheet) */
+    .map-panel {
+      position: fixed; top: auto; bottom: 0; left: 0; right: 0;
+      width: 100%; height: auto; max-height: 85vh;
+      border-left: none; border-radius: 24px 24px 0 0;
+      box-shadow: 0 -12px 40px rgba(0,0,0,0.15);
+      transform: translateY(110%); z-index: 1051;
+    }
+    .map-panel.open { transform: translateY(0); }
     
-    /* МАГИЯ BOTTOM SHEET 
-      Отвязываем панель от контейнера и крепим к экрану поверх всего
-    */
-    .map-panel { 
-      position: fixed; 
-      top: auto; 
-      bottom: 0; 
-      left: 0;
-      width: 100%; 
-      height: auto;
-      max-height: 85vh; /* Не перекрываем экран полностью */
-      border-left: none; 
-      border-top: 1px solid var(--border); 
-      border-radius: 24px 24px 0 0; /* Скругления сверху */
-      transform: translateY(110%); /* Прячем за нижний край */
-      box-shadow: 0 -12px 40px rgba(45,63,92,0.15); 
-      z-index: 2000; /* Строго поверх липкой шапки */
-    }
-    .map-panel.open { 
-      transform: translateY(0); 
-    }
-    /* Сдвигаем крестик закрытия и добавляем ему фон для кликабельности */
-    .mp-close {
-      top: 20px;
-      right: 24px;
-      padding: 10px;
-      margin: -10px;
-      background: white;
-      border-radius: 50%;
-    }
-    .mp-header {
-      padding: 24px 40px 16px 24px;
-    }
+    .mp-close { top: 20px; right: 20px; background: var(--paper); border-radius: 50%; width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; font-size: 14px; color: var(--ink); }
+    .mp-header { padding: 24px 40px 16px 24px; }
+    .mp-body { padding: 14px 24px 32px; }
   }
 </style>
 </head>
@@ -280,14 +283,18 @@
 
     <div class="content-right">
       <div class="map-section">
-        <div class="map-wrap">
+        <div class="mobile-swipe-hint" id="swipe-hint">↔ Свайпайте карту вправо</div>
+        
+        <div class="map-container-relative">
           <div class="map-inner">
             <div class="graph-area">
               <svg class="graph" id="svg" viewBox="0 0 660 760"></svg>
             </div>
-            <div class="map-panel" id="panel"></div>
           </div>
+          <div class="panel-overlay" id="panel-overlay" onclick="closePanel()"></div>
+          <div class="map-panel" id="panel"></div>
         </div>
+
       </div>
     </div>
   </div>
@@ -321,7 +328,7 @@
 <script>
 let currentLang = 'ru';
 
-// БЕЗОПАСНАЯ ФУНКЦИЯ ПЕРЕВОДА (Предохранитель от ошибок)
+// БЕЗОПАСНАЯ ФУНКЦИЯ ПЕРЕВОДА
 function set(id, val, isHtml = false) {
   const el = document.getElementById(id);
   if (!el) return;
@@ -575,6 +582,9 @@ function closePanel() {
   sel = null;
   resetHL();
   if(panel) panel.classList.remove('open');
+  const overlay = document.getElementById('panel-overlay');
+  if(overlay) overlay.classList.remove('open');
+  document.body.style.overflow = ''; // Разрешаем скролл
 }
 
 function pick(id) {
@@ -634,7 +644,14 @@ function showPanel(id) {
       ${toH?`<div class="mp-sec"><div class="mp-lbl">${l==='ru'?'Куда можно вырасти':'Growth paths'}</div><div class="mp-nav">${toH}</div></div>`:''}
     </div>`;
   
-  setTimeout(() => panel.classList.add('open'), 10);
+  setTimeout(() => {
+    panel.classList.add('open');
+    const overlay = document.getElementById('panel-overlay');
+    if(overlay) overlay.classList.add('open');
+    if (window.innerWidth <= 768) {
+      document.body.style.overflow = 'hidden'; // Блокируем фон на мобилке
+    }
+  }, 10);
 }
 
 /* ── LEGEND ── */
@@ -717,7 +734,8 @@ const UI = {
     legDash: 'Боковой переход (зигзаг)',
     funcTitle: 'HR-функции: что это и когда появляются',
     funcDisclaimer: '<strong>Обратите внимание:</strong> указанные стадии развития и численность команды — это ориентировочные бенчмарки для понимания эволюции функции. Реальная потребность зависит от специфики и стратегии конкретного бизнеса.',
-    eyebrow: 'HR · OD · PM'
+    eyebrow: 'HR · OD · PM',
+    swipeHint: '↔ Свайпайте карту вправо'
   },
   en: { 
     navHome:'Home', navDiag:'Diagnostic', navGuide:'Roles',
@@ -739,7 +757,8 @@ const UI = {
     legDash: 'Lateral transition (zigzag)',
     funcTitle: 'HR Functions: what they are and when they appear',
     funcDisclaimer: '<strong>Please note:</strong> the development stages and team sizes mentioned are approximate benchmarks to understand the evolution of the function. Actual needs depend on the specifics and strategy of a particular business.',
-    eyebrow: 'HR · OD · PM'
+    eyebrow: 'HR · OD · PM',
+    swipeHint: '↔ Swipe right to explore map'
   },
 };
 
@@ -753,7 +772,6 @@ function setLang(lang) {
   
   const u = UI[lang];
   
-  // ИСПОЛЬЗУЕМ БЕЗОПАСНЫЙ СЕТТЕР
   set('nav-home', u.navHome);
   set('nav-diag', u.navDiag);
   set('nav-guide', u.navGuide);
@@ -776,6 +794,7 @@ function setLang(lang) {
   
   set('func-main-title', u.funcTitle);
   set('func-disclaimer', u.funcDisclaimer, true);
+  set('swipe-hint', u.swipeHint);
 
   renderGraph(); renderLegend(); renderFuncCards();
   if (sel) { hlNodes(sel); showPanel(sel); } else { closePanel(); }
