@@ -9,7 +9,7 @@
 
 (function () {
   const APPS_SCRIPT_URL =
-    'https://script.google.com/macros/s/AKfycbzBPfNKauEKPJ_XdnvK7XWiH-5xYOeb0EoJN7N3zbHvX9Lz_pdkrXIWp-xT96XQwKxt/exec';
+    'https://script.google.com/macros/s/AKfycbxnF6jgqoXw5g7mD43_-odCwXsIh0RKwtL51mpRzgLuf_A1VafVsTHspW5cd1qyaKe-/exec';
 
   // ── CSS ──────────────────────────────────────────────────────────────────
   const CSS = `
