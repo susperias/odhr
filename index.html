@@ -42,7 +42,7 @@
 
   /* ── HERO ── */
   .hero { background: var(--ink); color: var(--paper); padding: 48px 40px 60px; position: relative; overflow: hidden; }
-  .hero::before { content: 'HR'; position: absolute; right: -30px; top: -20px; font-family: 'Unbounded', sans-serif; font-size: 220px; font-weight: 700; opacity: 0.05; line-height: 1; pointer-events: none; }
+  .hero::before { content: 'HR'; position: absolute; right: -30px; top: -20px; font-family: 'Unbounded', sans-serif; font-size: 260px; font-weight: 700; opacity: 0.035; line-height: 1; pointer-events: none; }
   .hero-tag { font-family: 'Unbounded', sans-serif; font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--accent); margin-bottom: 24px; display: inline-block; }
   .hero h1 { font-family: 'Unbounded', sans-serif; font-size: clamp(28px, 5vw, 52px); font-weight: 700; line-height: 1.1; max-width: 700px; margin-bottom: 20px; position: relative; z-index: 10;}
   .hero p { font-size: 16px; color: #8fa0b8; max-width: 560px; line-height: 1.7; position: relative; z-index: 10;}
@@ -200,6 +200,7 @@
       <a href="home.html" class="nav-link cross-link" id="nav-home">Главная</a>
       <a href="index.html" class="nav-link active cross-link" id="nav-diag">Диагностика</a>
       <a href="hr_roles_guide.html" class="nav-link cross-link" id="nav-guide">Роли</a>
+      <a href="structure.html" class="nav-link cross-link" id="nav-str">Структуры</a>
     </div>
     <div class="nav-actions">
       <div class="lang-toggle">
@@ -231,21 +232,21 @@
     <div class="screen" id="screen-result"></div>
   </div>
 
-  <footer class="site-footer">
-    <div class="container" style="display: flex; justify-content: space-between; flex-wrap: wrap; gap: 20px;">
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-inner">
       <div>
-        <div class="footer-brand">ODHR JOURNAL</div>
+        <div class="footer-brand">ODHR JOURNAL<span>HR · OD · PM</span></div>
         <div class="footer-links">
-          <a class="footer-link" href="https://t.me/odhr_journal" target="_blank">Telegram</a>
-          <a class="footer-link" href="https://www.linkedin.com/in/ogrebenyuk" target="_blank">LinkedIn</a>
+          <a class="footer-link" href="https://t.me/ODHRAMA" target="_blank">✈ Telegram</a>
+          <a class="footer-link" href="https://www.linkedin.com/in/ogrebenyuk" target="_blank">in LinkedIn</a>
+          <a class="footer-link" href="#" data-contact-trigger id="footer-contact">✉ Написать мне</a>
         </div>
       </div>
-      <div style="font-size:11px; opacity:0.6; text-align: right;" id="i18n-footer-credit">
-        Диагностика создана совместно<br>с <a href="https://skailer.com" target="_blank" style="color:var(--accent);text-decoration:none;">Skailer.com</a>
-      </div>
+      <div class="footer-copy" id="f-copy">Tools created together with<br><a href="https://skailer.com" target="_blank" style="color:var(--accent);text-decoration:none;">Skailer.com</a></div>
     </div>
-  </footer>
-</div>
+  </div>
+</footer>
 
 <div id="print-view">
   <div class="container">
@@ -273,7 +274,7 @@
   const locales = {
     ru: {
       ui: {
-        navHome: "Главная", navDiag: "Диагностика", navGuide: "Роли",
+        navHome: "Главная", navDiag: "Диагностика", navGuide: "Роли", navStr: "Структуры",
         heroTitle: "Диагностика HR для фаундеров",
         heroSub: "Ответьте на несколько вопросов о вашей компании — и узнайте, на какой стадии вы находитесь, какие HR-роли нужны и какие функции они должны закрывать.",
         s1: "Команда", s2: "Рост", s3: "Процессы", s4: "Результат",
@@ -417,7 +418,7 @@
     },
     en: {
       ui: {
-        navHome: "Home", navDiag: "Diagnostic", navGuide: "Roles",
+        navHome: "Home", navDiag: "Diagnostic", navGuide: "Roles", navStr: "Structures",
         heroTitle: "HR Diagnostic for Founders",
         heroSub: "Answer a few questions about your company to discover your current maturity stage, required HR roles, and the target operating model you need to build.",
         s1: "Team", s2: "Growth", s3: "Ops", s4: "Result",
@@ -618,6 +619,7 @@
     document.getElementById('nav-home').textContent = d.navHome;
     document.getElementById('nav-diag').textContent = d.navDiag;
     document.getElementById('nav-guide').textContent = d.navGuide;
+    document.getElementById('nav-str').textContent = d.navStr;
 
     // HERO & UI
     document.getElementById('i18n-hero-title').innerText = d.heroTitle;
@@ -882,7 +884,7 @@
           <div class="pv-title">${ui.printHeader}<br>${ui.lblTarget} ${processData.label}</div>
           <div class="pv-meta">${ui.printCredit}</div>
         </div>
-        <div class="pv-logo">ODHR JOURNAL<br><br>t.me/odhr_journal</div>
+        <div class="pv-logo">ODHR JOURNAL<br><br>t.me/ODHRAMA</div>
       </div>
       
       <div class="pv-status" style="background:${sc.bg};color:${sc.c};">
