@@ -310,6 +310,7 @@
         <div class="footer-links">
           <a class="footer-link" href="https://t.me/ODHRAMA" target="_blank">✈ Telegram</a>
           <a class="footer-link" href="https://www.linkedin.com/in/ogrebenyuk" target="_blank">in LinkedIn</a>
+          <a class="footer-link" href="#" data-contact-trigger id="footer-contact">✉ Написать мне</a>
         </div>
       </div>
       <div class="footer-copy" id="f-copy">Tools created together with<br><a href="https://skailer.com" target="_blank" style="color:var(--accent);text-decoration:none;">Skailer.com</a></div>
@@ -355,7 +356,7 @@
       paths:['Маркетинг','Операции','PM','HR','OD'],
       aRole:'HR · OD · PM<br>ex-Яндекс', s1:'лет опыта', s2:'человек в командах',
       aEmail:'✉ grebenallka@gmail.com',
-      ctaT:'Чувствуете, что пора разобраться?', ctaS:'Напишите — обсудим, что происходит в команде и чем могу помочь. Без обязательств.', ctaB:'Написать мне →',
+      ctaT:'Чувствуете, что пора разобраться?', ctaS:'Напишите — обсудим, что происходит в команде и чем могу помочь. Без обязательств.', ctaB:'Написать мне →', fContact:'✉ Написать мне',
       fCopy:'Tools created together with<br><a href="https://skailer.com" target="_blank" style="color:var(--accent);text-decoration:none;">Skailer.com</a>',
     },
     en: {
@@ -393,7 +394,7 @@
       paths:['Marketing','Operations','PM','HR','OD'],
       aRole:'HR · OD · PM<br>ex-Yandex', s1:'years experience', s2:'people in teams',
       aEmail:'✉ grebenallka@gmail.com',
-      ctaT:"Feel like it's time to figure things out?", ctaS:"Write to me — we'll talk about what's happening in your team and how I can help. No commitment.", ctaB:'Get in touch →',
+      ctaT:"Feel like it's time to figure things out?", ctaS:"Write to me — we'll talk about what's happening in your team and how I can help. No commitment.", ctaB:'Get in touch →', fContact:'✉ Get in touch',
       fCopy:'Tools created together with<br><a href="https://skailer.com" target="_blank" style="color:var(--accent);text-decoration:none;">Skailer.com</a>',
     }
   };
@@ -431,6 +432,7 @@
     set('a-role', l.aRole, true); set('s1', l.s1); set('s2', l.s2);
     set('a-email', l.aEmail);
     set('cta-title', l.ctaT); set('cta-sub', l.ctaS); set('cta-btn', l.ctaB);
+    set('footer-contact', l.fContact);
     set('f-copy', l.fCopy, true);
     
     const url = new URL(window.location);
