@@ -321,6 +321,7 @@
         btnPrint: "↓ Открыть для печати / PDF", btnCheckAll: "Отметить всё", btnUncheck: "Сбросить",
         lblRole: "Роль", lblArea: "Область", lblDoD: "DoD", lblOwner: "Кто отвечает",
         printHeader: "Рабочий план внедрения HR", printCredit: "Сгенерировано: ODHR Journal × Skailer",
+        fContact:'✉ Написать мне',
         footerCredit: "Диагностика создана совместно<br>с <a href='https://skailer.com' style='color:var(--accent);text-decoration:none;'>Skailer.com</a>"
       },
       roles: {
@@ -464,6 +465,7 @@
         tipChecklist: "Check off what you already have — the rest is your action plan.",
         btnPrint: "↓ Print / Save as PDF", btnCheckAll: "Check All", btnUncheck: "Clear",
         lblRole: "Role", lblArea: "Domain", lblDoD: "DoD", lblOwner: "Owner",
+        fContact:'✉ Get in touch',
         printHeader: "HR Implementation Plan", printCredit: "Generated via ODHR Journal × Skailer",
         footerCredit: "Diagnostic framework by<br><a href='https://skailer.com' style='color:var(--accent);text-decoration:none;'>Skailer.com</a>"
       },
@@ -635,6 +637,7 @@
     document.getElementById('i18n-footer-credit').innerHTML = d.footerCredit;
     document.getElementById('i18n-print-btn1').innerText = d.btnPrint;
     document.getElementById('i18n-print-back').innerText = d.btnBack;
+    document.getElementById('footer-contact').innerText = d.fContact;
 
     updateCrossLinks();
   }
