@@ -5,72 +5,28 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Анатомия бизнеса | ODHR Journal</title>
 <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@300;400;600;700&family=Golos+Text:wght@400;500;600&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="global.css">
+
 <style>
-  :root {
-    --ink: #2d3f5c; --paper: #f5f2ea; --cream: #faf8f2;
-    --accent: #f0a830; --accent2: #5a7a8a; --muted: #7a8a9a; --border: #d4d0c8;
-  }
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-
-  body { font-family: 'Golos Text', sans-serif; background: var(--paper); color: var(--ink); min-height: 100vh; overflow-x: hidden; }
-
   /* =========================================
-     НАВИГАЦИЯ
+     УНИКАЛЬНЫЕ СТИЛИ СТРАНИЦЫ "СТРУКТУРЫ"
      ========================================= */
-  .site-nav { background: var(--ink); padding: 0 40px; display: flex; justify-content: space-between; align-items: center; height: 64px; position: sticky; top: 0; z-index: 1000; border-bottom: 1px solid rgba(255,255,255,0.05); }
-  .nav-brand { font-family: 'Unbounded', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 2px; color: var(--accent); text-decoration: none; }
-  .nav-menu { display: flex; gap: 24px; align-items: center; }
-  .nav-link { font-family: 'Unbounded', sans-serif; font-size: 9px; font-weight: 600; letter-spacing: 1px; color: rgba(255,255,255,0.55); text-decoration: none; transition: color 0.2s; text-transform: uppercase; }
-  .nav-link:hover { color: white; }
-  .nav-link.active { color: var(--accent); }
-  .nav-actions { display: flex; align-items: center; gap: 16px; }
-  .lang-toggle { display: flex; gap: 2px; background: rgba(255,255,255,0.08); padding: 3px; border-radius: 20px; }
-  .lang-btn { background: transparent; border: none; color: rgba(255,255,255,0.45); font-family: 'Unbounded', sans-serif; font-size: 9px; font-weight: 700; cursor: pointer; padding: 5px 10px; border-radius: 14px; transition: all 0.2s; letter-spacing: 1px; }
-  .lang-btn.active { background: white; color: var(--ink); }
-  .menu-toggle { display: none; background: none; border: none; color: white; font-size: 20px; cursor: pointer; }
-
-  /* =========================================
-     HERO СЕКЦИЯ
-     ========================================= */
-  .hero { background: var(--ink); padding: 72px 40px 80px; position: relative; overflow: hidden; }
-  .hero::before { content: 'ORG'; position: absolute; right: -20px; top: -10px; font-family: 'Unbounded', sans-serif; font-size: 260px; font-weight: 700; opacity: 0.035; line-height: 1; pointer-events: none; color: white; }
+  .hero { background: var(--ink); padding: 72px 40px 80px; position: relative; overflow: hidden; color: white; }
+  .hero::before { content: 'ORG'; position: absolute; right: -20px; top: -10px; font-family: 'Unbounded', sans-serif; font-size: 260px; font-weight: 700; opacity: 0.035; line-height: 1; pointer-events: none; }
   .hero-eyebrow { font-family: 'Unbounded', sans-serif; font-size: 10px; font-weight: 600; letter-spacing: 3px; text-transform: uppercase; color: var(--accent); margin-bottom: 28px; }
-  .hero h1 { font-family: 'Unbounded', sans-serif; font-size: clamp(24px, 4vw, 46px); font-weight: 700; line-height: 1.15; color: white; max-width: 700px; margin-bottom: 24px; position: relative; z-index: 10; }
+  .hero h1 { font-family: 'Unbounded', sans-serif; font-size: clamp(24px, 4vw, 46px); font-weight: 700; line-height: 1.15; max-width: 700px; margin-bottom: 24px; position: relative; z-index: 10; }
   .hero-sub { font-size: 16px; color: #8fa0b8; line-height: 1.75; max-width: 600px; margin-bottom: 40px; position: relative; z-index: 10; }
 
-  .container { max-width: 1020px; margin: 0 auto; padding: 0 32px; }
-  .section-label { font-family: 'Unbounded', sans-serif; font-size: 9px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--muted); margin-bottom: 24px; display: block;}
-
-  /* =========================================
-     БЛОК 1: ИНТЕРАКТИВНЫЙ ДАШБОРД (STEPPER + SVG)
-     ========================================= */
+  /* Слайдер и SVG */
   .slider-section { padding: 56px 0; border-bottom: 1px solid var(--border); }
   .slider-container { background: white; border: 1.5px solid var(--border); border-radius: 16px; padding: 40px; box-shadow: 0 12px 32px rgba(0,0,0,0.03); }
   
-  /* Кастомный Stepper */
   .stepper-wrap { position: relative; margin-bottom: 40px; padding: 0 20px; }
-  .stepper-labels { 
-    display: flex; 
-    justify-content: space-between; 
-    position: relative; /* <-- добавили это */
-    margin-bottom: 24px; 
-    font-family: 'Unbounded', sans-serif; 
-    font-size: 10px; 
-    font-weight: 700; 
-    color: var(--ink); 
-    text-transform: uppercase; 
-    letter-spacing: 1px; 
-  }
+  .stepper-labels { display: flex; justify-content: space-between; position: relative; margin-bottom: 24px; font-family: 'Unbounded', sans-serif; font-size: 10px; font-weight: 700; color: var(--ink); text-transform: uppercase; letter-spacing: 1px; }
   .stepper-labels span { cursor: pointer; transition: color 0.2s; }
   .stepper-labels span:hover { color: var(--accent); }
-
-  /* <-- Добавляем этот новый блок для центровки --> */
-  .stepper-labels span:nth-child(2) {
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    white-space: nowrap;
-  }
+  .stepper-labels span:nth-child(2) { position: absolute; left: 50%; transform: translateX(-50%); white-space: nowrap; }
   
   .stepper-track { position: relative; height: 6px; background: var(--paper); border-radius: 3px; border: 1px solid var(--border); cursor: pointer; }
   .stepper-fill { position: absolute; top: -1px; left: -1px; height: 6px; background: var(--accent2); border-radius: 3px; transition: width 0.4s cubic-bezier(0.25, 0.8, 0.25, 1); }
@@ -80,7 +36,6 @@
   .step-dot.active { border-color: var(--ink); background: var(--ink); transform: scale(1.3); box-shadow: 0 4px 10px rgba(0,0,0,0.15); }
   .step-dot:hover { transform: scale(1.2); border-color: var(--accent2); }
 
-  /* SVG Окно */
   .svg-window { height: 180px; background: var(--paper); border-radius: 12px; margin-bottom: 24px; position: relative; display: flex; align-items: center; justify-content: center; border: 1px solid var(--border); overflow: hidden; }
   .svg-layer { position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0; transition: opacity 0.5s ease, transform 0.5s ease; transform: scale(0.95); display: flex; align-items: center; justify-content: center; pointer-events: none; }
   .svg-layer.active { opacity: 1; transform: scale(1); }
@@ -89,24 +44,21 @@
   .svg-accent { fill: var(--accent); }
   .svg-line { stroke: rgba(45, 63, 92, 0.2); stroke-width: 2; fill: none; }
 
-  /* Текстовые результаты */
   .slider-result { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 32px; background: var(--cream); border-radius: 12px; padding: 32px; border: 1px solid rgba(0,0,0,0.04); align-items: start; }
   .res-col h4 { font-family: 'Unbounded', sans-serif; font-size: 9px; font-weight: 700; letter-spacing: 2px; color: var(--muted); text-transform: uppercase; margin-bottom: 16px; border-bottom: 1px solid var(--border); padding-bottom: 8px; }
-  .res-val { font-size: 14px; color: var(--ink); line-height: 1.6; font-weight: 400; }
+  .res-val { font-size: 14px; color: var(--ink); line-height: 1.6; }
   .res-struct { font-family: 'Unbounded', sans-serif; font-size: 18px; color: var(--accent); font-weight: 700; line-height: 1.3; }
   
   .comp-list { list-style: none; padding: 0; display: flex; flex-direction: column; gap: 8px; margin: 0; }
   .comp-list li { position: relative; padding-left: 14px; font-size: 13px; font-weight: 500; color: var(--ink); }
   .comp-list li::before { content: ''; position: absolute; left: 0; top: 7px; width: 6px; height: 6px; background: var(--accent2); border-radius: 50%; }
 
-  /* =========================================
-     БЛОК 2: МАТРИЦА СТРУКТУР (АККОРДЕОНЫ)
-     ========================================= */
+  /* Карточки структур */
   .matrix-section { padding: 64px 0; }
   .group-title { font-family: 'Unbounded', sans-serif; font-size: 18px; font-weight: 700; color: var(--ink); margin: 40px 0 24px; border-left: 4px solid var(--accent); padding-left: 16px; }
   .group-title.modern { border-color: var(--accent2); }
   
-  .struct-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; align-items: start}
+  .struct-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; align-items: start; }
   .struct-card { background: white; border: 1.5px solid var(--border); border-radius: 14px; overflow: hidden; transition: box-shadow 0.2s, border-color 0.2s; display: flex; flex-direction: column; }
   .struct-card:hover { box-shadow: 0 8px 24px rgba(0,0,0,0.06); border-color: var(--accent2); }
   
@@ -131,44 +83,14 @@
   .cb-lbl.cons { color: #C05070; }
   .cb-text { font-size: 12px; color: var(--muted); line-height: 1.5; }
 
-  /* =========================================
-     БЛОК 3: CTA
-     ========================================= */
-  .cta-block { background: var(--ink); border-radius: 20px; padding: 52px 48px; margin: 64px 0; display: grid; grid-template-columns: 1fr auto; gap: 40px; align-items: center; }
-  .cta-block-title { font-family: 'Unbounded', sans-serif; font-size: clamp(16px, 2.5vw, 24px); font-weight: 700; color: white; line-height: 1.2; margin-bottom: 10px; }
-  .cta-block-sub { font-size: 14px; color: #8fa0b8; line-height: 1.6; }
-
-  /* =========================================  
-  FOOTER
-     ========================================= */
-  .site-footer { background: var(--ink); color: white; padding: 40px; }
-  .footer-inner { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 24px; }
-  .footer-brand { font-family: 'Unbounded', sans-serif; font-size: 13px; font-weight: 700; letter-spacing: 2px; color: var(--accent); }
-  .footer-brand span { display: block; font-size: 10px; font-weight: 400; color: #8fa0b8; margin-top: 4px; letter-spacing: 1px; }
-  .footer-links { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 12px; }
-  .footer-link { display: inline-flex; align-items: center; gap: 8px; font-family: 'Unbounded', sans-serif; font-size: 10px; font-weight: 600; letter-spacing: 1px; color: white; text-decoration: none; padding: 10px 18px; border: 1.5px solid rgba(255,255,255,0.2); border-radius: 8px; transition: all 0.2s; }
-  .footer-link:hover { border-color: var(--accent); color: var(--accent); }
-  .footer-copy { font-size: 11px; color: #8fa0b8; text-align: right; line-height: 1.7; }
-
-  /* =========================================
-     АДАПТИВНОСТЬ
-     ========================================= */
   @media (max-width: 960px) {
     .struct-grid { grid-template-columns: repeat(2, 1fr); }
     .slider-result { grid-template-columns: 1fr; gap: 24px; }
-    .res-col h4 { margin-bottom: 8px; }
   }
   @media (max-width: 768px) {
-    .site-nav { padding: 0 20px; }
-    .menu-toggle { display: block; }
-    .nav-menu { display: none; position: absolute; top: 64px; left: 0; width: 100%; background: var(--ink); flex-direction: column; padding: 20px 0; border-bottom: 1px solid rgba(255,255,255,0.1); box-shadow: 0 8px 24px rgba(0,0,0,0.2); z-index: 1000;}
-    .nav-menu.open { display: flex; }
     .struct-grid { grid-template-columns: 1fr; }
     .slider-container { padding: 24px; }
-    .hero { padding: 40px 20px; }
-    .cta-block { grid-template-columns: 1fr; padding: 36px 24px; }
     .stepper-labels { flex-direction: column; gap: 8px; text-align: center; }
-    /* <-- Добавляем эту строчку, чтобы на мобилках текст не слипался --> */
     .stepper-labels span:nth-child(2) { position: static; transform: none; }
   }
 </style>
@@ -185,8 +107,8 @@
   </div>
   <div class="nav-actions">
     <div class="lang-toggle">
-      <button class="lang-btn active" onclick="setLang('ru')" id="btn-lang-ru">RU</button>
-      <button class="lang-btn" onclick="setLang('en')" id="btn-lang-en">EN</button>
+      <button class="lang-btn active" onclick="changePageLang('ru')" id="btn-lang-ru">RU</button>
+      <button class="lang-btn" onclick="changePageLang('en')" id="btn-lang-en">EN</button>
     </div>
     <button class="menu-toggle" id="mobile-menu-btn">☰</button>
   </div>
@@ -234,45 +156,7 @@
             <circle class="svg-node" cx="340" cy="130" r="8"></circle>
           </svg>
         </div>
-        <div class="svg-layer" id="svg-layer-1">
-          <svg viewBox="0 0 400 160">
-            <path class="svg-line" d="M80,40 L320,40 M80,80 L320,80 M80,120 L320,120 M120,20 L120,140 M200,20 L200,140 M280,20 L280,140"></path>
-            <circle class="svg-accent" cx="120" cy="40" r="8"></circle>
-            <circle class="svg-node" cx="200" cy="40" r="8"></circle>
-            <circle class="svg-accent" cx="280" cy="40" r="8"></circle>
-            <circle class="svg-node" cx="120" cy="80" r="8"></circle>
-            <circle class="svg-accent" cx="200" cy="80" r="8"></circle>
-            <circle class="svg-node" cx="280" cy="80" r="8"></circle>
-            <circle class="svg-node" cx="120" cy="120" r="8"></circle>
-            <circle class="svg-node" cx="200" cy="120" r="8"></circle>
-            <circle class="svg-accent" cx="280" cy="120" r="8"></circle>
-          </svg>
         </div>
-        <div class="svg-layer" id="svg-layer-2">
-          <svg viewBox="0 0 400 160">
-            <path class="svg-line" d="M200,80 L130,40 M200,80 L120,110 M200,80 L280,30 M200,80 L290,120 M130,40 L120,110 M280,30 L290,120 M120,110 L290,120 M130,40 L280,30"></path>
-            <circle class="svg-accent" cx="200" cy="80" r="14"></circle>
-            
-            <circle class="svg-node" cx="130" cy="40" r="10"></circle>
-            <circle class="svg-node" cx="110" cy="25" r="6"></circle>
-            <circle class="svg-node" cx="150" cy="20" r="6"></circle>
-            <path class="svg-line" d="M130,40 L110,25 M130,40 L150,20"></path>
-
-            <circle class="svg-node" cx="120" cy="110" r="10"></circle>
-            <circle class="svg-node" cx="95" cy="120" r="6"></circle>
-            <path class="svg-line" d="M120,110 L95,120"></path>
-
-            <circle class="svg-node" cx="280" cy="30" r="10"></circle>
-            <circle class="svg-node" cx="310" cy="20" r="6"></circle>
-            <path class="svg-line" d="M280,30 L310,20"></path>
-
-            <circle class="svg-node" cx="290" cy="120" r="10"></circle>
-            <circle class="svg-node" cx="320" cy="110" r="6"></circle>
-            <circle class="svg-node" cx="280" cy="145" r="6"></circle>
-            <path class="svg-line" d="M290,120 L320,110 M290,120 L280,145"></path>
-          </svg>
-        </div>
-      </div>
 
       <div class="slider-result">
         <div class="res-col">
@@ -281,12 +165,11 @@
         </div>
         <div class="res-col">
           <h4 id="lbl-res-comp">Компании</h4>
-          <ul class="comp-list" id="val-comp">
-            </ul>
+          <ul class="comp-list" id="val-comp"></ul>
         </div>
         <div class="res-col">
           <h4 id="lbl-res-sig">Сигнал (когда актуально)</h4>
-          <div class="res-val" id="val-sig">Стабильный рынок, высокая цена ошибки, фокус на минимизацию рисков.</div>
+          <div class="res-val" id="val-sig">Стабильный рынок, высокая цена ошибки...</div>
         </div>
       </div>
     </div>
@@ -296,36 +179,29 @@
 <section class="matrix-section">
   <div class="container">
     <span class="section-label" id="lbl-matrix-sec">Базовые модели</span>
-    
     <div class="group-title" id="gt-classic">Классические структуры</div>
-    <div class="struct-grid" id="grid-classic">
-      </div>
-
+    <div class="struct-grid" id="grid-classic"></div>
     <div class="group-title modern" id="gt-modern">Современные структуры</div>
-    <div class="struct-grid" id="grid-modern">
-      </div>
+    <div class="struct-grid" id="grid-modern"></div>
   </div>
 </section>
 
 <footer class="site-footer">
   <div class="container">
     <div class="footer-inner">
-      <div>
-        <div class="footer-brand">ODHR JOURNAL<span>HR · OD · PM</span></div>
-        <div class="footer-links">
-          <a class="footer-link" href="https://t.me/ODHRAMA" target="_blank">✈ Telegram</a>
-          <a class="footer-link" href="https://www.linkedin.com/in/ogrebenyuk" target="_blank">in LinkedIn</a>
-          <a class="footer-link" href="#" data-contact-trigger id="footer-contact">✉ Написать мне</a>
-        </div>
+      <div class="footer-brand">ODHR JOURNAL<span>HR · OD · PM</span></div>
+      <div class="footer-links">
+        <a class="footer-link" href="https://t.me/ODHRAMA" target="_blank">✈ Telegram</a>
+        <a class="footer-link" href="#" data-contact-trigger id="footer-contact">✉ Написать мне</a>
       </div>
-      <div class="footer-copy" id="f-copy"> <br></div>
     </div>
   </div>
 </footer>
 
+<script src="main.js"></script>
+<script src="contact-form.js"></script>
 <script>
-let currentLang = 'ru';
-let currentState = 0;
+  let currentState = 0;
 
 // Данные для слайдера (Блок 1)
 const sliderData = [
@@ -435,130 +311,96 @@ const structData = {
   ]
 };
 
-const UI = {
-  ru: {
-    navHome: 'Главная', navDiag: 'Диагностика', navGuide: 'Роли', navStruct: 'Структуры',
-    heroEye: 'Организационный дизайн', heroTitle: 'Анатомия бизнеса', heroSub: 'Идеальной структуры не существует. Форма компании должна эволюционировать в зависимости от стадии развития и стратегии.',
-    slSec: 'Баланс контроля и инноваций', slLeft: 'Тотальный контроль', slMid: 'Баланс', slRight: 'Максимальная скорость',
-    lblStruct: 'Структура', lblComp: 'Компании', lblSig: 'Сигнал (когда актуально)',
-    matSec: 'Базовые модели', gtClassic: 'Классические структуры', gtModern: 'Современные структуры', lblFocus: 'Главный фокус', lblMeta: 'Метафора',
-    lblPros: 'Сильные стороны', lblCons: 'Риски и минусы',
-    ctaTitle: 'Нужна помощь разобраться со структурой?', ctaDesc: 'Организационный дизайн — это процесс. Помогу проанализировать текущую структуру, найти узкие места и спроектировать целевую модель для вашего бизнеса.', ctaBtn: 'Напишите мне'
-  },
-  en: {
-    navHome: 'Home', navDiag: 'Diagnostic', navGuide: 'Roles', navStruct: 'Structures',
-    heroEye: 'Organizational Design', heroTitle: 'Business Anatomy', heroSub: 'The perfect structure doesn\'t exist. Company form must evolve based on its development stage and strategy.',
-    slSec: 'Balance of Control & Innovation', slLeft: 'Total Control', slMid: 'Balance', slRight: 'Max Speed',
-    lblStruct: 'Structure', lblComp: 'Companies', lblSig: 'Signal (When applicable)',
-    matSec: 'Core Models', gtClassic: 'Classical Structures', gtModern: 'Modern Structures', lblFocus: 'Main Focus', lblMeta: 'Metaphor',
-    lblPros: 'Strengths', lblCons: 'Risks & Downsides',
-    ctaTitle: 'Need help designing your structure?', ctaDesc: 'Organizational design is an ongoing process. I can help analyze your current setup, find bottlenecks, and design a target operating model.', ctaBtn: 'Contact Me'
-  }
-};
-
-function set(id, text) { const el = document.getElementById(id); if (el) el.textContent = text; }
-
-function setSlider(val, event) {
-  if (event) event.stopPropagation();
-  currentState = val;
-  
-  document.getElementById('stepperFill').style.width = (val * 50) + '%';
-  [0, 1, 2].forEach(i => {
-    document.getElementById('dot-' + i).classList.toggle('active', i === val);
-    document.getElementById('svg-layer-' + i).classList.toggle('active', i === val);
-  });
-
-  const data = sliderData[val][currentLang];
-  set('val-struct', data.struct);
-  set('val-sig', data.sig);
-  
-  const compContainer = document.getElementById('val-comp');
-  compContainer.innerHTML = data.comp.map(c => `<li>${c}</li>`).join('');
-}
-
-function handleTrackClick(e) {
-  const rect = e.currentTarget.getBoundingClientRect();
-  const clickX = e.clientX - rect.left;
-  const percentage = clickX / rect.width;
-  if(percentage < 0.33) setSlider(0);
-  else if(percentage < 0.66) setSlider(1);
-  else setSlider(2);
-}
-
-function renderGrid(containerId, dataArray) {
-  const container = document.getElementById(containerId);
-  if (!container) return;
-  const u = UI[currentLang];
-  
-  container.innerHTML = dataArray.map((item) => {
-    const d = item[currentLang];
-    return `
-    <div class="struct-card" onclick="this.classList.toggle('open')">
-      <div class="card-header">
-        <div class="st-meta">${u.lblMeta}: ${d.meta}</div>
-        <div class="st-title">${d.title}</div>
-        <div class="st-focus"><span>${u.lblFocus}</span>${d.focus}</div>
-        <div class="card-chevron">▼</div>
-      </div>
-      <div class="card-body">
-        <div class="cb-desc">${d.desc}</div>
-        <div class="cb-list">
-          <div class="cb-lbl pros">${u.lblPros}</div>
-          <div class="cb-text">${d.pros}</div>
-        </div>
-        <div class="cb-list">
-          <div class="cb-lbl cons">${u.lblCons}</div>
-          <div class="cb-text">${d.cons}</div>
-        </div>
-      </div>
-    </div>
-  `}).join('');
-}
-
-function setLang(lang) {
-  currentLang = lang;
-  document.getElementById('btn-lang-ru').classList.toggle('active', lang === 'ru');
-  document.getElementById('btn-lang-en').classList.toggle('active', lang === 'en');
-  
-  const u = UI[lang];
-  set('nav-home', u.navHome); set('nav-diag', u.navDiag); set('nav-guide', u.navGuide); set('nav-struct', u.navStruct);
-  set('hero-eyebrow', u.heroEye); set('hero-title', u.heroTitle); set('hero-sub', u.heroSub);
-  set('lbl-slider-sec', u.slSec); set('sl-left-lbl', u.slLeft); set('sl-mid-lbl', u.slMid); set('sl-right-lbl', u.slRight);
-  set('lbl-res-struct', u.lblStruct); set('lbl-res-comp', u.lblComp); set('lbl-res-sig', u.lblSig);
-  set('lbl-matrix-sec', u.matSec); set('gt-classic', u.gtClassic); set('gt-modern', u.gtModern);
-  set('cta-title', u.ctaTitle); set('cta-desc', u.ctaDesc); set('cta-btn', u.ctaBtn);
-
-  setSlider(currentState);
-  renderGrid('grid-classic', structData.classic);
-  renderGrid('grid-modern', structData.modern);
-  
-  const url = new URL(window.location);
-  url.searchParams.set('lang', lang);
-  window.history.pushState({}, '', url);
-  document.querySelectorAll('.cross-link').forEach(link => {
-    if(link.href.indexOf('#') === -1) {
-      const lUrl = new URL(link.href, window.location.origin);
-      lUrl.searchParams.set('lang', lang);
-      link.href = lUrl.toString();
+  const UI = {
+    ru: {
+      navHome: 'Главная', navDiag: 'Диагностика', navGuide: 'Роли', navStruct: 'Структуры',
+      heroEye: 'Организационный дизайн', heroTitle: 'Анатомия бизнеса', heroSub: 'Идеальной структуры не существует. Форма компании должна эволюционировать в зависимости от стадии развития и стратегии.',
+      slSec: 'Баланс контроля и инноваций', slLeft: 'Тотальный контроль', slMid: 'Баланс', slRight: 'Максимальная скорость',
+      lblStruct: 'Структура', lblComp: 'Компании', lblSig: 'Сигнал (когда актуально)',
+      matSec: 'Базовые модели', gtClassic: 'Классические структуры', gtModern: 'Современные структуры', lblFocus: 'Главный фокус', lblMeta: 'Метафора',
+      lblPros: 'Сильные стороны', lblCons: 'Риски и минусы'
+    },
+    en: {
+      navHome: 'Home', navDiag: 'Diagnostic', navGuide: 'Roles', navStruct: 'Structures',
+      heroEye: 'Organizational Design', heroTitle: 'Business Anatomy', heroSub: 'The perfect structure doesn\'t exist. Company form must evolve based on its development stage and strategy.',
+      slSec: 'Balance of Control & Innovation', slLeft: 'Total Control', slMid: 'Balance', slRight: 'Max Speed',
+      lblStruct: 'Structure', lblComp: 'Companies', lblSig: 'Signal (When applicable)',
+      matSec: 'Core Models', gtClassic: 'Classical Structures', gtModern: 'Modern Structures', lblFocus: 'Main Focus', lblMeta: 'Metaphor',
+      lblPros: 'Strengths', lblCons: 'Risks & Downsides',
     }
-  });
-}
+  };
 
-window.addEventListener('DOMContentLoaded', () => {
-  const lang = new URLSearchParams(location.search).get('lang') === 'en' ? 'en' : 'ru';
-  
-  const menuBtn = document.getElementById('mobile-menu-btn');
-  const navMenu = document.getElementById('nav-menu');
-  if (menuBtn && navMenu) {
-    menuBtn.addEventListener('click', () => {
-      navMenu.classList.toggle('open');
-      menuBtn.textContent = navMenu.classList.contains('open') ? '✕' : '☰';
+  function setSlider(val, event) {
+    if (event) event.stopPropagation();
+    currentState = val;
+    document.getElementById('stepperFill').style.width = (val * 50) + '%';
+    [0, 1, 2].forEach(i => {
+      document.getElementById('dot-' + i).classList.toggle('active', i === val);
+      document.getElementById('svg-layer-' + i).classList.toggle('active', i === val);
     });
+
+    const data = sliderData[val][App.currentLang];
+    App.setText('val-struct', data.struct);
+    App.setText('val-sig', data.sig);
+    document.getElementById('val-comp').innerHTML = data.comp.map(c => `<li>${c}</li>`).join('');
   }
-  
-  setLang(lang);
-});
+
+  function handleTrackClick(e) {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const percentage = (e.clientX - rect.left) / rect.width;
+    if (percentage < 0.33) setSlider(0);
+    else if (percentage < 0.66) setSlider(1);
+    else setSlider(2);
+  }
+
+  function renderGrid(containerId, dataArray) {
+    const container = document.getElementById(containerId);
+    if (!container) return;
+    const u = UI[App.currentLang];
+    
+    container.innerHTML = dataArray.map((item) => {
+      const d = item[App.currentLang];
+      return `
+      <div class="struct-card" onclick="this.classList.toggle('open')">
+        <div class="card-header">
+          <div class="st-meta">${u.lblMeta}: ${d.meta}</div>
+          <div class="st-title">${d.title}</div>
+          <div class="st-focus"><span>${u.lblFocus}</span>${d.focus}</div>
+          <div class="card-chevron">▼</div>
+        </div>
+        <div class="card-body">
+          <div class="cb-desc">${d.desc}</div>
+          <div class="cb-list">
+            <div class="cb-lbl pros">${u.lblPros}</div>
+            <div class="cb-text">${d.pros}</div>
+          </div>
+          <div class="cb-list">
+            <div class="cb-lbl cons">${u.lblCons}</div>
+            <div class="cb-text">${d.cons}</div>
+          </div>
+        </div>
+      </div>
+    `}).join('');
+  }
+
+  function applyPageLang(lang) {
+    const u = UI[lang];
+    App.setText('nav-home', u.navHome); App.setText('nav-diag', u.navDiag); App.setText('nav-guide', u.navGuide); App.setText('nav-struct', u.navStruct);
+    App.setText('hero-eyebrow', u.heroEye); App.setText('hero-title', u.heroTitle); App.setText('hero-sub', u.heroSub);
+    App.setText('lbl-slider-sec', u.slSec); App.setText('sl-left-lbl', u.slLeft); App.setText('sl-mid-lbl', u.slMid); App.setText('sl-right-lbl', u.slRight);
+    App.setText('lbl-res-struct', u.lblStruct); App.setText('lbl-res-comp', u.lblComp); App.setText('lbl-res-sig', u.lblSig);
+    App.setText('lbl-matrix-sec', u.matSec); App.setText('gt-classic', u.gtClassic); App.setText('gt-modern', u.gtModern);
+
+    setSlider(currentState);
+    renderGrid('grid-classic', structData.classic);
+    renderGrid('grid-modern', structData.modern);
+  }
+
+  function changePageLang(lang) { App.setLanguage(lang, applyPageLang); }
+
+  window.addEventListener('DOMContentLoaded', () => {
+    applyPageLang(App.currentLang);
+  });
 </script>
-<script src="contact-form.js"></script>
 </body>
 </html>
