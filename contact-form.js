@@ -151,6 +151,68 @@
   </div>
   `;
 
+
+  // ── i18n ─────────────────────────────────────────────────────────────────
+  var I18N = {
+    ru: {
+      title:       'Напишите мне',
+      sub:         'Отвечу в течение 24 часов',
+      labelName:   'Имя',
+      labelEmail:  'E-mail',
+      labelMsg:    'Суть вопроса',
+      placeName:   'Ваше имя',
+      placeMsg:    'Расскажите, с чем хотите разобраться…',
+      submit:      'Отправить',
+      sending:     'Отправка…',
+      errFields:   'Пожалуйста, заполните все поля.',
+      errEmail:    'Введите корректный e-mail.',
+      errSend:     'Ошибка при отправке. Напишите напрямую: grebenallka@gmail.com',
+      successTitle:'Сообщение отправлено!',
+      successSub:  'Я получила вашу заявку и отвечу в ближайшее время.',
+      close:       'Закрыть',
+    },
+    en: {
+      title:       'Get in touch',
+      sub:         'I\'ll reply within 24 hours',
+      labelName:   'Name',
+      labelEmail:  'E-mail',
+      labelMsg:    'Your question',
+      placeName:   'Your name',
+      placeMsg:    'Tell me what you\'d like to figure out…',
+      submit:      'Send',
+      sending:     'Sending…',
+      errFields:   'Please fill in all fields.',
+      errEmail:    'Please enter a valid e-mail.',
+      errSend:     'Send error. Write directly: grebenallka@gmail.com',
+      successTitle:'Message sent!',
+      successSub:  'I\'ve received your request and will reply shortly.',
+      close:       'Close',
+    }
+  };
+
+  function getLang() {
+    var urlLang = new URLSearchParams(window.location.search).get('lang');
+    if (urlLang === 'en') return 'en';
+    var htmlLang = (document.documentElement.lang || '').toLowerCase();
+    if (htmlLang.startsWith('en')) return 'en';
+    return 'ru';
+  }
+
+  function applyLang(t) {
+    document.getElementById('odhr-modal-title').textContent = t.title;
+    document.getElementById('odhr-modal-sub').textContent   = t.sub;
+    document.querySelector('label[for="odhr-name"]').textContent    = t.labelName;
+    document.querySelector('label[for="odhr-email"]').textContent   = t.labelEmail;
+    document.querySelector('label[for="odhr-message"]').textContent = t.labelMsg;
+    document.getElementById('odhr-name').placeholder    = t.placeName;
+    document.getElementById('odhr-message').placeholder = t.placeMsg;
+    document.getElementById('odhr-submit').textContent  = t.submit;
+    document.getElementById('odhr-success-title').textContent = t.successTitle;
+    document.getElementById('odhr-success-sub').textContent   = t.successSub;
+    document.getElementById('odhr-success-close').textContent = t.close;
+  }
+
+
   // ── INIT ─────────────────────────────────────────────────────────────────
   function inject() {
     // styles
@@ -200,6 +262,8 @@
     document.getElementById('odhr-success').classList.remove('odhr-open');
     document.getElementById('odhr-status').textContent = '';
     document.getElementById('odhr-status').className = '';
+    // apply language
+    applyLang(I18N[getLang()]);
   }
 
   function closeModal() {
@@ -230,20 +294,20 @@
       else el.classList.remove('odhr-err');
     });
     if (!valid) {
-      status.textContent = 'Пожалуйста, заполните все поля.';
+      status.textContent = I18N[getLang()].errFields;
       status.className = 'err';
       return;
     }
     var emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRe.test(email)) {
       document.getElementById('odhr-email').classList.add('odhr-err');
-      status.textContent = 'Введите корректный e-mail.';
+      status.textContent = I18N[getLang()].errEmail;
       status.className = 'err';
       return;
     }
 
     btn.disabled = true;
-    status.textContent = 'Отправка…';
+    status.textContent = I18N[getLang()].sending;
     status.className = '';
 
     var payload = { name: name, email: email, message: message };
@@ -260,7 +324,7 @@
       document.getElementById('odhr-success').classList.add('odhr-open');
     })
     .catch(function () {
-      status.textContent = 'Ошибка при отправке. Попробуйте ещё раз или напишите напрямую: grebenallka@gmail.com';
+      status.textContent = I18N[getLang()].errSend;
       status.className = 'err';
       btn.disabled = false;
     });
