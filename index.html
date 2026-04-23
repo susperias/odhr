@@ -12,7 +12,6 @@
     --stage1: #f0a830; --stage2: #e07820; --stage3: #5a7a8a; --stage4: #2d3f5c;
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
-  <script src="contact-form.js"></script>
   body { font-family: 'Golos Text', sans-serif; background: var(--paper); color: var(--ink); min-height: 100vh; overflow-x: hidden; }
   
   /* ── APP VIEWS ── */
@@ -201,7 +200,6 @@
       <a href="home.html" class="nav-link cross-link" id="nav-home">Главная</a>
       <a href="index.html" class="nav-link active cross-link" id="nav-diag">Диагностика</a>
       <a href="hr_roles_guide.html" class="nav-link cross-link" id="nav-guide">Роли</a>
-      <a href="structure.html" class="nav-link cross-link" id="nav-str">Структуры</a>
     </div>
     <div class="nav-actions">
       <div class="lang-toggle">
@@ -275,7 +273,7 @@
   const locales = {
     ru: {
       ui: {
-        navHome: "Главная", navDiag: "Диагностика", navGuide: "Роли", navStr: "Структуры",
+        navHome: "Главная", navDiag: "Диагностика", navGuide: "Роли",
         heroTitle: "Диагностика HR для фаундеров",
         heroSub: "Ответьте на несколько вопросов о вашей компании — и узнайте, на какой стадии вы находитесь, какие HR-роли нужны и какие функции они должны закрывать.",
         s1: "Команда", s2: "Рост", s3: "Процессы", s4: "Результат",
@@ -309,9 +307,7 @@
         matrixAlert: "Ваш размер пока не требует найма узких специалистов. Ниже базовый набор ролей, но их задача — выстроить процессы <b>на уровень выше</b>, чтобы выдержать рост.",
         matrixNote: "* Узкие роли отмечены звездочкой — временно их функционал закрывают универсалы.",
         lblSize: "Текущий размер:", lblTarget: "Целевая стадия:",
-        hdrRoles: "Базовые роли для вашей команды",
-        tipRoles: "Более подробное описание каждой роли, её эволюцию и треки развития можно посмотреть в нашем интерактивном <a href='hr_roles_guide.html' class='cross-link' style='color:var(--ink); font-weight:600; text-decoration:underline; text-underline-offset:4px;'>Путеводителе по HR-ролям ↗</a>.",
-        hdrFuncs: "Целевые функции",
+        hdrRoles: "Базовые роли для вашей команды", hdrFuncs: "Целевые функции",
         tipFuncs: "Нажмите на блок, чтобы развернуть — с описанием, сигналами и владельцем.",
         tipBalance: "В компании разные части могут быть на разных стадиях. Ищите баланс.",
         btnShare: "↗ Поделиться результатом", btnRestart: "← Пройти заново",
@@ -421,7 +417,7 @@
     },
     en: {
       ui: {
-        navHome: "Home", navDiag: "Diagnostic", navGuide: "Roles", navStr: "Structeres"
+        navHome: "Home", navDiag: "Diagnostic", navGuide: "Roles",
         heroTitle: "HR Diagnostic for Founders",
         heroSub: "Answer a few questions about your company to discover your current maturity stage, required HR roles, and the target operating model you need to build.",
         s1: "Team", s2: "Growth", s3: "Ops", s4: "Result",
@@ -455,9 +451,7 @@
         matrixAlert: "Your current size doesn't require a 'zoo' of niche directors yet. Below is your baseline team, but their goal is to build processes <b>one level up</b> to sustain your growth pace.",
         matrixNote: "* Niche roles marked with an asterisk should temporarily be covered by your generalists.",
         lblSize: "Current Size:", lblTarget: "Target Stage:",
-        hdrRoles: "Baseline roles for your team",
-        tipRoles: "Detailed descriptions of each role, its evolution, and growth tracks can be found in our interactive <a href='hr_roles_guide.html' class='cross-link' style='color:var(--ink); font-weight:600; text-decoration:underline; text-underline-offset:4px;'>HR Roles Guide ↗</a>.",
-        hdrFuncs: "Target operating model",
+        hdrRoles: "Baseline roles for your team", hdrFuncs: "Target operating model",
         tipFuncs: "Click to expand for details, Definition of Done, and ownership.",
         tipBalance: "Different departments might be at different stages. Seek a balance between structure and agility.",
         btnShare: "↗ Share Result", btnRestart: "← Retake",
@@ -624,7 +618,6 @@
     document.getElementById('nav-home').textContent = d.navHome;
     document.getElementById('nav-diag').textContent = d.navDiag;
     document.getElementById('nav-guide').textContent = d.navGuide;
-    document.getElementById('nav-str').textContent = d.navStr;
 
     // HERO & UI
     document.getElementById('i18n-hero-title').innerText = d.heroTitle;
@@ -818,7 +811,6 @@
       ${matrixAlert}
       
       <div class="stage-header">${ui.hdrRoles}</div>
-      <p style="font-size:14px;color:var(--muted);margin-bottom:20px;">${ui.tipRoles}</p>
       <div class="roles-grid">${rolesHTML}</div>
       
       <div class="stage-header">${ui.hdrFuncs} (${processData.label})</div>
@@ -849,9 +841,6 @@
       </div>
     `;
     window.scrollTo({ top: 0, behavior: 'smooth' });
-    
-    // Обновляем ссылки внутри свежеотрисованного результата
-    updateCrossLinks();
   }
 
   function toggleFunc(header) { header.classList.toggle('open'); header.nextElementSibling.classList.toggle('open'); }
