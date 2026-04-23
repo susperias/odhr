@@ -36,7 +36,7 @@
   .hero-eyebrow { font-family: 'Unbounded', sans-serif; font-size: 10px; font-weight: 600; letter-spacing: 3px; text-transform: uppercase; color: var(--accent); margin-bottom: 28px; }
   .hero h1 { font-family: 'Unbounded', sans-serif; font-size: clamp(24px, 4vw, 46px); font-weight: 700; line-height: 1.15; color: white; max-width: 700px; margin-bottom: 24px; position: relative; z-index: 10; }
   .hero h1 em { font-style: normal; color: var(--accent); }
-  .hero-sub { font-size: 16px; color: #8fa0b8; line-height: 1.75; max-width: 520px; margin-bottom: 40px; position: relative; z-index: 10; }
+  .hero-sub { font-size: 16px; color: #8fa0b8; line-height: 1.75; max-width: 520px; margin-bottom: 0; position: relative; z-index: 10; }
 
   /* CONTAINER & LAYOUT */
   .container { max-width: 1020px; margin: 0 auto; padding: 0 32px; }
@@ -363,6 +363,7 @@
       <div class="footer-links">
         <a class="footer-link" href="https://t.me/ODHRAMA" target="_blank">✈ Telegram</a>
         <a class="footer-link" href="https://www.linkedin.com/in/ogrebenyuk" target="_blank">in LinkedIn</a>
+        <a class="footer-link" href="home.html#contact" id="footer-contact">✉ Написать мне</a>
       </div>
     </div>
     <div style="font-size:11px;color:#8fa0b8;text-align:right;line-height:1.7;" id="ui-footer-credit">
@@ -760,7 +761,7 @@ function toggleFunc(header) {
 /* ── LANG ── */
 const UI = {
   ru: { 
-    navHome:'Главная', navDiag:'Диагностика', navGuide:'Роли', navStr:'Структуры',
+    navHome:'Главная', navDiag:'Диагностика', navGuide:'Роли', navStr:'Структуры', fContact:'✉ Написать мне',
     title:'Карта HR-карьеры', 
     desc:'Интерактивный граф ролей, треков и переходов в HR-функции. Нажмите на любую роль — увидите что она делает, откуда приходят и куда можно вырасти.', 
     footerCredit:' ',
@@ -787,7 +788,7 @@ const UI = {
     swipeHint: '↔ Свайпайте карту вправо'
   },
   en: { 
-    navHome:'Home', navDiag:'Diagnostic', navGuide:'Roles', navStr:'Srtuctures',
+    navHome:'Home', navDiag:'Diagnostic', navGuide:'Roles', navStr:'Structures', fContact:'✉ Get in touch',
     title:'HR Career Map', 
     desc:'Interactive graph of roles, tracks and transitions in the HR function. Click any role to see what it does, where people come from, and where they can grow.', 
     footerCredit:' ',
@@ -836,6 +837,7 @@ function setLang(lang) {
   set('hero-sub', u.desc);
   set('ui-desc', u.desc);
   set('ui-footer-credit', u.footerCredit, true);
+  set('footer-contact', u.fContact);
   
   set('aud-found-label', u.audFoundL);
   set('aud-found-text', u.audFoundT);
