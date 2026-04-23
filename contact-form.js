@@ -312,18 +312,21 @@
 
     var payload = { name: name, email: email, message: message };
 
+    // Показываем успех сразу — не ждём ответа сервера
+    document.getElementById('odhr-form').style.display = 'none';
+    document.getElementById('odhr-success').classList.add('odhr-open');
+
+    // Отправляем в фоне; если сеть упала — показываем таблетку с email
     fetch(APPS_SCRIPT_URL, {
       method: 'POST',
       mode: 'no-cors',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(payload)
     })
-    .then(function () {
-      // no-cors → opaque response, treat as success
-      document.getElementById('odhr-form').style.display = 'none';
-      document.getElementById('odhr-success').classList.add('odhr-open');
-    })
     .catch(function () {
+      // Сеть недоступна — возвращаем форму с ошибкой
+      document.getElementById('odhr-success').classList.remove('odhr-open');
+      document.getElementById('odhr-form').style.display = 'flex';
       status.textContent = I18N[getLang()].errSend;
       status.className = 'err';
       btn.disabled = false;
