@@ -887,36 +887,71 @@
       </tr>`;
     }).join('')).join('');
 
-    const html = `
-      <div class="pv-header">
-        <div>
-          <div class="pv-title">${ui.printHeader}<br>${ui.lblTarget} ${processData.label}</div>
-          <div class="pv-meta">${ui.printCredit}</div>
-        </div>
-        <div class="pv-logo">ODHR JOURNAL<br><br>t.me/ODHRAMA</div>
-      </div>
-      
-      <div class="pv-status" style="background:${sc.bg};color:${sc.c};">
-        ${ui.lblSize} ${roleData.size}
-      </div>
-      
-      <table class="pv-table">
-        <thead>
-          <tr><th></th><th>${ui.lblRole} / Process</th><th>${ui.lblArea}</th><th>${ui.lblDoD}</th><th>${ui.lblOwner}</th></tr>
-        </thead>
-        <tbody>
-          <tr><td colspan="5" class="pv-section">ROLES</td></tr>
-          ${rRows}
-          <tr><td colspan="5" class="pv-section">FUNCTIONS & PROCESSES</td></tr>
-          ${fRows}
-        </tbody>
-      </table>
-    `;
-    
-    document.getElementById('print-content').innerHTML = html;
-    document.getElementById('app-view').style.display = 'none';
-    document.getElementById('print-view').style.display = 'block';
-    window.scrollTo(0,0);
+    const btnPrint = currentLang === 'ru' ? 'Сохранить как PDF / Печать' : 'Save as PDF / Print';
+    const btnClose = currentLang === 'ru' ? '← Вернуться к результатам' : '← Back to results';
+
+    const printHTML = `<!DOCTYPE html>
+<html lang="${currentLang}">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>${ui.printHeader}</title>
+  <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@300;400;600;700&family=Golos+Text:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Golos Text', sans-serif; background: #faf8f2; color: #2d3f5c; padding: 40px 20px; }
+    .print-controls { background: white; padding: 24px; border-radius: 12px; display: flex; align-items: center; gap: 16px; margin-bottom: 40px; border: 1px dashed #d4d0c8; flex-wrap: wrap; }
+    .btn-print { font-family: 'Unbounded', sans-serif; font-size: 12px; font-weight: 700; letter-spacing: 1px; padding: 14px 28px; background: #f0a830; color: #2d3f5c; border: none; border-radius: 8px; cursor: pointer; }
+    .btn-print:hover { background: #e09820; }
+    .btn-close { font-family: 'Unbounded', sans-serif; font-size: 11px; font-weight: 600; letter-spacing: 1px; padding: 14px 24px; background: transparent; color: #2d3f5c; border: 1.5px solid #d4d0c8; border-radius: 8px; cursor: pointer; }
+    .btn-close:hover { border-color: #2d3f5c; }
+    .pv-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 32px; padding-bottom: 20px; border-bottom: 3px solid #2d3f5c; }
+    .pv-title { font-family: 'Unbounded', sans-serif; font-size: 22px; font-weight: 700; line-height: 1.2; }
+    .pv-meta { font-size: 12px; color: #7a8a9a; margin-top: 6px; }
+    .pv-logo { font-family: 'Unbounded', sans-serif; font-size: 11px; font-weight: 600; color: #7a8a9a; text-align: right; letter-spacing: 1px; }
+    .pv-status { display: inline-flex; padding: 8px 16px; border-radius: 8px; font-family: 'Unbounded', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 1px; margin-bottom: 20px; background: ${sc.bg}; color: ${sc.c}; }
+    table { width: 100%; border-collapse: collapse; background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 2px 12px rgba(0,0,0,0.06); margin-bottom: 20px; text-align: left; }
+    th { padding: 12px; font-family: 'Unbounded', sans-serif; font-size: 9px; letter-spacing: 2px; text-transform: uppercase; color: #7a8a9a; background: #faf8f2; border-bottom: 2px solid #d4d0c8; }
+    td { padding: 10px 12px; border-bottom: 1px solid #d4d0c8; font-size: 12px; }
+    .pv-section { font-family: 'Unbounded', sans-serif; font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; padding: 12px; background: #faf8f2; color: #7a8a9a; border-bottom: 2px solid #d4d0c8; }
+    @media print {
+      .print-controls { display: none !important; }
+      body { padding: 0; background: white; }
+    }
+  </style>
+</head>
+<body>
+  <div class="print-controls">
+    <button class="btn-print" onclick="window.print()">🖨 ${btnPrint}</button>
+    <button class="btn-close" onclick="window.close()">← ${btnClose}</button>
+  </div>
+  <div class="pv-header">
+    <div>
+      <div class="pv-title">${ui.printHeader}<br>${ui.lblTarget} ${processData.label}</div>
+      <div class="pv-meta">${ui.printCredit}</div>
+    </div>
+    <div class="pv-logo">ODHR JOURNAL<br><br>t.me/ODHRAMA</div>
+  </div>
+  <div class="pv-status">${ui.lblSize} ${roleData.size}</div>
+  <table>
+    <thead>
+      <tr><th></th><th>${ui.lblRole} / Process</th><th>${ui.lblArea}</th><th>${ui.lblDoD}</th><th>${ui.lblOwner}</th></tr>
+    </thead>
+    <tbody>
+      <tr><td colspan="5" class="pv-section">ROLES</td></tr>
+      ${rRows}
+      <tr><td colspan="5" class="pv-section">FUNCTIONS & PROCESSES</td></tr>
+      ${fRows}
+    </tbody>
+  </table>
+</body>
+</html>`;
+
+    const tab = window.open('', '_blank');
+    if (tab) {
+      tab.document.write(printHTML);
+      tab.document.close();
+    }
   }
 
   function closePrintView() {
