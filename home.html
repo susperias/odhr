@@ -9,6 +9,7 @@
 <link rel="stylesheet" href="global.css">
 <style>
   /* --- Уникальные стили home.html --- */
+  /* HERO */
   .hero { background: var(--ink); padding: 72px 40px 80px; position: relative; overflow: hidden; }
   .hero::before { content: 'OD'; position: absolute; right: -20px; top: -10px; font-family: 'Unbounded', sans-serif; font-size: 260px; font-weight: 700; opacity: 0.035; line-height: 1; pointer-events: none; color: white; }
   .hero-eyebrow { font-family: 'Unbounded', sans-serif; font-size: 10px; font-weight: 600; letter-spacing: 3px; text-transform: uppercase; color: var(--accent); margin-bottom: 28px; }
@@ -16,17 +17,31 @@
   .hero h1 em { font-style: normal; color: var(--accent); }
   .hero-sub { font-size: 16px; color: #8fa0b8; line-height: 1.75; max-width: 520px; margin-bottom: 40px; position: relative; z-index: 10; }
   .cta-row { display: flex; gap: 12px; flex-wrap: wrap; position: relative; z-index: 10; }
+  .btn-primary { font-family: 'Unbounded', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 1px; padding: 14px 28px; background: var(--accent); color: var(--ink); border: none; border-radius: 8px; cursor: pointer; text-decoration: none; transition: all 0.2s; display: inline-block; }
+  .btn-primary:hover { background: #e09820; }
+  .btn-ghost { font-family: 'Unbounded', sans-serif; font-size: 11px; font-weight: 600; letter-spacing: 1px; padding: 14px 28px; background: transparent; color: rgba(255,255,255,0.7); border: 1.5px solid rgba(255,255,255,0.2); border-radius: 8px; cursor: pointer; text-decoration: none; transition: all 0.2s; display: inline-block; }
+  .btn-ghost:hover { border-color: white; color: white; }
+
+  /* SECTIONS */
   .section { padding: 64px 0; }
+  .section-label { font-family: 'Unbounded', sans-serif; font-size: 9px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--muted); margin-bottom: 28px; }
   .section-sub { font-size: 15px; color: var(--muted); line-height: 1.75; max-width: 540px; margin-bottom: 40px; }
+  .divider { height: 1.5px; background: var(--border); }
+
+  /* PAIN */
   .pain-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
   .pain-card { border: 1.5px solid var(--border); border-radius: 12px; padding: 24px; background: var(--cream); }
   .pain-card-title { font-size: 14px; font-weight: 600; margin-bottom: 8px; line-height: 1.4; }
   .pain-card-desc { font-size: 13px; color: var(--muted); line-height: 1.6; }
+
+  /* HOW */
   .how-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
   .how-card { padding: 28px 24px; border-radius: 12px; background: var(--ink); color: white; }
   .how-num { font-family: 'Unbounded', sans-serif; font-size: 28px; font-weight: 700; color: var(--accent); margin-bottom: 16px; line-height: 1; }
   .how-title { font-family: 'Unbounded', sans-serif; font-size: 13px; font-weight: 600; margin-bottom: 10px; }
   .how-desc { font-size: 13px; color: #8fa0b8; line-height: 1.6; }
+
+  /* FORMATS */
   .formats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
   .format-card { border: 1.5px solid var(--border); border-radius: 14px; padding: 32px; background: var(--cream); }
   .format-tag { font-family: 'Unbounded', sans-serif; font-size: 9px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--accent); margin-bottom: 10px; }
@@ -35,10 +50,14 @@
   .format-list { list-style: none; display: flex; flex-direction: column; gap: 6px; }
   .format-list li { font-size: 12px; color: var(--ink); padding-left: 16px; position: relative; line-height: 1.5; }
   .format-list li::before { content: '—'; position: absolute; left: 0; color: var(--accent); font-weight: 700; }
+
+  /* RESULTS */
   .results-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
   .result-card { padding: 24px 16px; border-radius: 12px; background: var(--cream); border: 1.5px solid var(--border); text-align: center; }
   .result-num { font-family: 'Unbounded', sans-serif; font-size: 24px; font-weight: 700; color: var(--accent); margin-bottom: 8px; line-height: 1; }
   .result-desc { font-size: 11px; color: var(--muted); line-height: 1.5; }
+
+  /* TOOLS */
   .tools-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
   .tool-card { border: 1.5px solid var(--border); border-radius: 14px; padding: 28px; background: var(--cream); text-decoration: none; color: var(--ink); display: flex; flex-direction: column; gap: 8px; transition: all 0.2s; position: relative; }
   .tool-card::after { content: '→'; position: absolute; top: 24px; right: 24px; font-family: 'Unbounded', sans-serif; font-size: 16px; color: var(--border); transition: all 0.2s; }
@@ -48,6 +67,8 @@
   .tool-tag { font-family: 'Unbounded', sans-serif; font-size: 9px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); }
   .tool-name { font-family: 'Unbounded', sans-serif; font-size: 13px; font-weight: 700; line-height: 1.3; padding-right: 24px; }
   .tool-desc { font-size: 13px; color: var(--muted); line-height: 1.6; }
+
+  /* ABOUT */
   .about-grid { display: grid; grid-template-columns: 1fr 300px; gap: 52px; align-items: start; }
   .about-text p { font-size: 14px; line-height: 1.85; color: var(--muted); margin-bottom: 14px; max-width: 500px; }
   .about-text p strong { color: var(--ink); }
@@ -63,12 +84,31 @@
   .author-links { display: flex; flex-direction: column; gap: 8px; }
   .author-link { display: flex; align-items: center; gap: 10px; font-family: 'Unbounded', sans-serif; font-size: 10px; font-weight: 600; letter-spacing: 1px; color: var(--ink); text-decoration: none; padding: 11px 16px; border: 1.5px solid var(--border); border-radius: 8px; transition: all 0.2s; }
   .author-link:hover { border-color: var(--ink); color: var(--accent); }
+
+  /* CTA BLOCK */
   .cta-block { background: var(--ink); border-radius: 20px; padding: 52px 48px; margin: 64px 0; display: grid; grid-template-columns: 1fr auto; gap: 40px; align-items: center; }
   .cta-block-title { font-family: 'Unbounded', sans-serif; font-size: clamp(16px, 2.5vw, 24px); font-weight: 700; color: white; line-height: 1.2; margin-bottom: 10px; }
   .cta-block-sub { font-size: 14px; color: #8fa0b8; line-height: 1.6; }
 
+  /* FOOTER */
+  .site-footer { background: var(--ink); color: white; padding: 40px; }
+  .footer-inner { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 24px; }
+  .footer-brand { font-family: 'Unbounded', sans-serif; font-size: 13px; font-weight: 700; letter-spacing: 2px; color: var(--accent); }
+  .footer-brand span { display: block; font-size: 10px; font-weight: 400; color: #8fa0b8; margin-top: 4px; letter-spacing: 1px; }
+  .footer-links { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 12px; }
+  .footer-link { display: inline-flex; align-items: center; gap: 8px; font-family: 'Unbounded', sans-serif; font-size: 10px; font-weight: 600; letter-spacing: 1px; color: white; text-decoration: none; padding: 10px 18px; border: 1.5px solid rgba(255,255,255,0.2); border-radius: 8px; transition: all 0.2s; }
+  .footer-link:hover { border-color: var(--accent); color: var(--accent); }
+  .footer-copy { font-size: 11px; color: #8fa0b8; text-align: right; line-height: 1.7; }
+
+  /* АДАПТИВ */
   @media (max-width: 768px) {
+    .site-nav { padding: 0 20px; }
+    .menu-toggle { display: block; }
+    .nav-menu { display: none; position: absolute; top: 64px; left: 0; width: 100%; background: var(--ink); flex-direction: column; padding: 20px 0; border-bottom: 1px solid rgba(255,255,255,0.1); box-shadow: 0 8px 24px rgba(0,0,0,0.2); }
+    .nav-menu.open { display: flex; }
+    
     .hero { padding: 48px 20px 56px; }
+    .container { padding: 0 20px; }
     .pain-grid, .formats-grid, .tools-grid, .results-grid, .how-grid, .about-grid { grid-template-columns: 1fr; }
     .results-grid { grid-template-columns: 1fr 1fr; }
     .cta-block { grid-template-columns: 1fr; padding: 36px 24px; }
@@ -79,12 +119,14 @@
 
 <nav class="site-nav">
   <a href="home.html" class="nav-brand">ODHR</a>
+  
   <div class="nav-menu" id="nav-menu">
     <a href="home.html" class="nav-link active cross-link" id="nav-home">Главная</a>
     <a href="index.html" class="nav-link cross-link" id="nav-diag">Диагностика</a>
     <a href="hr_roles_guide.html" class="nav-link cross-link" id="nav-guide">Роли</a>
     <a href="structure.html" class="nav-link cross-link" id="nav-str">Структуры</a>
   </div>
+  
   <div class="nav-actions">
     <div class="lang-toggle">
       <button class="lang-btn active" onclick="changePageLang('ru')" id="btn-lang-ru">RU</button>
@@ -138,13 +180,23 @@
         <div class="format-tag" id="f1tag">Проект</div>
         <div class="format-title" id="f1title">Конкретная задача, ограниченные сроки</div>
         <div class="format-desc" id="f1desc">Берём одну проблему и решаем её до конца. С чёткими этапами, результатами и сроками.</div>
-        <ul class="format-list" id="f1list"></ul>
+        <ul class="format-list" id="f1list">
+          <li>Диагностика структуры и ролей</li>
+          <li>Редизайн операционной модели</li>
+          <li>Выстраивание HR-функции с нуля</li>
+          <li>Внедрение матриц компетенций</li>
+        </ul>
       </div>
       <div class="format-card">
         <div class="format-tag" id="f2tag">Парт-тайм фракция</div>
         <div class="format-title" id="f2title">Ongoing-партнёр в команде</div>
         <div class="format-desc" id="f2desc">Вхожу в команду на регулярной основе — как fractional CHRO или Head of People. Без найма в штат.</div>
-        <ul class="format-list" id="f2list"></ul>
+        <ul class="format-list" id="f2list">
+          <li>Стратегия HR и орг-дизайн</li>
+          <li>Поддержка CEO и лидов</li>
+          <li>Найм, культура, процессы</li>
+          <li>Управление изменениями</li>
+        </ul>
       </div>
     </div>
   </section>
@@ -192,7 +244,11 @@
         <p id="ab2">Мой путь в HR нелинейный, и в этом моя сильная сторона. Cмотрю на компанию <strong>с трех сторон одновременно:</strong> как строятся бизнес-процессы, как работает структура и как в эту систему встроены люди.</p>
         <p id="ab3">Мой бэкграунд до HR помогает мне понимать бизнес изнутри и говорить с ним на одном языке.</p>
         <div class="path-row">
-          <span class="path-item" id="path1">Маркетинг</span><span class="path-item" id="path2">Операции</span><span class="path-item" id="path3">PM</span><span class="path-item" id="path4">HR</span><span class="path-item" id="path5">OD</span>
+          <span class="path-item" id="path1">Маркетинг</span>
+          <span class="path-item" id="path2">Операции</span>
+          <span class="path-item" id="path3">PM</span>
+          <span class="path-item" id="path4">HR</span>
+          <span class="path-item" id="path5">OD</span>
         </div>
       </div>
       <div>
@@ -220,6 +276,7 @@
     </div>
     <a href="#" data-contact-trigger class="btn-primary" id="cta-btn">Написать мне →</a>
   </div>
+
 </div>
 
 <footer class="site-footer">
@@ -244,62 +301,123 @@
   const T = {
     ru: {
       navHome:'Главная', navDiag:'Диагностика', navGuide:'Роли', navStr:'Структуры',
-      eyebrow:'HR · OD · PM', h1:'Помогаю растущим командам масштабироваться без хаоса и потери сильных людей.', sub:'Провожу аудит оргструктуры и HR-процессов. Нахожу скрытые узкие горлышки и проектирую систему, которая будет поддерживать бизнес, а не тормозить его.', cta1:'Написать мне', cta2:'Посмотреть инструменты',
+      eyebrow:'HR · OD · PM',
+      h1:'Помогаю растущим командам масштабироваться без хаоса и потери сильных людей.',
+      sub:'Провожу аудит оргструктуры и HR-процессов. Нахожу скрытые узкие горлышки и проектирую систему, которая будет поддерживать бизнес, а не тормозить его.',
+      cta1:'Написать мне', cta2:'Посмотреть инструменты',
       painLbl:'Узнаёте себя?',
-      p1t:'Команда растёт, но быстрее не становится', p1d:'Нанимаете всё больше, а что-то всё равно не работает. Проблема не в людях — в структуре.', p2t:'Ценности декларируете — процессы противоречат', p2d:'Компания говорит, что гибка и человекоориентирована. Но оргструктура и система стимулов рассказывают другую историю.', p3t:'Все решения замыкаются на вас', p3d:'Ваши лиды — лучшие исполнители, но их не учили управлять. Ответственность размыта. Вы стали бутылочным горлышком.', p4t:'Чувствуете, что что-то не так — но не можете назвать что', p4d:'Компания растёт, цифры в порядке, но что-то не то. Уходят сильные люди. Энергия первых лет исчезла.',
+      p1t:'Команда растёт, но быстрее не становится', p1d:'Нанимаете всё больше, а что-то всё равно не работает. Проблема не в людях — в структуре.',
+      p2t:'Ценности декларируете — процессы противоречат', p2d:'Компания говорит, что гибка и человекоориентирована. Но оргструктура и система стимулов рассказывают другую историю.',
+      p3t:'Все решения замыкаются на вас', p3d:'Ваши лиды — лучшие исполнители, но их не учили управлять. Ответственность размыта. Вы стали бутылочным горлышком.',
+      p4t:'Чувствуете, что что-то не так — но не можете назвать что', p4d:'Компания растёт, цифры в порядке, но что-то не то. Уходят сильные люди. Энергия первых лет исчезла.',
       howLbl:'Как я работаю',
-      h1t:'Диагностика', h1d:'Смотрю на структуру, роли, процессы, принятие решений. Нахожу, где именно скрыто несоответствие между стратегией и тем, как компания реально устроена.', h2t:'Проектирование', h2d:'Вместе проектируем структуру, которая поддерживает ваши амбиции — не шаблон, а решение под ваш конкретный контекст, стадию и людей.', h3t:'Сопровождение', h3d:'Изменения без поддержки не приживаются. Остаюсь на переходный период — помогаю команде адаптироваться и слежу за тем, работает ли это на самом деле.',
+      h1t:'Диагностика', h1d:'Смотрю на структуру, роли, процессы, принятие решений. Нахожу, где именно скрыто несоответствие между стратегией и тем, как компания реально устроена.',
+      h2t:'Проектирование', h2d:'Вместе проектируем структуру, которая поддерживает ваши амбиции — не шаблон, а решение под ваш конкретный контекст, стадию и людей.',
+      h3t:'Сопровождение', h3d:'Изменения без поддержки не приживаются. Остаюсь на переходный период — помогаю команде адаптироваться и слежу за тем, работает ли это на самом деле.',
       fmtLbl:'Форматы сотрудничества', fmtSub:'Работаю в двух форматах — в зависимости от того, что нужно компании прямо сейчас.',
-      f1tag:'Проект', f1t:'Конкретная задача, ограниченные сроки', f1d:'Берём одну проблему и решаем её до конца. С чёткими этапами, результатами и сроками.', f1l:['Диагностика структуры и ролей','Редизайн операционной модели','Выстраивание HR-функции с нуля','Внедрение матриц компетенций'],
-      f2tag:'Парт-тайм фракция', f2t:'Ongoing-партнёр в команде', f2d:'Вхожу в команду на регулярной основе — как fractional CHRO или Head of People. Без найма в штат.', f2l:['Стратегия HR и орг-дизайн','Поддержка CEO и лидов','Найм, культура, процессы','Управление изменениями'],
-      resLbl:'Результаты', r1:'операционных расходов через редизайн оргструктуры и ролей', r2:'индекс развития сотрудников после внедрения матриц компетенций', r3:'ручных HR-операций через сквозную автоматизацию', r4:'рост NPS после внедрения фреймворка качества коммуникаций',
+      f1tag:'Проект', f1t:'Конкретная задача, ограниченные сроки', f1d:'Берём одну проблему и решаем её до конца. С чёткими этапами, результатами и сроками.',
+      f1l:['Диагностика структуры и ролей','Редизайн операционной модели','Выстраивание HR-функции с нуля','Внедрение матриц компетенций'],
+      f2tag:'Парт-тайм фракция', f2t:'Ongoing-партнёр в команде', f2d:'Вхожу в команду на регулярной основе — как fractional CHRO или Head of People. Без найма в штат.',
+      f2l:['Стратегия HR и орг-дизайн','Поддержка CEO и лидов','Найм, культура, процессы','Управление изменениями'],
+      resLbl:'Результаты',
+      r1:'операционных расходов через редизайн оргструктуры и ролей',
+      r2:'индекс развития сотрудников после внедрения матриц компетенций',
+      r3:'ручных HR-операций через сквозную автоматизацию',
+      r4:'рост NPS после внедрения фреймворка качества коммуникаций',
       toolsLbl:'Инструменты', toolsSub:'Бесплатные инструменты — чтобы начать разбираться самостоятельно.',
-      t1tag:'Диагностика', t1n:'HR-диагностика для фаундеров', t1d:'3 вопроса — поймёте статус HR-функции, какие роли нужны и что выстраивать в первую очередь.', t2tag:'Справочник', t2n:'Гайд по HR-ролям', t2d:'Архитектура HR-ролей по стадиям роста. Фаундерам — чтобы понять, кого нанимать. HR-ам — чтобы спланировать карьеру.',
-      aboutLbl:'Об авторе', ab1:'<strong>13 лет внутри Яндекса</strong> — путь от специалиста по маркетингу до PM в операционном департаменте и руководства HR-проектами и оргдизайном. Я занималась организационным дизайном до того, как узнала, что это так называется.', ab2:'Мой путь в HR нелинейный, и в этом моя сильная сторона. Cмотрю на компанию <strong>с трех сторон одновременно:</strong> как строятся бизнес-процессы, как работает структура и как в эту систему встроены люди.', ab3:'Мой бэкграунд до HR помогает мне понимать бизнес изнутри и говорить с ним на одном языке.', paths:['Маркетинг','Операции','PM','HR','OD'],
-      aRole:'HR · OD · PM<br>ex-Яндекс', s1:'лет опыта', s2:'человек в командах', aEmail:'✉ grebenallka@gmail.com',
-      ctaT:'Чувствуете, что пора разобраться?', ctaS:'Напишите — обсудим, что происходит в команде и чем могу помочь. Без обязательств.', ctaB:'Написать мне →', fContact:'✉ Написать мне', fCopy:' '
+      t1tag:'Диагностика', t1n:'HR-диагностика для фаундеров', t1d:'3 вопроса — поймёте статус HR-функции, какие роли нужны и что выстраивать в первую очередь.',
+      t2tag:'Справочник', t2n:'Гайд по HR-ролям', t2d:'Архитектура HR-ролей по стадиям роста. Фаундерам — чтобы понять, кого нанимать. HR-ам — чтобы спланировать карьеру.',
+      aboutLbl:'Об авторе',
+      ab1:'<strong>13 лет внутри Яндекса</strong> — путь от специалиста по маркетингу до PM в операционном департаменте и руководства HR-проектами и оргдизайном. Я занималась организационным дизайном до того, как узнала, что это так называется.',
+      ab2:'Мой путь в HR нелинейный, и в этом моя сильная сторона. Cмотрю на компанию <strong>с трех сторон одновременно:</strong> как строятся бизнес-процессы, как работает структура и как в эту систему встроены люди.',
+      ab3:'Мой бэкграунд до HR помогает мне понимать бизнес изнутри и говорить с ним на одном языке.',
+      paths:['Маркетинг','Операции','PM','HR','OD'],
+      aRole:'HR · OD · PM<br>ex-Яндекс', s1:'лет опыта', s2:'человек в командах',
+      aEmail:'✉ grebenallka@gmail.com',
+      ctaT:'Чувствуете, что пора разобраться?', ctaS:'Напишите — обсудим, что происходит в команде и чем могу помочь. Без обязательств.', ctaB:'Написать мне →', fContact:'✉ Написать мне',
+      fCopy:' ',
     },
     en: {
       navHome:'Home', navDiag:'Diagnostic', navGuide:'Roles', navStr:'Structures',
-      eyebrow:'HR · OD · PM', h1:'I help growing teams scale without chaos and losing strong people.', sub:'I audit org structure and HR processes. I find hidden bottlenecks and design a system that supports the business instead of slowing it down.', cta1:'Get in touch', cta2:'See tools',
+      eyebrow:'HR · OD · PM',
+      h1:'I help growing teams scale without chaos and losing strong people.',
+      sub:'I audit org structure and HR processes. I find hidden bottlenecks and design a system that supports the business instead of slowing it down.',
+      cta1:'Get in touch', cta2:'See tools',
       painLbl:'Does this sound familiar?',
-      p1t:'Team grows, speed doesn\'t', p1d:'You keep hiring, but something still doesn\'t work. The problem isn\'t in the people — it\'s in the structure.', p2t:'Values declared, processes contradict', p2d:'The company claims to be agile and people-first. But org structure and incentives tell a different story.', p3t:'Every decision runs through you', p3d:'Your leads are great executors, but nobody taught them to manage. Accountability is blurry. You\'ve become the bottleneck.', p4t:"You sense something is wrong, but can't name it", p4d:"The company is growing, numbers are fine, but something feels off. Experienced people are leaving. The early energy is gone.",
+      p1t:'Team grows, speed doesn\'t', p1d:'You keep hiring, but something still doesn\'t work. The problem isn\'t in the people — it\'s in the structure.',
+      p2t:'Values declared, processes contradict', p2d:'The company claims to be agile and people-first. But org structure and incentives tell a different story.',
+      p3t:'Every decision runs through you', p3d:'Your leads are great executors, but nobody taught them to manage. Accountability is blurry. You\'ve become the bottleneck.',
+      p4t:"You sense something is wrong, but can't name it", p4d:"The company is growing, numbers are fine, but something feels off. Experienced people are leaving. The early energy is gone.",
       howLbl:'How I work',
-      h1t:'Diagnostic', h1d:'We look at structure, roles, processes, and decision-making. I identify where the misalignment between strategy and how the company is actually built is hiding.', h2t:'Design', h2d:'Together we design a structure that supports your ambitions — not a template, but a solution built around your specific context, stage, and people.', h3t:'Support', h3d:"Change without support doesn't stick. I stay through the transition — helping the team adapt, making adjustments, and tracking whether it's actually working.",
+      h1t:'Diagnostic', h1d:'We look at structure, roles, processes, and decision-making. I identify where the misalignment between strategy and how the company is actually built is hiding.',
+      h2t:'Design', h2d:'Together we design a structure that supports your ambitions — not a template, but a solution built around your specific context, stage, and people.',
+      h3t:'Support', h3d:"Change without support doesn't stick. I stay through the transition — helping the team adapt, making adjustments, and tracking whether it's actually working.",
       fmtLbl:'How we can work together', fmtSub:'Two formats — depending on what the company needs right now.',
-      f1tag:'Project', f1t:'Specific task, defined timeline', f1d:'We take one problem and solve it end-to-end. Clear stages, deliverables and timeline.', f1l:['Structure and role diagnostics','Operating model redesign','Building HR function from scratch','Competency matrix implementation'],
-      f2tag:'Fractional', f2t:'Ongoing partner in your team', f2d:"I join the team on a regular basis — as fractional CHRO or Head of People. No full-time hire needed.", f2l:['HR strategy and org design','CEO and leadership support','Hiring, culture, processes','Change management'],
-      resLbl:'Results', r1:'reduction in operational costs through org and role redesign', r2:'employee development index after competency matrices', r3:'reduction in manual HR operations through end-to-end automation', r4:'NPS growth after communication quality framework',
+      f1tag:'Project', f1t:'Specific task, defined timeline', f1d:'We take one problem and solve it end-to-end. Clear stages, deliverables and timeline.',
+      f1l:['Structure and role diagnostics','Operating model redesign','Building HR function from scratch','Competency matrix implementation'],
+      f2tag:'Fractional', f2t:'Ongoing partner in your team', f2d:"I join the team on a regular basis — as fractional CHRO or Head of People. No full-time hire needed.",
+      f2l:['HR strategy and org design','CEO and leadership support','Hiring, culture, processes','Change management'],
+      resLbl:'Results',
+      r1:'reduction in operational costs through org and role redesign',
+      r2:'employee development index after competency matrices',
+      r3:'reduction in manual HR operations through end-to-end automation',
+      r4:'NPS growth after communication quality framework',
       toolsLbl:'Tools', toolsSub:'Free tools to start figuring things out on your own.',
-      t1tag:'Diagnostic', t1n:'HR Diagnostic for Founders', t1d:'3 questions — understand your HR function status, which roles you need and what to build first.', t2tag:'Reference', t2n:'HR Roles Guide', t2d:'HR roles architecture by growth stage. For founders: who to hire. For HRs: how to grow your career.',
-      aboutLbl:'About', ab1:'<strong>13 years inside Yandex</strong> — a journey from a marketing specialist to an Operations PM and, finally, leading HR projects and org design. I was doing organizational design long before I knew it had a name.', ab2:'My career path in HR is non-linear, and that is my greatest strength. Look at a company from <strong>three perspectives simultaneously:</strong> business processes, organizational structure, and how people fit into it.', ab3:'My pre-HR background allows me to understand how a business works from the inside.', paths:['Marketing','Operations','PM','HR','OD'],
-      aRole:'HR · OD · PM<br>ex-Yandex', s1:'years experience', s2:'people in teams', aEmail:'✉ grebenallka@gmail.com',
-      ctaT:"Feel like it's time to figure things out?", ctaS:"Write to me — we'll talk about what's happening in your team and how I can help. No commitment.", ctaB:'Get in touch →', fContact:'✉ Get in touch', fCopy:' '
+      t1tag:'Diagnostic', t1n:'HR Diagnostic for Founders', t1d:'3 questions — understand your HR function status, which roles you need and what to build first.',
+      t2tag:'Reference', t2n:'HR Roles Guide', t2d:'HR roles architecture by growth stage. For founders: who to hire. For HRs: how to grow your career.',
+      aboutLbl:'About',
+      ab1:'<strong>13 years inside Yandex</strong> — a journey from a marketing specialist to an Operations PM and, finally, leading HR projects and org design. I was doing organizational design long before I knew it had a name.',
+      ab2:'My career path in HR is non-linear, and that is my greatest strength. Look at a company from <strong>three perspectives simultaneously:</strong> business processes, organizational structure, and how people fit into it.',
+      ab3:'My pre-HR background allows me to understand how a business works from the inside.',
+      paths:['Marketing','Operations','PM','HR','OD'],
+      aRole:'HR · OD · PM<br>ex-Yandex', s1:'years experience', s2:'people in teams',
+      aEmail:'✉ grebenallka@gmail.com',
+      ctaT:"Feel like it's time to figure things out?", ctaS:"Write to me — we'll talk about what's happening in your team and how I can help. No commitment.", ctaB:'Get in touch →', fContact:'✉ Get in touch',
+      fCopy:' ',
     }
   };
 
+  function set(id, val, html) { const el = document.getElementById(id); if (!el) return; html ? el.innerHTML = val : el.textContent = val; }
+
   function applyPageLang(lang) {
     const l = T[lang];
-    App.setText('nav-home', l.navHome); App.setText('nav-diag', l.navDiag); App.setText('nav-guide', l.navGuide); App.setText('nav-str', l.navStr);
-    App.setText('hero-eyebrow', l.eyebrow); App.setText('hero-title', l.h1, true); App.setText('hero-sub', l.sub);
-    App.setText('cta-primary', l.cta1); App.setText('cta-secondary', l.cta2);
-    App.setText('pain-label', l.painLbl); App.setText('p1t', l.p1t); App.setText('p1d', l.p1d); App.setText('p2t', l.p2t); App.setText('p2d', l.p2d); App.setText('p3t', l.p3t); App.setText('p3d', l.p3d); App.setText('p4t', l.p4t); App.setText('p4d', l.p4d);
-    App.setText('how-label', l.howLbl); App.setText('h1t', l.h1t); App.setText('h1d', l.h1d); App.setText('h2t', l.h2t); App.setText('h2d', l.h2d); App.setText('h3t', l.h3t); App.setText('h3d', l.h3d);
-    App.setText('fmt-label', l.fmtLbl); App.setText('fmt-sub', l.fmtSub);
-    App.setText('f1tag', l.f1tag); App.setText('f1title', l.f1t); App.setText('f1desc', l.f1d); App.setText('f1list', l.f1l.map(i => `<li>${i}</li>`).join(''), true);
-    App.setText('f2tag', l.f2tag); App.setText('f2title', l.f2t); App.setText('f2desc', l.f2d); App.setText('f2list', l.f2l.map(i => `<li>${i}</li>`).join(''), true);
-    App.setText('res-label', l.resLbl); App.setText('r1', l.r1); App.setText('r2', l.r2); App.setText('r3', l.r3); App.setText('r4', l.r4);
-    App.setText('tools-label', l.toolsLbl); App.setText('tools-sub', l.toolsSub);
-    App.setText('t1tag', l.t1tag); App.setText('t1name', l.t1n); App.setText('t1desc', l.t1d); App.setText('t2tag', l.t2tag); App.setText('t2name', l.t2n); App.setText('t2desc', l.t2d);
-    App.setText('about-label', l.aboutLbl); App.setText('ab1', l.ab1, true); App.setText('ab2', l.ab2, true); App.setText('ab3', l.ab3);
-    const pathIds = ['path1','path2','path3','path4','path5']; l.paths.forEach((p, i) => { if (pathIds[i]) App.setText(pathIds[i], p); });
-    App.setText('a-role', l.aRole, true); App.setText('s1', l.s1); App.setText('s2', l.s2); App.setText('a-email', l.aEmail);
-    App.setText('cta-title', l.ctaT); App.setText('cta-sub', l.ctaS); App.setText('cta-btn', l.ctaB);
-    App.setText('footer-contact', l.fContact); App.setText('f-copy', l.fCopy, true);
+    
+    set('nav-home', l.navHome); set('nav-diag', l.navDiag); set('nav-guide', l.navGuide); set('nav-str', l.navStr);
+    set('hero-eyebrow', l.eyebrow);
+    set('hero-title', l.h1, true); set('hero-sub', l.sub);
+    set('cta-primary', l.cta1); set('cta-secondary', l.cta2);
+    set('pain-label', l.painLbl);
+    set('p1t', l.p1t); set('p1d', l.p1d); set('p2t', l.p2t); set('p2d', l.p2d);
+    set('p3t', l.p3t); set('p3d', l.p3d); set('p4t', l.p4t); set('p4d', l.p4d);
+    set('how-label', l.howLbl);
+    set('h1t', l.h1t); set('h1d', l.h1d); set('h2t', l.h2t); set('h2d', l.h2d); set('h3t', l.h3t); set('h3d', l.h3d);
+    set('fmt-label', l.fmtLbl); set('fmt-sub', l.fmtSub);
+    set('f1tag', l.f1tag); set('f1title', l.f1t); set('f1desc', l.f1d);
+    set('f1list', l.f1l.map(i => '<li>' + i + '</li>').join(''), true);
+    set('f2tag', l.f2tag); set('f2title', l.f2t); set('f2desc', l.f2d);
+    set('f2list', l.f2l.map(i => '<li>' + i + '</li>').join(''), true);
+    set('res-label', l.resLbl); set('r1', l.r1); set('r2', l.r2); set('r3', l.r3); set('r4', l.r4);
+    set('tools-label', l.toolsLbl); set('tools-sub', l.toolsSub);
+    set('t1tag', l.t1tag); set('t1name', l.t1n); set('t1desc', l.t1d);
+    set('t2tag', l.t2tag); set('t2name', l.t2n); set('t2desc', l.t2d);
+    set('about-label', l.aboutLbl);
+    set('ab1', l.ab1, true); set('ab2', l.ab2, true); set('ab3', l.ab3);
+    const pathIds = ['path1','path2','path3','path4','path5'];
+    l.paths.forEach((p, i) => { if (pathIds[i]) set(pathIds[i], p); });
+    set('a-role', l.aRole, true); set('s1', l.s1); set('s2', l.s2);
+    set('a-email', l.aEmail);
+    set('cta-title', l.ctaT); set('cta-sub', l.ctaS); set('cta-btn', l.ctaB);
+    set('footer-contact', l.fContact);
+    set('f-copy', l.fCopy, true);
+    
+
   }
+
+
 
   function changePageLang(lang) { App.setLanguage(lang, applyPageLang); }
   window.addEventListener('DOMContentLoaded', () => applyPageLang(App.currentLang));
 </script>
 </body>
 </html>
+
