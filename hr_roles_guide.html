@@ -112,22 +112,56 @@
 </section>
 
 <div class="container">
+
   <div class="guide-section">
     <div class="section-label" id="guide-label">Как пользоваться картой</div>
-    <p class="guide-intro" id="guide-intro">Карта показывает <strong>9 функциональных треков</strong>...</p>
+    <p class="guide-intro" id="guide-intro">Карта показывает <strong>9 функциональных треков HR-функции</strong> и переходы между ролями внутри и между ними. Строки — треки, столбцы — уровни грейда от Entry до C-level. <strong>Сплошные линии</strong> — рост внутри трека, <strong>пунктирные</strong> — боковые переходы между функциями.</p>
+
+    <div class="audience-grid">
+      <div class="audience-card">
+        <span class="audience-label" id="aud-found-label">Фаундерам</span>
+        <p style="font-size:13px;line-height:1.6;color:var(--muted);" id="aud-found-text">Поймёте, кого нанимать на текущей стадии и как должна эволюционировать команда при росте.</p>
+      </div>
+      <div class="audience-card">
+        <span class="audience-label" id="aud-hr-label">HR-специалистам</span>
+        <p style="font-size:13px;line-height:1.6;color:var(--muted);" id="aud-hr-text">Спланируете трек развития и научитесь говорить с бизнесом на языке оргдизайна.</p>
+      </div>
     </div>
+
+    <div class="how-to">
+      <div class="how-to-title" id="guide-how-to">Как читать граф</div>
+      <div id="guide-steps">
+        <div class="how-step"><div class="how-num">1</div><div><strong>Найдите свою текущую роль</strong> — или роль, которую хотите занять. Каждый узел окрашен в цвет своего функционального трека.</div></div>
+        <div class="how-step"><div class="how-num">2</div><div><strong>Нажмите на неё</strong> — подсветятся все связанные роли, остальные потускнеют. Справа выедет карточка с деталями.</div></div>
+        <div class="how-step"><div class="how-num">3</div><div><strong>В панели «Куда можно вырасти»</strong> — для каждого пути указаны конкретные компетенции, которые нужно развить для этого перехода.</div></div>
+        <div class="how-step"><div class="how-num">4</div><div><strong>Нажмите на любую связанную роль</strong> прямо в панели — граф перейдет на нее. Так можно строить маршрут шаг за шагом.</div></div>
+        <div class="how-step"><div class="how-num">5</div><div><strong>Повторное нажатие на узел или пустое место на карте</strong> закрывает карточку и возвращает граф в исходное состояние.</div></div>
+      </div>
+    </div>
+  </div>
 
   <div class="main-layout">
     <div class="sidebar-left">
       <div class="legend-section">
         <div class="section-label" id="legend-label">Легенда</div>
         <div class="legend-grid" id="legendGrid"></div>
+        <div style="display:flex;flex-direction:column;gap:12px;margin-top:8px;">
+          <div style="display:flex;align-items:center;gap:10px;font-size:11px;color:var(--muted);">
+            <div style="width:24px;height:2px;background:var(--ink);border-radius:1px;flex-shrink:0;"></div>
+            <span id="leg-line-solid">Основной переход внутри трека</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:10px;font-size:11px;color:var(--muted);">
+            <div style="width:24px;height:2px;background:repeating-linear-gradient(90deg,var(--muted) 0,var(--muted) 4px,transparent 4px,transparent 8px);flex-shrink:0;"></div>
+            <span id="leg-line-dash">Боковой переход (зигзаг)</span>
+          </div>
+        </div>
       </div>
     </div>
 
     <div class="content-right">
       <div class="map-section">
-        <div style="position: relative;">
+        <div id="swipe-hint" style="display:none;text-align:center;font-size:11px;color:var(--muted);margin-bottom:16px;font-family:'Unbounded',sans-serif;text-transform:uppercase;letter-spacing:1px;">↔ Свайпайте карту вправо</div>
+        <div style="position:relative;" id="map-container">
           <div class="map-inner">
             <div class="graph-area"><svg class="graph" id="svg" viewBox="0 0 660 760"></svg></div>
           </div>
@@ -137,13 +171,17 @@
       </div>
     </div>
   </div>
-  
+
   <div class="divider"></div>
 
   <div class="functions-section">
-    <h2 style="font-family:'Unbounded',sans-serif; font-size: 14px; margin-bottom:20px;" id="func-main-title">HR-функции</h2>
+    <h2 style="font-family:'Unbounded',sans-serif;font-size:14px;font-weight:700;margin-bottom:16px;" id="func-main-title">HR-функции: что это и когда появляются</h2>
+    <div id="func-disclaimer" style="font-size:13px;color:var(--muted);background:rgba(90,122,138,0.08);border-left:3px solid var(--accent2);padding:12px 16px;border-radius:0 8px 8px 0;margin-bottom:24px;line-height:1.6;">
+      <strong style="color:var(--ink);font-family:'Unbounded',sans-serif;font-size:11px;letter-spacing:1px;text-transform:uppercase;">Обратите внимание:</strong> указанные стадии развития и численность команды — это ориентировочные бенчмарки для понимания эволюции функции. Реальная потребность зависит от специфики и стратегии конкретного бизнеса.
+    </div>
     <div class="func-cards" id="funcCards"></div>
   </div>
+
 </div>
 
 <footer class="site-footer">
@@ -558,11 +596,11 @@ function renderFuncCards() {
     guideIntro: 'Карта показывает <strong>9 функциональных треков HR-функции</strong> и переходы между ролями внутри и между ними. Строки — треки, столбцы — уровни грейда от Entry до C-level. <strong>Сплошные линии</strong> — рост внутри трека, <strong>пунктирные</strong> — боковые переходы между функциями.',
     guideHowTo: 'Как читать граф',
     guideSteps: `
-        <div class="how-step"><div class="how-num">1</div><div class="how-text"><strong>Найдите свою текущую роль</strong> — или роль, которую хотите занять. Каждый узел окрашен в цвет своего функционального трека.</div></div>
-        <div class="how-step"><div class="how-num">2</div><div class="how-text"><strong>Нажмите на неё</strong> — подсветятся все связанные роли, остальные потускнеют. Справа выедет карточка с деталями.</div></div>
-        <div class="how-step"><div class="how-num">3</div><div class="how-text"><strong>В панели «Куда можно вырасти»</strong> — для каждого пути указаны конкретные компетенции, которые нужно развить для этого перехода.</div></div>
-        <div class="how-step"><div class="how-num">4</div><div class="how-text"><strong>Нажмите на любую связанную роль</strong> прямо в панели — граф перейдет на нее. Так можно строить маршрут шаг за шагом.</div></div>
-        <div class="how-step"><div class="how-num">5</div><div class="how-text"><strong>Повторное нажатие на узел или пустое место на карте</strong> закрывает карточку и возвращает граф в исходное состояние.</div></div>
+        <div class="how-step"><div class="how-num">1</div><div><strong>Найдите свою текущую роль</strong> — или роль, которую хотите занять. Каждый узел окрашен в цвет своего функционального трека.</div></div>
+        <div class="how-step"><div class="how-num">2</div><div><strong>Нажмите на неё</strong> — подсветятся все связанные роли, остальные потускнеют. Справа выедет карточка с деталями.</div></div>
+        <div class="how-step"><div class="how-num">3</div><div><strong>В панели «Куда можно вырасти»</strong> — для каждого пути указаны конкретные компетенции, которые нужно развить для этого перехода.</div></div>
+        <div class="how-step"><div class="how-num">4</div><div><strong>Нажмите на любую связанную роль</strong> прямо в панели — граф перейдет на нее. Так можно строить маршрут шаг за шагом.</div></div>
+        <div class="how-step"><div class="how-num">5</div><div><strong>Повторное нажатие на узел или пустое место на карте</strong> закрывает карточку и возвращает граф в исходное состояние.</div></div>
     `,
     legLabel: 'Легенда',
     legSolid: 'Основной переход внутри трека',
@@ -585,11 +623,11 @@ function renderFuncCards() {
     guideIntro: 'The map shows <strong>9 functional tracks of the HR function</strong> and transitions between roles. Rows are tracks, columns are grade levels from Entry to C-level. <strong>Solid lines</strong> indicate growth within a track, <strong>dashed lines</strong> are lateral moves between functions.',
     guideHowTo: 'How to read the graph',
     guideSteps: `
-        <div class="how-step"><div class="how-num">1</div><div class="how-text"><strong>Find your current role</strong> — or the role you want. Each node is colored according to its functional track.</div></div>
-        <div class="how-step"><div class="how-num">2</div><div class="how-text"><strong>Click on it</strong> — connected roles will highlight, others will dim. Details will slide in from the right.</div></div>
-        <div class="how-step"><div class="how-num">3</div><div class="how-text"><strong>In the "Growth paths" section</strong> — specific competencies needed for that transition are listed for each path.</div></div>
-        <div class="how-step"><div class="how-num">4</div><div class="how-text"><strong>Click any connected role</strong> right in the panel — the graph will navigate to it. You can build your route step by step.</div></div>
-        <div class="how-step"><div class="how-num">5</div><div class="how-text"><strong>Clicking the role again or the close button</strong> removes the selection and returns the graph to its initial state.</div></div>
+        <div class="how-step"><div class="how-num">1</div><div><strong>Find your current role</strong> — or the role you want. Each node is colored according to its functional track.</div></div>
+        <div class="how-step"><div class="how-num">2</div><div><strong>Click on it</strong> — connected roles will highlight, others will dim. Details will slide in from the right.</div></div>
+        <div class="how-step"><div class="how-num">3</div><div><strong>In the "Growth paths" section</strong> — specific competencies needed for that transition are listed for each path.</div></div>
+        <div class="how-step"><div class="how-num">4</div><div><strong>Click any connected role</strong> right in the panel — the graph will navigate to it. You can build your route step by step.</div></div>
+        <div class="how-step"><div class="how-num">5</div><div><strong>Clicking the role again or the close button</strong> removes the selection and returns the graph to its initial state.</div></div>
     `,
     legLabel: 'Legend',
     legSolid: 'Main transition within track',
@@ -603,9 +641,32 @@ function renderFuncCards() {
 
   function applyPageLang(lang) {
     const u = PageUI[lang];
-    App.setText('nav-home', u.navHome);
-    App.setText('hero-title', u.heroTitle);
-    
+    App.setText('nav-home',       u.navHome);
+    App.setText('nav-diag',       u.navDiag);
+    App.setText('nav-guide',      u.navGuide);
+    App.setText('nav-str',        u.navStr);
+    App.setText('hero-title',     u.title);
+    App.setText('hero-sub',       u.desc);
+    App.setText('guide-label',    u.guideLabel);
+    App.setText('guide-intro',    u.guideIntro, true);
+    App.setText('guide-how-to',   u.guideHowTo);
+    App.setText('guide-steps',    u.guideSteps, true);
+    App.setText('legend-label',   u.legLabel);
+    App.setText('leg-line-solid', u.legSolid);
+    App.setText('leg-line-dash',  u.legDash);
+    App.setText('aud-found-label',u.audFoundL);
+    App.setText('aud-found-text', u.audFoundT);
+    App.setText('aud-hr-label',   u.audHRL);
+    App.setText('aud-hr-text',    u.audHRT);
+    App.setText('func-main-title',u.funcTitle);
+    App.setText('func-disclaimer',u.funcDisclaimer, true);
+    App.setText('swipe-hint',     u.swipeHint);
+    App.setText('footer-contact', u.fContact);
+
+    // показываем swipe-hint только на мобилке
+    const hint = document.getElementById('swipe-hint');
+    if (hint) hint.style.display = window.innerWidth <= 768 ? 'block' : 'none';
+
     // Перерисовываем компоненты, зависящие от языка
     renderGraph();
     renderLegend();
