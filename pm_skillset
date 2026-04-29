@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Матрица компетенций PM — Ольга Гребенюк</title>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@300;400;600;700&family=Golos+Text:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdn.counter.dev/script.js" data-id="e4048f0d-d2cf-4262-ad50-083091bde640" data-utcoffset="2"></script>
+<link rel="stylesheet" href="global.css">
+<style>
+
+/* ── HERO ── */
+.hero { background: var(--ink); padding: 72px 40px 80px; position: relative; overflow: hidden; }
+.hero::before { content: 'PM'; position: absolute; right: -10px; top: -20px; font-family: 'Unbounded', sans-serif; font-size: 280px; font-weight: 700; opacity: 0.04; line-height: 1; pointer-events: none; color: white; }
+.hero-eyebrow { font-family: 'Unbounded', sans-serif; font-size: 10px; font-weight: 600; letter-spacing: 3px; text-transform: uppercase; color: var(--accent); margin-bottom: 28px; }
+.hero h1 { font-family: 'Unbounded', sans-serif; font-size: clamp(22px, 3.5vw, 42px); font-weight: 700; line-height: 1.15; color: white; max-width: 680px; margin-bottom: 24px; position: relative; z-index: 10; }
+.hero h1 em { font-style: normal; color: var(--accent); }
+.hero-sub { font-size: 16px; color: #8fa0b8; line-height: 1.75; max-width: 520px; margin-bottom: 40px; position: relative; z-index: 10; }
+.cta-row { display: flex; gap: 12px; flex-wrap: wrap; position: relative; z-index: 10; }
+.btn-primary { font-family: 'Unbounded', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 1px; padding: 14px 28px; background: var(--accent); color: var(--ink); border: none; border-radius: 8px; cursor: pointer; text-decoration: none; transition: all 0.2s; display: inline-block; }
+.btn-primary:hover { background: #e09820; }
+.btn-ghost { font-family: 'Unbounded', sans-serif; font-size: 11px; font-weight: 600; letter-spacing: 1px; padding: 14px 28px; background: transparent; color: rgba(255,255,255,0.7); border: 1.5px solid rgba(255,255,255,0.2); border-radius: 8px; cursor: pointer; text-decoration: none; transition: all 0.2s; display: inline-block; }
+.btn-ghost:hover { border-color: white; color: white; }
+
+/* ── ОБЩИЕ ── */
+.section { padding: 64px 0; }
+.section-label { font-family: 'Unbounded', sans-serif; font-size: 9px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--muted); margin-bottom: 28px; }
+.section-title { font-family: 'Unbounded', sans-serif; font-size: clamp(18px, 2.5vw, 28px); font-weight: 700; line-height: 1.2; margin-bottom: 16px; }
+.section-sub { font-size: 15px; color: var(--muted); line-height: 1.75; max-width: 580px; margin-bottom: 40px; }
+.divider { height: 1.5px; background: var(--border); }
+
+/* ── ЧТО ЭТО — горизонтальный список ── */
+.what-row { display: grid; grid-template-columns: repeat(4, 1fr); border: 1.5px solid var(--border); border-radius: 14px; overflow: hidden; margin-bottom: 40px; }
+.what-item { padding: 28px 22px; border-right: 1.5px solid var(--border); }
+.what-item:last-child { border-right: none; }
+.what-num { font-family: 'Unbounded', sans-serif; font-size: 11px; font-weight: 700; color: var(--accent); margin-bottom: 12px; }
+.what-title { font-family: 'Unbounded', sans-serif; font-size: 12px; font-weight: 700; margin-bottom: 10px; line-height: 1.3; }
+.what-desc { font-size: 12px; color: var(--muted); line-height: 1.7; }
+
+/* ── КЕЙС ── */
+.case-block { background: var(--ink); border-radius: 20px; padding: 52px 48px; position: relative; overflow: hidden; }
+.case-block::before { content: '"'; position: absolute; left: 32px; top: 16px; font-family: 'Unbounded', sans-serif; font-size: 180px; font-weight: 700; color: var(--accent); opacity: 0.08; line-height: 1; pointer-events: none; }
+.case-label { font-family: 'Unbounded', sans-serif; font-size: 9px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--accent); margin-bottom: 20px; }
+.case-text { font-size: 16px; color: white; line-height: 1.8; max-width: 640px; margin-bottom: 32px; position: relative; z-index: 2; }
+.case-text strong { color: var(--accent); }
+.case-stats { display: flex; gap: 40px; flex-wrap: wrap; }
+.case-stat-num { font-family: 'Unbounded', sans-serif; font-size: 36px; font-weight: 700; color: var(--accent); line-height: 1; margin-bottom: 6px; }
+.case-stat-desc { font-size: 12px; color: #8fa0b8; line-height: 1.5; max-width: 140px; }
+
+/* ── ДЛЯ КОГО ── */
+.audience-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+.audience-card { padding: 28px 24px; border-radius: 12px; background: var(--ink); color: white; }
+.audience-icon { font-size: 28px; margin-bottom: 14px; }
+.audience-title { font-family: 'Unbounded', sans-serif; font-size: 13px; font-weight: 600; margin-bottom: 10px; line-height: 1.3; }
+.audience-desc { font-size: 13px; color: #8fa0b8; line-height: 1.6; }
+.audience-questions { margin-top: 14px; display: flex; flex-direction: column; gap: 6px; }
+.audience-q { font-size: 12px; color: rgba(255,255,255,0.6); padding-left: 14px; position: relative; line-height: 1.5; }
+.audience-q::before { content: '→'; position: absolute; left: 0; color: var(--accent); }
+
+/* ── ПОСТЕРЫ ── */
+.posters-outer { background: var(--cream); padding: 64px 0; }
+.posters-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.poster-card { border: 1.5px solid var(--border); border-radius: 14px; overflow: hidden; background: white; transition: all 0.2s; display: flex; flex-direction: column; }
+.poster-card:hover { transform: translateY(-3px); box-shadow: 0 12px 32px rgba(30,45,66,0.1); }
+.poster-preview { background: var(--ink); padding: 28px 24px; display: flex; align-items: center; justify-content: center; height: 220px; position: relative; overflow: hidden; flex-shrink: 0; }
+.poster-preview::before { content: ''; position: absolute; inset: 0; background: repeating-linear-gradient(90deg, transparent, transparent 60px, rgba(255,255,255,0.02) 60px, rgba(255,255,255,0.02) 61px); }
+.poster-badge { position: absolute; top: 14px; right: 14px; z-index: 3; font-family: 'Unbounded', sans-serif; font-size: 8px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; background: var(--accent); color: var(--ink); padding: 4px 10px; border-radius: 4px; }
+.poster-lang-note { position: absolute; bottom: 12px; left: 14px; z-index: 3; font-family: 'Unbounded', sans-serif; font-size: 8px; font-weight: 600; letter-spacing: 1px; color: rgba(255,255,255,0.35); }
+.matrix-viz { width: 100%; max-width: 300px; position: relative; z-index: 2; }
+.mviz-header { display: grid; grid-template-columns: 64px repeat(5, 1fr); gap: 2px; margin-bottom: 3px; }
+.mviz-row { display: grid; grid-template-columns: 64px repeat(5, 1fr); gap: 2px; margin-bottom: 2px; }
+.mviz-cell { border-radius: 2px; height: 14px; }
+.mviz-label { background: rgba(255,255,255,0.10); }
+.mviz-h { background: rgba(240,168,36,0.35); }
+.mviz-l1 { background: rgba(214,228,240,0.45); }
+.mviz-l2 { background: rgba(213,232,212,0.45); }
+.mviz-l3 { background: rgba(255,242,204,0.45); }
+.mviz-l4 { background: rgba(248,206,204,0.45); }
+.mviz-l5 { background: rgba(225,213,231,0.45); }
+.mviz-stream { background: rgba(255,255,255,0.16); }
+.poster-info { padding: 24px 28px; flex: 1; display: flex; flex-direction: column; }
+.poster-tag { font-family: 'Unbounded', sans-serif; font-size: 9px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
+.poster-title { font-family: 'Unbounded', sans-serif; font-size: 14px; font-weight: 700; margin-bottom: 8px; line-height: 1.3; }
+.poster-desc { font-size: 13px; color: var(--muted); line-height: 1.6; margin-bottom: 16px; flex: 1; }
+.poster-links { display: flex; gap: 14px; flex-wrap: wrap; align-items: center; }
+.poster-link { font-family: 'Unbounded', sans-serif; font-size: 10px; font-weight: 700; letter-spacing: 1px; color: var(--ink); text-decoration: none; border-bottom: 2px solid var(--accent); padding-bottom: 1px; transition: color 0.2s; white-space: nowrap; }
+.poster-link:hover { color: var(--accent); }
+
+/* ── КАК УСТРОЕН ── */
+.how-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+.how-card { padding: 28px 24px; border-radius: 12px; background: var(--ink); color: white; }
+.how-num { font-family: 'Unbounded', sans-serif; font-size: 28px; font-weight: 700; color: var(--accent); margin-bottom: 16px; line-height: 1; }
+.how-title { font-family: 'Unbounded', sans-serif; font-size: 13px; font-weight: 600; margin-bottom: 10px; }
+.how-desc { font-size: 13px; color: #8fa0b8; line-height: 1.6; }
+
+/* ── ТАБЛИЦА ── */
+.tool-cta-block { border: 1.5px solid var(--border); border-radius: 20px; padding: 48px; background: var(--cream); display: grid; grid-template-columns: 1fr auto; gap: 40px; align-items: start; }
+.tool-cta-label { font-family: 'Unbounded', sans-serif; font-size: 9px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--accent); margin-bottom: 12px; }
+.tool-cta-title { font-family: 'Unbounded', sans-serif; font-size: clamp(16px, 2vw, 22px); font-weight: 700; line-height: 1.2; margin-bottom: 12px; }
+.tool-cta-desc { font-size: 14px; color: var(--muted); line-height: 1.7; }
+.tool-cta-steps { margin-top: 20px; display: flex; flex-direction: column; gap: 8px; }
+.tool-cta-step { display: flex; align-items: flex-start; gap: 12px; font-size: 13px; color: var(--muted); line-height: 1.5; }
+.step-num { font-family: 'Unbounded', sans-serif; font-size: 10px; font-weight: 700; color: var(--accent); background: rgba(240,168,36,0.12); border-radius: 4px; padding: 3px 8px; flex-shrink: 0; margin-top: 1px; }
+.tool-note { margin-top: 16px; font-size: 12px; color: var(--muted); line-height: 1.6; padding: 14px 16px; background: white; border-radius: 8px; border-left: 3px solid var(--accent); }
+.tool-note strong { color: var(--ink); }
+.tool-cta-actions { display: flex; flex-direction: column; gap: 10px; padding-top: 4px; }
+.btn-tool { font-family: 'Unbounded', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 1px; padding: 14px 24px; background: var(--accent); color: var(--ink); border: none; border-radius: 8px; cursor: pointer; text-decoration: none; transition: all 0.2s; display: block; white-space: nowrap; text-align: center; }
+.btn-tool:hover { background: #e09820; }
+.btn-tool-ghost { font-family: 'Unbounded', sans-serif; font-size: 10px; font-weight: 600; letter-spacing: 1px; padding: 11px 22px; background: transparent; color: var(--ink); border: 1.5px solid var(--border); border-radius: 8px; cursor: pointer; text-decoration: none; transition: all 0.2s; display: block; white-space: nowrap; text-align: center; }
+.btn-tool-ghost:hover { border-color: var(--ink); }
+.tool-cta-hint { font-size: 11px; color: var(--muted); text-align: center; line-height: 1.5; }
+
+/* ── CTA ── */
+.cta-block { background: var(--ink); border-radius: 20px; padding: 52px 48px; margin: 64px 0; display: grid; grid-template-columns: 1fr auto; gap: 40px; align-items: center; }
+.cta-block-title { font-family: 'Unbounded', sans-serif; font-size: clamp(16px, 2.5vw, 24px); font-weight: 700; color: white; line-height: 1.2; margin-bottom: 10px; }
+.cta-block-sub { font-size: 14px; color: #8fa0b8; line-height: 1.6; }
+
+/* ── АДАПТИВ ── */
+@media (max-width: 768px) {
+  .site-nav { padding: 0 20px; }
+  .menu-toggle { display: block; }
+  .nav-menu { display: none; position: absolute; top: 64px; left: 0; width: 100%; background: var(--ink); flex-direction: column; padding: 20px 0; border-bottom: 1px solid rgba(255,255,255,0.1); box-shadow: 0 8px 24px rgba(0,0,0,0.2); z-index: 200; }
+  .nav-menu.open { display: flex; }
+  .hero { padding: 48px 20px 56px; }
+  .container { padding: 0 20px; }
+  .what-row { grid-template-columns: 1fr 1fr; }
+  .what-item { border-right: none; border-bottom: 1.5px solid var(--border); }
+  .what-item:nth-child(odd) { border-right: 1.5px solid var(--border); }
+  .what-item:nth-last-child(-n+2) { border-bottom: none; }
+  .audience-grid, .how-grid, .posters-grid { grid-template-columns: 1fr; }
+  .case-block { padding: 36px 24px; }
+  .case-stats { gap: 24px; }
+  .tool-cta-block, .cta-block { grid-template-columns: 1fr; padding: 36px 24px; }
+  .tool-cta-actions { flex-direction: row; flex-wrap: wrap; }
+  .btn-tool, .btn-tool-ghost { flex: 1; }
+}
+@media (max-width: 480px) {
+  .what-row { grid-template-columns: 1fr; }
+  .what-item { border-right: none !important; border-bottom: 1.5px solid var(--border); }
+  .what-item:last-child { border-bottom: none; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV — новое меню со всеми страницами -->
+<nav class="site-nav">
+  <a href="home.html" class="nav-brand">ODHR</a>
+  <div class="nav-menu" id="nav-menu">
+    <a href="home.html" class="nav-link cross-link" id="nav-home">Главная</a>
+    <a href="index.html" class="nav-link cross-link" id="nav-diag">Диагностика</a>
+    <a href="hr_roles_guide.html" class="nav-link cross-link" id="nav-guide">Роли в HR</a>
+    <a href="pm_skillset.html" class="nav-link active cross-link" id="nav-pm">Роль PM</a>
+    <a href="structure.html" class="nav-link cross-link" id="nav-str">Структуры</a>
+  </div>
+  <div class="nav-actions">
+    <div class="lang-toggle">
+      <button class="lang-btn active" onclick="changePageLang('ru')" id="btn-lang-ru">RU</button>
+      <button class="lang-btn" onclick="changePageLang('en')" id="btn-lang-en">EN</button>
+    </div>
+    <button class="menu-toggle" id="mobile-menu-btn">☰</button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-eyebrow" id="hero-eyebrow">Инструменты · PM · Карьерный трек</div>
+    <h1 id="hero-h1">Матрица компетенций<br><em>менеджера проектов</em></h1>
+    <p class="hero-sub" id="hero-sub">Рабочий инструмент для найма, оценки и развития PM. Пять уровней, пять стримов, поведенческие маркеры и автоматический план развития.</p>
+    <div class="cta-row">
+      <a href="#table" class="btn-primary" id="cta-primary">Получить таблицу</a>
+      <a href="#how" class="btn-ghost" id="cta-secondary">Как это работает</a>
+    </div>
+  </div>
+</section>
+
+<div class="container">
+
+  <!-- ЧТО ЭТО + КЕЙС -->
+  <section class="section">
+    <div class="section-label" id="what-label">Что это такое</div>
+    <h2 class="section-title" id="what-title">Описание роли — это не документ.<br>Это управленческий инструмент.</h2>
+    <p class="section-sub" id="what-sub">Матрица описывает, что делает PM на каждом уровне — от Junior до Head. Не абстрактно, а через конкретные задачи и наблюдаемые поведенческие маркеры.</p>
+
+    <div class="what-row">
+      <div class="what-item">
+        <div class="what-num" id="w1-num">01</div>
+        <div class="what-title" id="w1-title">Задача, а не набор требований</div>
+        <div class="what-desc" id="w1-desc">Каждая компетенция описана через задачу, которую решает PM на этом уровне. Конкретно и измеримо.</div>
+      </div>
+      <div class="what-item">
+        <div class="what-num" id="w2-num">02</div>
+        <div class="what-title" id="w2-title">Маркеры, которые можно проверить</div>
+        <div class="what-desc" id="w2-desc">Поведенческие маркеры под каждой задачей — можно проверить на интервью или наблюдать в работе.</div>
+      </div>
+      <div class="what-item">
+        <div class="what-num" id="w3-num">03</div>
+        <div class="what-title" id="w3-title">Профиль и пробелы</div>
+        <div class="what-desc" id="w3-desc">Оценка автоматически считает уровень по каждому стриму и строит радар-профиль с зонами роста.</div>
+      </div>
+      <div class="what-item">
+        <div class="what-num" id="w4-num">04</div>
+        <div class="what-title" id="w4-title">Автоматический ИПР</div>
+        <div class="what-desc" id="w4-desc">По результатам оценки одним нажатием формируется план развития с приоритетами и маркерами следующего уровня.</div>
+      </div>
+    </div>
+
+    <div class="case-block">
+      <div class="case-label" id="case-label">Кейс из практики</div>
+      <p class="case-text" id="case-text">
+        В одной из команд PM-ы работали без чёткого понимания, что значит «расти» в этой роли. Оценка была субъективной, повышения — непредсказуемыми. После внедрения матрицы и первого цикла оценки <strong>вовлечённость команды выросла на 23%</strong> — люди наконец увидели путь и поняли, что нужно сделать конкретно, чтобы двигаться дальше.
+      </p>
+      <div class="case-stats">
+        <div><div class="case-stat-num" id="stat1-num">+23%</div><div class="case-stat-desc" id="stat1-desc">рост вовлечённости после первого цикла оценки</div></div>
+        <div><div class="case-stat-num" id="stat2-num">5</div><div class="case-stat-desc" id="stat2-desc">стримов, 12 компетенций, 5 уровней</div></div>
+        <div><div class="case-stat-num" id="stat3-num">30 мин</div><div class="case-stat-desc" id="stat3-desc">на оценку одного сотрудника и ИПР</div></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ДЛЯ КОГО -->
+  <section class="section">
+    <div class="section-label" id="aud-label">Для кого</div>
+    <h2 class="section-title" id="aud-title">Четыре вопроса,<br>на которые отвечает инструмент</h2>
+    <div class="audience-grid">
+      <div class="audience-card">
+        <div class="audience-icon" id="aud1-icon">🔍</div>
+        <div class="audience-title" id="aud1-title">Кого нанять?</div>
+        <div class="audience-desc" id="aud1-desc">Профиль каждого уровня — готовый Job Description с поведенческими маркерами для интервью.</div>
+        <div class="audience-questions">
+          <div class="audience-q" id="aud1-q1">Какой уровень нужен под задачу?</div>
+          <div class="audience-q" id="aud1-q2">По каким маркерам оценивать кандидата?</div>
+        </div>
+      </div>
+      <div class="audience-card">
+        <div class="audience-icon" id="aud2-icon">📈</div>
+        <div class="audience-title" id="aud2-title">Кого повышать?</div>
+        <div class="audience-desc" id="aud2-desc">Чёткие критерии перехода между уровнями убирают субъективность из решений о повышении.</div>
+        <div class="audience-questions">
+          <div class="audience-q" id="aud2-q1">Готов ли человек к следующему уровню?</div>
+          <div class="audience-q" id="aud2-q2">Какие маркеры ещё не закрыты?</div>
+        </div>
+      </div>
+      <div class="audience-card">
+        <div class="audience-icon" id="aud3-icon">🌱</div>
+        <div class="audience-title" id="aud3-title">Как развивать?<br>Кого чему учить?</div>
+        <div class="audience-desc" id="aud3-desc">ИПР показывает конкретные пробелы и маркеры следующего уровня по каждой компетенции.</div>
+        <div class="audience-questions">
+          <div class="audience-q" id="aud3-q1">Где реальные зоны роста?</div>
+          <div class="audience-q" id="aud3-q2">Что развивать в первую очередь?</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<!-- ПОСТЕРЫ -->
+<section class="posters-outer" id="posters">
+  <div class="container">
+    <div class="section-label" id="posters-label">Визуальные артефакты</div>
+    <h2 class="section-title" id="posters-title">Два формата для разных задач</h2>
+    <p class="section-sub" id="posters-sub">Оба постера доступны на русском. Английская версия в разработке.</p>
+
+    <div class="posters-grid">
+
+      <div class="poster-card">
+        <div class="poster-preview">
+          <div class="poster-badge">Полная · RU</div>
+          <div class="poster-lang-note">EN — скоро</div>
+          <div class="matrix-viz">
+            <div class="mviz-header">
+              <div class="mviz-cell mviz-label"></div>
+              <div class="mviz-cell mviz-h"></div><div class="mviz-cell mviz-h"></div><div class="mviz-cell mviz-h"></div><div class="mviz-cell mviz-h"></div><div class="mviz-cell mviz-h"></div>
+            </div>
+            <div style="height:4px"></div>
+            <div class="mviz-row"><div class="mviz-cell mviz-stream" style="height:18px"></div><div class="mviz-cell mviz-l1" style="height:18px"></div><div class="mviz-cell mviz-l2" style="height:18px"></div><div class="mviz-cell mviz-l3" style="height:18px"></div><div class="mviz-cell mviz-l4" style="height:18px"></div><div class="mviz-cell mviz-l5" style="height:18px"></div></div>
+            <div style="height:2px"></div>
+            <div class="mviz-row"><div class="mviz-cell mviz-label"></div><div class="mviz-cell mviz-l1" style="height:26px"></div><div class="mviz-cell mviz-l2" style="height:26px"></div><div class="mviz-cell mviz-l3" style="height:26px"></div><div class="mviz-cell mviz-l4" style="height:26px"></div><div class="mviz-cell mviz-l5" style="height:26px"></div></div>
+            <div style="height:2px"></div>
+            <div class="mviz-row"><div class="mviz-cell mviz-label"></div><div class="mviz-cell mviz-l1" style="height:20px"></div><div class="mviz-cell mviz-l2" style="height:20px"></div><div class="mviz-cell mviz-l3" style="height:20px"></div><div class="mviz-cell mviz-l4" style="height:20px"></div><div class="mviz-cell mviz-l5" style="height:20px"></div></div>
+            <div style="height:4px"></div>
+            <div class="mviz-row"><div class="mviz-cell mviz-stream" style="height:18px"></div><div class="mviz-cell mviz-l1" style="height:18px"></div><div class="mviz-cell mviz-l2" style="height:18px"></div><div class="mviz-cell mviz-l3" style="height:18px"></div><div class="mviz-cell mviz-l4" style="height:18px"></div><div class="mviz-cell mviz-l5" style="height:18px"></div></div>
+            <div style="height:2px"></div>
+            <div class="mviz-row"><div class="mviz-cell mviz-label"></div><div class="mviz-cell mviz-l1" style="height:26px"></div><div class="mviz-cell mviz-l2" style="height:26px"></div><div class="mviz-cell mviz-l3" style="height:26px"></div><div class="mviz-cell mviz-l4" style="height:26px"></div><div class="mviz-cell mviz-l5" style="height:26px"></div></div>
+          </div>
+        </div>
+        <div class="poster-info">
+          <div class="poster-tag" id="p1-tag">Матрица компетенций PM</div>
+          <div class="poster-title" id="p1-title">Полная версия с маркерами</div>
+          <div class="poster-desc" id="p1-desc">12 компетенций, 5 уровней, задачи и поведенческие маркеры. Плюс AI-компетенции. Для работы с командой при оценке и онбординге.</div>
+          <div class="poster-links">
+            <a href="#" class="poster-link" id="p1-link">Скачать PDF (RU) →</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="poster-card">
+        <div class="poster-preview">
+          <div class="poster-badge">Краткая · RU</div>
+          <div class="poster-lang-note">EN — скоро</div>
+          <div class="matrix-viz">
+            <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:2px;margin-bottom:5px;">
+              <div style="background:rgba(214,228,240,0.5);border-radius:3px;height:20px;display:flex;align-items:center;justify-content:center;"><span style="font-size:7px;color:rgba(255,255,255,0.9);font-family:monospace;font-weight:700;">L1</span></div>
+              <div style="background:rgba(213,232,212,0.5);border-radius:3px;height:20px;display:flex;align-items:center;justify-content:center;"><span style="font-size:7px;color:rgba(255,255,255,0.9);font-family:monospace;font-weight:700;">L2</span></div>
+              <div style="background:rgba(255,242,204,0.5);border-radius:3px;height:20px;display:flex;align-items:center;justify-content:center;"><span style="font-size:7px;color:rgba(255,255,255,0.9);font-family:monospace;font-weight:700;">L3</span></div>
+              <div style="background:rgba(248,206,204,0.5);border-radius:3px;height:20px;display:flex;align-items:center;justify-content:center;"><span style="font-size:7px;color:rgba(255,255,255,0.9);font-family:monospace;font-weight:700;">L4</span></div>
+              <div style="background:rgba(225,213,231,0.5);border-radius:3px;height:20px;display:flex;align-items:center;justify-content:center;"><span style="font-size:7px;color:rgba(255,255,255,0.9);font-family:monospace;font-weight:700;">L5</span></div>
+            </div>
+            <div class="mviz-header">
+              <div class="mviz-cell mviz-label"></div>
+              <div class="mviz-cell mviz-h"></div><div class="mviz-cell mviz-h"></div><div class="mviz-cell mviz-h"></div><div class="mviz-cell mviz-h"></div><div class="mviz-cell mviz-h"></div>
+            </div>
+            <div style="height:4px"></div>
+            <div class="mviz-row"><div class="mviz-cell mviz-stream" style="height:18px"></div><div class="mviz-cell mviz-l1" style="height:18px"></div><div class="mviz-cell mviz-l2" style="height:18px"></div><div class="mviz-cell mviz-l3" style="height:18px"></div><div class="mviz-cell mviz-l4" style="height:18px"></div><div class="mviz-cell mviz-l5" style="height:18px"></div></div>
+            <div style="height:2px"></div>
+            <div class="mviz-row"><div class="mviz-cell mviz-label"></div><div class="mviz-cell mviz-l1" style="height:12px"></div><div class="mviz-cell mviz-l2" style="height:12px"></div><div class="mviz-cell mviz-l3" style="height:12px"></div><div class="mviz-cell mviz-l4" style="height:12px"></div><div class="mviz-cell mviz-l5" style="height:12px"></div></div>
+            <div style="height:4px"></div>
+            <div class="mviz-row"><div class="mviz-cell mviz-stream" style="height:18px"></div><div class="mviz-cell mviz-l1" style="height:18px"></div><div class="mviz-cell mviz-l2" style="height:18px"></div><div class="mviz-cell mviz-l3" style="height:18px"></div><div class="mviz-cell mviz-l4" style="height:18px"></div><div class="mviz-cell mviz-l5" style="height:18px"></div></div>
+            <div style="height:2px"></div>
+            <div class="mviz-row"><div class="mviz-cell mviz-label"></div><div class="mviz-cell mviz-l1" style="height:12px"></div><div class="mviz-cell mviz-l2" style="height:12px"></div><div class="mviz-cell mviz-l3" style="height:12px"></div><div class="mviz-cell mviz-l4" style="height:12px"></div><div class="mviz-cell mviz-l5" style="height:12px"></div></div>
+            <div style="height:4px"></div>
+            <div class="mviz-row"><div class="mviz-cell mviz-stream" style="height:18px"></div><div class="mviz-cell mviz-l1" style="height:18px"></div><div class="mviz-cell mviz-l2" style="height:18px"></div><div class="mviz-cell mviz-l3" style="height:18px"></div><div class="mviz-cell mviz-l4" style="height:18px"></div><div class="mviz-cell mviz-l5" style="height:18px"></div></div>
+            <div style="height:2px"></div>
+            <div class="mviz-row"><div class="mviz-cell mviz-label"></div><div class="mviz-cell mviz-l1" style="height:12px"></div><div class="mviz-cell mviz-l2" style="height:12px"></div><div class="mviz-cell mviz-l3" style="height:12px"></div><div class="mviz-cell mviz-l4" style="height:12px"></div><div class="mviz-cell mviz-l5" style="height:12px"></div></div>
+          </div>
+        </div>
+        <div class="poster-info">
+          <div class="poster-tag" id="p2-tag">Карьерный трек PM</div>
+          <div class="poster-title" id="p2-title">Краткая версия — задачи без маркеров</div>
+          <div class="poster-desc" id="p2-desc">Только карточки уровней и названия задач. Для первого знакомства, презентаций и разговора с командой о карьерном треке.</div>
+          <div class="poster-links">
+            <a href="#" class="poster-link" id="p2-link">Скачать PDF (RU) →</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<div class="container">
+
+  <!-- КАК УСТРОЕН -->
+  <section class="section" id="how">
+    <div class="section-label" id="how-label">Как устроен инструмент</div>
+    <h2 class="section-title" id="how-title">Три слоя. Одна система.</h2>
+    <p class="section-sub" id="how-sub">Матрица, оценка и план развития связаны. Данные вводятся один раз — всё остальное считается автоматически.</p>
+    <div class="how-grid">
+      <div class="how-card">
+        <div class="how-num" id="how1-num">01</div>
+        <div class="how-title" id="how1-title">Матрица компетенций</div>
+        <div class="how-desc" id="how1-desc">5 стримов, 12 компетенций, 5 уровней. По каждой компетенции — задача уровня и 2–3 поведенческих маркера. Отдельный трек AI-компетенций.</div>
+      </div>
+      <div class="how-card">
+        <div class="how-num" id="how2-num">02</div>
+        <div class="how-title" id="how2-title">Инструмент оценки</div>
+        <div class="how-desc" id="how2-desc">Оценщик отмечает маркеры поведения. Уровень по каждой компетенции и профиль по стримам считаются автоматически. Радар-диаграмма строится мгновенно.</div>
+      </div>
+      <div class="how-card">
+        <div class="how-num" id="how3-num">03</div>
+        <div class="how-title" id="how3-title">Индивидуальный план развития</div>
+        <div class="how-desc" id="how3-desc">Одна кнопка — готов ИПР. Приоритет 1: закрыть пробелы. Приоритет 2: расти дальше. Маркеры следующего уровня и поле для комментария.</div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ПОЛУЧИТЬ ТАБЛИЦУ -->
+  <section class="section" id="table">
+    <div class="section-label" id="table-label">Рабочий инструмент</div>
+    <div class="tool-cta-block">
+      <div>
+        <div class="tool-cta-label" id="table-sublabel">Google Таблица · Бесплатно · Только RU</div>
+        <div class="tool-cta-title" id="table-title">Скопируйте шаблон и начните работу</div>
+        <div class="tool-cta-desc" id="table-desc">Таблица работает в Google Sheets. Все формулы и скрипты уже настроены. Нужно только скопировать и заполнить данные сотрудника.</div>
+        <div class="tool-cta-steps">
+          <div class="tool-cta-step">
+            <span class="step-num">01</span>
+            <span id="step1">Нажмите «Открыть шаблон» и выберите <strong>Файл → Создать копию</strong></span>
+          </div>
+          <div class="tool-cta-step">
+            <span class="step-num">02</span>
+            <span id="step2">Откройте лист <strong>📋 Профиль оценки</strong> и заполните данные сотрудника</span>
+          </div>
+          <div class="tool-cta-step">
+            <span class="step-num">03</span>
+            <span id="step3">Отмечайте маркеры поведения — уровень считается автоматически</span>
+          </div>
+          <div class="tool-cta-step">
+            <span class="step-num">04</span>
+            <span id="step4">Нажмите <strong>Сформировать ИПР</strong> и подтвердите разрешение на запуск скрипта</span>
+          </div>
+        </div>
+        <div class="tool-note" id="table-note">
+          <strong>Про скрипт:</strong> при копировании таблицы скрипт копируется вместе с ней. При первом запуске Google покажет предупреждение безопасности — нажмите «Дополнительно» → «Перейти» → «Разрешить». Это стандартная процедура для пользовательских скриптов в Google Sheets.
+        </div>
+      </div>
+      <div class="tool-cta-actions">
+        <a href="https://docs.google.com/spreadsheets/d/1bxBkTUYMqehr57tN6ShqzNxMy4CPkEgMUHwVUpjfx_Q/copy" target="_blank" class="btn-tool" id="btn-template">Открыть шаблон →</a>
+        <a href="https://docs.google.com/spreadsheets/d/1bxBkTUYMqehr57tN6ShqzNxMy4CPkEgMUHwVUpjfx_Q" target="_blank" class="btn-tool-ghost" id="btn-example">Посмотреть пример</a>
+        <div class="tool-cta-hint" id="btn-hint">Шаблон — пустой для работы<br>Пример — заполненный, только просмотр</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <div class="cta-block">
+    <div>
+      <div class="cta-block-title" id="cta-title">Нужна матрица под вашу роль или контекст?</div>
+      <div class="cta-block-sub" id="cta-sub">Матрица PM — пример того, как может выглядеть описание роли. Разрабатываю кастомные матрицы для любых ролей: аналитики, дизайнеры, инженеры, продакты.</div>
+    </div>
+    <a href="#" data-contact-trigger class="btn-primary" id="cta-btn">Обсудить проект →</a>
+  </div>
+
+</div>
+
+<!-- FOOTER — идентичен home.html -->
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-inner">
+      <div>
+        <div class="footer-brand">ODHR JOURNAL<span>HR · OD · PM</span></div>
+        <div class="footer-links">
+          <a class="footer-link" href="https://t.me/ODHRAMA" target="_blank">✈ Telegram</a>
+          <a class="footer-link" href="https://www.linkedin.com/in/ogrebenyuk" target="_blank">in LinkedIn</a>
+          <a class="footer-link" href="#" data-contact-trigger>✉ Написать мне</a>
+        </div>
+      </div>
+      <div class="footer-copy" id="f-copy">Инструменты для людей,<br>которые строят команды.</div>
+    </div>
+  </div>
+</footer>
+
+<script src="main.js"></script>
+<script src="contact-form.js"></script>
+<script>
+  const menuBtn = document.getElementById('mobile-menu-btn');
+  const navMenu = document.getElementById('nav-menu');
+  if (menuBtn && navMenu) {
+    menuBtn.addEventListener('click', () => navMenu.classList.toggle('open'));
+    document.addEventListener('click', (e) => {
+      if (!navMenu.contains(e.target) && !menuBtn.contains(e.target)) {
+        navMenu.classList.remove('open');
+      }
+    });
+  }
+  document.querySelectorAll('a[href^="#"]:not([data-contact-trigger])').forEach(a => {
+    a.addEventListener('click', e => {
+      const target = document.querySelector(a.getAttribute('href'));
+      if (target) { e.preventDefault(); target.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+    });
+  });
+
+  // ── ПЕРЕВОДЫ ─────────────────────────────────────────────────────────────
+  const T = {
+    ru: {
+      navHome: 'Главная', navDiag: 'Диагностика', navGuide: 'Роли в HR',
+      navPm: 'Роль PM', navStr: 'Структуры',
+      eyebrow: 'Инструменты · PM · Карьерный трек',
+      h1: 'Матрица компетенций<br><em>менеджера проектов</em>',
+      heroSub: 'Рабочий инструмент для найма, оценки и развития PM. Пять уровней, пять стримов, поведенческие маркеры и автоматический план развития.',
+      ctaPrimary: 'Получить таблицу',
+      ctaSecondary: 'Как это работает',
+      whatLabel: 'Что это такое',
+      whatTitle: 'Описание роли — это не документ.<br>Это управленческий инструмент.',
+      whatSub: 'Матрица описывает, что делает PM на каждом уровне — от Junior до Head. Не абстрактно, а через конкретные задачи и наблюдаемые поведенческие маркеры.',
+      w1num: '01', w1title: 'Задача, а не набор требований', w1desc: 'Каждая компетенция описана через задачу, которую решает PM на этом уровне. Конкретно и измеримо.',
+      w2num: '02', w2title: 'Маркеры, которые можно проверить', w2desc: 'Поведенческие маркеры под каждой задачей — можно проверить на интервью или наблюдать в работе.',
+      w3num: '03', w3title: 'Профиль и пробелы', w3desc: 'Оценка автоматически считает уровень по каждому стриму и строит радар-профиль с зонами роста.',
+      w4num: '04', w4title: 'Автоматический ИПР', w4desc: 'По результатам оценки одним нажатием формируется план развития с приоритетами и маркерами следующего уровня.',
+      caseLabel: 'Кейс из практики',
+      caseText: 'В одной из команд PM-ы работали без чёткого понимания, что значит «расти» в этой роли. Оценка была субъективной, повышения — непредсказуемыми. После внедрения матрицы и первого цикла оценки <strong>вовлечённость команды выросла на 23%</strong> — люди наконец увидели путь и поняли, что нужно сделать конкретно, чтобы двигаться дальше.',
+      stat1num: '+23%', stat1desc: 'рост вовлечённости после первого цикла оценки',
+      stat2num: '5', stat2desc: 'стримов, 12 компетенций, 5 уровней',
+      stat3num: '30 мин', stat3desc: 'на оценку одного сотрудника и ИПР',
+      audLabel: 'Для кого',
+      audTitle: 'Четыре вопроса,<br>на которые отвечает инструмент',
+      aud1icon: '🔍', aud1title: 'Кого нанять?', aud1desc: 'Профиль каждого уровня — готовый Job Description с поведенческими маркерами для интервью.',
+      aud1q1: 'Какой уровень нужен под задачу?', aud1q2: 'По каким маркерам оценивать кандидата?',
+      aud2icon: '📈', aud2title: 'Кого повышать?', aud2desc: 'Чёткие критерии перехода между уровнями убирают субъективность из решений о повышении.',
+      aud2q1: 'Готов ли человек к следующему уровню?', aud2q2: 'Какие маркеры ещё не закрыты?',
+      aud3icon: '🌱', aud3title: 'Как развивать?<br>Кого чему учить?', aud3desc: 'ИПР показывает конкретные пробелы и маркеры следующего уровня по каждой компетенции.',
+      aud3q1: 'Где реальные зоны роста?', aud3q2: 'Что развивать в первую очередь?',
+      postersLabel: 'Визуальные артефакты',
+      postersTitle: 'Два формата для разных задач',
+      postersSub: 'Оба постера доступны на русском. Английская версия в разработке.',
+      p1tag: 'Матрица компетенций PM', p1title: 'Полная версия с маркерами',
+      p1desc: '12 компетенций, 5 уровней, задачи и поведенческие маркеры. Плюс AI-компетенции. Для работы с командой при оценке и онбординге.',
+      p1link: 'Скачать PDF (RU) →',
+      p2tag: 'Карьерный трек PM', p2title: 'Краткая версия — задачи без маркеров',
+      p2desc: 'Только карточки уровней и названия задач. Для первого знакомства, презентаций и разговора с командой о карьерном треке.',
+      p2link: 'Скачать PDF (RU) →',
+      howLabel: 'Как устроен инструмент',
+      howTitle: 'Три слоя. Одна система.',
+      howSub: 'Матрица, оценка и план развития связаны. Данные вводятся один раз — всё остальное считается автоматически.',
+      how1num: '01', how1title: 'Матрица компетенций', how1desc: '5 стримов, 12 компетенций, 5 уровней. По каждой компетенции — задача уровня и 2–3 поведенческих маркера. Отдельный трек AI-компетенций.',
+      how2num: '02', how2title: 'Инструмент оценки', how2desc: 'Оценщик отмечает маркеры поведения. Уровень по каждой компетенции и профиль по стримам считаются автоматически. Радар-диаграмма строится мгновенно.',
+      how3num: '03', how3title: 'Индивидуальный план развития', how3desc: 'Одна кнопка — готов ИПР. Приоритет 1: закрыть пробелы. Приоритет 2: расти дальше. Маркеры следующего уровня и поле для комментария.',
+      tableLabel: 'Рабочий инструмент',
+      tableSubLabel: 'Google Таблица · Бесплатно · Только RU',
+      tableTitle: 'Скопируйте шаблон и начните работу',
+      tableDesc: 'Таблица работает в Google Sheets. Все формулы и скрипты уже настроены. Нужно только скопировать и заполнить данные сотрудника.',
+      step1: 'Нажмите «Открыть шаблон» и выберите <strong>Файл → Создать копию</strong>',
+      step2: 'Откройте лист <strong>📋 Профиль оценки</strong> и заполните данные сотрудника',
+      step3: 'Отмечайте маркеры поведения — уровень считается автоматически',
+      step4: 'Нажмите <strong>Сформировать ИПР</strong> и подтвердите разрешение на запуск скрипта',
+      tableNote: '<strong>Про скрипт:</strong> при копировании таблицы скрипт копируется вместе с ней. При первом запуске Google покажет предупреждение безопасности — нажмите «Дополнительно» → «Перейти» → «Разрешить».',
+      btnTemplate: 'Открыть шаблон →',
+      btnExample: 'Посмотреть пример',
+      btnHint: 'Шаблон — пустой для работы<br>Пример — заполненный, только просмотр',
+      ctaTitle: 'Нужна матрица под вашу роль или контекст?',
+      ctaSub: 'Матрица PM — пример того, как может выглядеть описание роли. Разрабатываю кастомные матрицы для любых ролей: аналитики, дизайнеры, инженеры, продакты.',
+      ctaBtn: 'Обсудить проект →',
+      fCopy: 'Инструменты для людей,<br>которые строят команды.',
+    },
+    en: {
+      navHome: 'Home', navDiag: 'Diagnostic', navGuide: 'HR Roles',
+      navPm: 'PM Role', navStr: 'Structures',
+      eyebrow: 'Tools · PM · Career Track',
+      h1: 'Competency matrix<br><em>for project managers</em>',
+      heroSub: 'A working tool for hiring, assessing, and developing PMs. Five levels, five streams, behavioral markers, and an automatic development plan.',
+      ctaPrimary: 'Get the spreadsheet',
+      ctaSecondary: 'How it works',
+      whatLabel: 'What is this',
+      whatTitle: 'A role description is not a document.<br>It's a management tool.',
+      whatSub: 'The matrix describes what a PM does at each level — from Junior to Head. Not abstractly, but through concrete tasks and observable behavioral markers.',
+      w1num: '01', w1title: 'Tasks, not requirements', w1desc: 'Each competency is defined by the task the PM solves at that level. Concrete and measurable.',
+      w2num: '02', w2title: 'Markers you can verify', w2desc: 'Behavioral markers under each task — can be checked in interviews or observed on the job.',
+      w3num: '03', w3title: 'Profile and gaps', w3desc: 'The assessment automatically calculates the level per stream and builds a radar profile with growth zones.',
+      w4num: '04', w4title: 'Automatic development plan', w4desc: 'After assessment, one click generates a development plan with priorities and next-level markers.',
+      caseLabel: 'Case study',
+      caseText: 'In one team, PMs had no clear understanding of what it meant to "grow" in their role. Assessments were subjective, promotions unpredictable. After implementing the matrix and the first assessment cycle, <strong>team engagement grew by 23%</strong> — people finally saw the path and understood exactly what they needed to do to move forward.',
+      stat1num: '+23%', stat1desc: 'engagement growth after the first assessment cycle',
+      stat2num: '5', stat2desc: 'streams, 12 competencies, 5 levels',
+      stat3num: '30 min', stat3desc: 'to assess one employee and create a development plan',
+      audLabel: 'Who it's for',
+      audTitle: 'Four questions<br>the tool answers',
+      aud1icon: '🔍', aud1title: 'Who to hire?', aud1desc: 'Each level profile is a ready-made Job Description with behavioral markers for interviews.',
+      aud1q1: 'What level do you need for the role?', aud1q2: 'Which markers should you assess in candidates?',
+      aud2icon: '📈', aud2title: 'Who to promote?', aud2desc: 'Clear criteria for level transitions remove subjectivity from promotion decisions.',
+      aud2q1: 'Is the person ready for the next level?', aud2q2: 'Which markers are still missing?',
+      aud3icon: '🌱', aud3title: 'How to develop?<br>Who needs what?', aud3desc: 'The development plan shows specific gaps and next-level markers for each competency.',
+      aud3q1: 'Where are the real growth zones?', aud3q2: 'What should be developed first?',
+      postersLabel: 'Visual artifacts',
+      postersTitle: 'Two formats for different purposes',
+      postersSub: 'Both posters are available in Russian. English version coming soon.',
+      p1tag: 'PM Competency Matrix', p1title: 'Full version with markers',
+      p1desc: '12 competencies, 5 levels, tasks and behavioral markers. Plus AI competencies. For team assessment and onboarding.',
+      p1link: 'Download PDF (RU) →',
+      p2tag: 'PM Career Track', p2title: 'Short version — tasks only',
+      p2desc: 'Just level cards and task names. For first introductions, presentations, and career conversations.',
+      p2link: 'Download PDF (RU) →',
+      howLabel: 'How the tool works',
+      howTitle: 'Three layers. One system.',
+      howSub: 'The matrix, assessment, and development plan are connected. Data is entered once — everything else is calculated automatically.',
+      how1num: '01', how1title: 'Competency matrix', how1desc: '5 streams, 12 competencies, 5 levels. Each competency has a level task and 2–3 behavioral markers. Separate AI competency track.',
+      how2num: '02', how2title: 'Assessment tool', how2desc: 'The assessor checks observed behavioral markers. Level per competency and stream profile are calculated automatically. Radar chart built instantly.',
+      how3num: '03', how3title: 'Individual development plan', how3desc: 'One button — development plan is ready. Priority 1: close gaps. Priority 2: grow further. Next-level markers and a comment field.',
+      tableLabel: 'Working tool',
+      tableSubLabel: 'Google Spreadsheet · Free · Russian only',
+      tableTitle: 'Copy the template and get started',
+      tableDesc: 'The spreadsheet runs in Google Sheets. All formulas and scripts are pre-configured. Just copy it and fill in the employee data.',
+      step1: 'Click "Open template" and select <strong>File → Make a copy</strong>',
+      step2: 'Open the sheet <strong>📋 Assessment Profile</strong> and fill in the employee data',
+      step3: 'Check the behavioral markers — level is calculated automatically',
+      step4: 'Click <strong>Generate development plan</strong> and confirm the script permission',
+      tableNote: '<strong>About the script:</strong> when you copy the spreadsheet, the script is copied with it. On first run, Google will show a security warning — click "Advanced" → "Go to" → "Allow".',
+      btnTemplate: 'Open template →',
+      btnExample: 'View example',
+      btnHint: 'Template — blank for use<br>Example — filled in, view only',
+      ctaTitle: 'Need a matrix for your role or context?',
+      ctaSub: 'The PM matrix is an example of what a role description can look like. I develop custom matrices for any roles: analysts, designers, engineers, product managers.',
+      ctaBtn: 'Discuss the project →',
+      fCopy: 'Tools for people<br>who build teams.',
+    }
+  };
+
+  function set(id, val, html = false) {
+    const el = document.getElementById(id);
+    if (!el) return;
+    html ? el.innerHTML = val : el.textContent = val;
+  }
+
+  function applyPageLang(lang) {
+    const l = T[lang] || T.ru;
+    // nav
+    set('nav-home', l.navHome); set('nav-diag', l.navDiag);
+    set('nav-guide', l.navGuide); set('nav-pm', l.navPm); set('nav-str', l.navStr);
+    // hero
+    set('hero-eyebrow', l.eyebrow);
+    set('hero-h1', l.h1, true);
+    set('hero-sub', l.heroSub);
+    set('cta-primary', l.ctaPrimary);
+    set('cta-secondary', l.ctaSecondary);
+    // what
+    set('what-label', l.whatLabel);
+    set('what-title', l.whatTitle, true);
+    set('what-sub', l.whatSub);
+    set('w1-num', l.w1num); set('w1-title', l.w1title); set('w1-desc', l.w1desc);
+    set('w2-num', l.w2num); set('w2-title', l.w2title); set('w2-desc', l.w2desc);
+    set('w3-num', l.w3num); set('w3-title', l.w3title); set('w3-desc', l.w3desc);
+    set('w4-num', l.w4num); set('w4-title', l.w4title); set('w4-desc', l.w4desc);
+    // case
+    set('case-label', l.caseLabel);
+    set('case-text', l.caseText, true);
+    set('stat1-num', l.stat1num); set('stat1-desc', l.stat1desc);
+    set('stat2-num', l.stat2num); set('stat2-desc', l.stat2desc);
+    set('stat3-num', l.stat3num); set('stat3-desc', l.stat3desc);
+    // audience
+    set('aud-label', l.audLabel);
+    set('aud-title', l.audTitle, true);
+    set('aud1-icon', l.aud1icon); set('aud1-title', l.aud1title, true); set('aud1-desc', l.aud1desc);
+    set('aud1-q1', l.aud1q1); set('aud1-q2', l.aud1q2);
+    set('aud2-icon', l.aud2icon); set('aud2-title', l.aud2title); set('aud2-desc', l.aud2desc);
+    set('aud2-q1', l.aud2q1); set('aud2-q2', l.aud2q2);
+    set('aud3-icon', l.aud3icon); set('aud3-title', l.aud3title, true); set('aud3-desc', l.aud3desc);
+    set('aud3-q1', l.aud3q1); set('aud3-q2', l.aud3q2);
+    // posters
+    set('posters-label', l.postersLabel);
+    set('posters-title', l.postersTitle);
+    set('posters-sub', l.postersSub);
+    set('p1-tag', l.p1tag); set('p1-title', l.p1title); set('p1-desc', l.p1desc); set('p1-link', l.p1link);
+    set('p2-tag', l.p2tag); set('p2-title', l.p2title); set('p2-desc', l.p2desc); set('p2-link', l.p2link);
+    // how
+    set('how-label', l.howLabel);
+    set('how-title', l.howTitle);
+    set('how-sub', l.howSub);
+    set('how1-num', l.how1num); set('how1-title', l.how1title); set('how1-desc', l.how1desc);
+    set('how2-num', l.how2num); set('how2-title', l.how2title); set('how2-desc', l.how2desc);
+    set('how3-num', l.how3num); set('how3-title', l.how3title); set('how3-desc', l.how3desc);
+    // table
+    set('table-label', l.tableLabel);
+    set('table-sublabel', l.tableSubLabel);
+    set('table-title', l.tableTitle);
+    set('table-desc', l.tableDesc);
+    set('step1', l.step1, true); set('step2', l.step2, true);
+    set('step3', l.step3, true); set('step4', l.step4, true);
+    set('table-note', l.tableNote, true);
+    set('btn-template', l.btnTemplate);
+    set('btn-example', l.btnExample);
+    set('btn-hint', l.btnHint, true);
+    // cta
+    set('cta-title', l.ctaTitle);
+    set('cta-sub', l.ctaSub);
+    set('cta-btn', l.ctaBtn);
+    // footer
+    set('f-copy', l.fCopy, true);
+  }
+
+  function changePageLang(lang) { App.setLanguage(lang, applyPageLang); }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const lang = new URLSearchParams(window.location.search).get('lang') === 'en' ? 'en' : 'ru';
+    if (lang === 'en') applyPageLang('en');
+  });
+</script>
+
+</body>
+</html>
