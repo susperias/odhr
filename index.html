@@ -202,11 +202,12 @@
   <nav class="site-nav">
     <a href="home.html" class="nav-brand">ODHR</a>
     <div class="nav-menu" id="nav-menu">
-      <a href="home.html" class="nav-link cross-link" id="nav-home">Главная</a>
-      <a href="index.html" class="nav-link active cross-link" id="nav-diag">Диагностика</a>
-      <a href="hr_roles_guide.html" class="nav-link cross-link" id="nav-guide">Роли</a>
-      <a href="structure.html" class="nav-link cross-link" id="nav-str">Структуры</a>
-    </div>
+    <a href="home.html" class="nav-link cross-link" id="nav-home">Главная</a>
+    <a href="index.html" class="nav-link active cross-link" id="nav-diag">Диагностика</a>
+    <a href="hr_roles_guide.html" class="nav-link cross-link" id="nav-guide">Роли в HR</a>
+    <a href="pm_skillset.html" class="nav-link cross-link" id="nav-pm">Роль PM</a>
+    <a href="structure.html" class="nav-link cross-link" id="nav-str">Структуры</a>
+  </div>
     <div class="nav-actions">
       <div class="lang-toggle">
         <button class="lang-btn active" onclick="changePageLang('ru')" id="btn-lang-ru">RU</button>
@@ -280,7 +281,7 @@
   const locales = {
     ru: {
       ui: {
-        navHome: "Главная", navDiag: "Диагностика", navGuide: "Роли", navStr: "Структуры",
+        navHome: "Главная", navDiag: "Диагностика", navGuide: "Роли в HR", navPm: "Роль PM", navStr: "Структуры",
         heroTitle: "Диагностика HR для фаундеров",
         heroSub: "Ответьте на несколько вопросов о вашей компании — и узнайте, на какой стадии вы находитесь, какие HR-роли нужны и какие функции они должны закрывать.",
         s1: "Команда", s2: "Рост", s3: "Процессы", s4: "Результат",
@@ -425,7 +426,7 @@
     },
     en: {
       ui: {
-        navHome: "Home", navDiag: "Diagnostic", navGuide: "Roles", navStr: "Structures",
+        navHome: "Home", navDiag: "Diagnostic", navGuide: "HR Roles", navPm: "PM Role", navStr: "Structures",
         heroTitle: "HR Diagnostic for Founders",
         heroSub: "Answer a few questions about your company to discover your current maturity stage, required HR roles, and the target operating model you need to build.",
         s1: "Team", s2: "Growth", s3: "Ops", s4: "Result",
@@ -626,7 +627,7 @@
     // МЕНЮ
     document.getElementById('nav-home').textContent = d.navHome;
     document.getElementById('nav-diag').textContent = d.navDiag;
-    document.getElementById('nav-guide').textContent = d.navGuide;
+    document.getElementById('nav-guide').textContent = d.navGuide; const navPmEl = document.getElementById('nav-pm'); if(navPmEl) navPmEl.textContent = d.navPm;
     document.getElementById('nav-str').textContent = d.navStr;
 
     // HERO & UI
