@@ -264,7 +264,8 @@
   <div class="nav-menu" id="nav-menu">
     <a href="home.html" class="nav-link cross-link" id="nav-home">Главная</a>
     <a href="index.html" class="nav-link cross-link" id="nav-diag">Диагностика</a>
-    <a href="hr_roles_guide.html" class="nav-link active cross-link" id="nav-guide">Роли</a>
+    <a href="hr_roles_guide.html" class="nav-link active cross-link" id="nav-guide">Роли в HR</a>
+    <a href="pm_skillset.html" class="nav-link cross-link" id="nav-pm">Роль PM</a>
     <a href="structure.html" class="nav-link cross-link" id="nav-str">Структуры</a>
   </div>
   
@@ -763,7 +764,7 @@ function toggleFunc(header) {
 /* ── LANG ── */
 const UI = {
   ru: { 
-    navHome:'Главная', navDiag:'Диагностика', navGuide:'Роли', navStr:'Структуры', fContact:'✉ Написать мне',
+    navHome:'Главная', navDiag:'Диагностика', navGuide:'Роли в HR', navPm:'Роль PM', navStr:'Структуры', fContact:'✉ Написать мне',
     title:'Карта HR-карьеры', 
     desc:'Интерактивный граф ролей, треков и переходов в HR-функции. Нажмите на любую роль — увидите что она делает, откуда приходят и куда можно вырасти.', 
     footerCredit:' ',
@@ -790,7 +791,7 @@ const UI = {
     swipeHint: '↔ Свайпайте карту вправо'
   },
   en: { 
-    navHome:'Home', navDiag:'Diagnostic', navGuide:'Roles', navStr:'Structures', fContact:'✉ Get in touch',
+    navHome:'Home', navDiag:'Diagnostic', navGuide:'HR Roles', navPm:'PM Role', navStr:'Structures', fContact:'✉ Get in touch',
     title:'HR Career Map', 
     desc:'Interactive graph of roles, tracks and transitions in the HR function. Click any role to see what it does, where people come from, and where they can grow.', 
     footerCredit:' ',
@@ -823,7 +824,7 @@ function applyPageLang(lang) {
   
   set('nav-home', u.navHome);
   set('nav-diag', u.navDiag);
-  set('nav-guide', u.navGuide);
+  set('nav-guide', u.navGuide); set('nav-pm', u.navPm);
   set('nav-str', u.navStr);
 
   set('hero-eyebrow', u.eyebrow);
