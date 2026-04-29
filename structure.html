@@ -182,8 +182,9 @@
   <div class="nav-menu" id="nav-menu">
     <a href="home.html" class="nav-link cross-link" id="nav-home">Главная</a>
     <a href="index.html" class="nav-link cross-link" id="nav-diag">Диагностика</a>
-    <a href="hr_roles_guide.html" class="nav-link cross-link" id="nav-guide">Роли</a>
-    <a href="structure.html" class="nav-link active cross-link" id="nav-struct">Структуры</a>
+    <a href="hr_roles_guide.html" class="nav-link cross-link" id="nav-guide">Роли в HR</a>
+    <a href="pm_skillset.html" class="nav-link cross-link" id="nav-pm">Роль PM</a>
+    <a href="structure.html" class="nav-link active cross-link" id="nav-str">Структуры</a>
   </div>
   <div class="nav-actions">
     <div class="lang-toggle">
@@ -438,7 +439,7 @@ const structData = {
 
 const UI = {
   ru: {
-    navHome: 'Главная', navDiag: 'Диагностика', navGuide: 'Роли', navStruct: 'Структуры',
+    navHome: 'Главная', navDiag: 'Диагностика', navGuide: 'Роли в HR', navPm: 'Роль PM', navStruct: 'Структуры',
     heroEye: 'Организационный дизайн', heroTitle: 'Анатомия бизнеса', heroSub: 'Идеальной структуры не существует. Форма компании должна эволюционировать в зависимости от стадии развития и стратегии.',
     slSec: 'Баланс контроля и инноваций', slLeft: 'Тотальный контроль', slMid: 'Баланс', slRight: 'Максимальная скорость',
     lblStruct: 'Структура', lblComp: 'Компании', lblSig: 'Сигнал (когда актуально)',
@@ -447,7 +448,7 @@ const UI = {
     ctaTitle: 'Нужна помощь разобраться со структурой?', ctaDesc: 'Организационный дизайн — это процесс. Помогу проанализировать текущую структуру, найти узкие места и спроектировать целевую модель для вашего бизнеса.', ctaBtn: 'Напишите мне', fContact: '✉ Написать мне'
   },
   en: {
-    navHome: 'Home', navDiag: 'Diagnostic', navGuide: 'Roles', navStruct: 'Structures',
+    navHome: 'Home', navDiag: 'Diagnostic', navGuide: 'HR Roles', navPm: 'PM Role', navStruct: 'Structures',
     heroEye: 'Organizational Design', heroTitle: 'Business Anatomy', heroSub: 'The perfect structure doesn\'t exist. Company form must evolve based on its development stage and strategy.',
     slSec: 'Balance of Control & Innovation', slLeft: 'Total Control', slMid: 'Balance', slRight: 'Max Speed',
     lblStruct: 'Structure', lblComp: 'Companies', lblSig: 'Signal (When applicable)',
@@ -518,7 +519,7 @@ function renderGrid(containerId, dataArray) {
 
 function applyPageLang(lang) {
   const u = UI[lang];
-  set('nav-home', u.navHome); set('nav-diag', u.navDiag); set('nav-guide', u.navGuide); set('nav-struct', u.navStruct);
+  set('nav-home', u.navHome); set('nav-diag', u.navDiag); set('nav-guide', u.navGuide); set('nav-pm', u.navPm); set('nav-struct', u.navStruct);
   set('hero-eyebrow', u.heroEye); set('hero-title', u.heroTitle); set('hero-sub', u.heroSub);
   set('lbl-slider-sec', u.slSec); set('sl-left-lbl', u.slLeft); set('sl-mid-lbl', u.slMid); set('sl-right-lbl', u.slRight);
   set('lbl-res-struct', u.lblStruct); set('lbl-res-comp', u.lblComp); set('lbl-res-sig', u.lblSig);
