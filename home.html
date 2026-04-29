@@ -123,7 +123,8 @@
   <div class="nav-menu" id="nav-menu">
     <a href="home.html" class="nav-link active cross-link" id="nav-home">Главная</a>
     <a href="index.html" class="nav-link cross-link" id="nav-diag">Диагностика</a>
-    <a href="hr_roles_guide.html" class="nav-link cross-link" id="nav-guide">Роли</a>
+    <a href="hr_roles_guide.html" class="nav-link cross-link" id="nav-guide">Роли в HR</a>
+    <a href="pm_skillset.html" class="nav-link cross-link" id="nav-pm">Роль PM</a>
     <a href="structure.html" class="nav-link cross-link" id="nav-str">Структуры</a>
   </div>
   
@@ -300,7 +301,7 @@
 <script>
   const T = {
     ru: {
-      navHome:'Главная', navDiag:'Диагностика', navGuide:'Роли', navStr:'Структуры',
+      navHome:'Главная', navDiag:'Диагностика', navGuide:'Роли в HR', navPm:'Роль PM', navStr:'Структуры',
       eyebrow:'HR · OD · PM',
       h1:'Помогаю растущим командам масштабироваться без хаоса и потери сильных людей.',
       sub:'Провожу аудит оргструктуры и HR-процессов. Нахожу скрытые узкие горлышки и проектирую систему, которая будет поддерживать бизнес, а не тормозить его.',
@@ -338,7 +339,7 @@
       fCopy:' ',
     },
     en: {
-      navHome:'Home', navDiag:'Diagnostic', navGuide:'Roles', navStr:'Structures',
+      navHome:'Home', navDiag:'Diagnostic', navGuide:'HR Roles', navPm:'PM Role', navStr:'Structures',
       eyebrow:'HR · OD · PM',
       h1:'I help growing teams scale without chaos and losing strong people.',
       sub:'I audit org structure and HR processes. I find hidden bottlenecks and design a system that supports the business instead of slowing it down.',
@@ -382,7 +383,7 @@
   function applyPageLang(lang) {
     const l = T[lang];
     
-    set('nav-home', l.navHome); set('nav-diag', l.navDiag); set('nav-guide', l.navGuide); set('nav-str', l.navStr);
+    set('nav-home', l.navHome); set('nav-diag', l.navDiag); set('nav-guide', l.navGuide); set('nav-pm', l.navPm); set('nav-str', l.navStr);
     set('hero-eyebrow', l.eyebrow);
     set('hero-title', l.h1, true); set('hero-sub', l.sub);
     set('cta-primary', l.cta1); set('cta-secondary', l.cta2);
