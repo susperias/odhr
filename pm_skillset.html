@@ -401,8 +401,8 @@
         </div>
       </div>
       <div class="tool-cta-actions">
-        <a href="https://docs.google.com/spreadsheets/d/1bxBkTUYMqehr57tN6ShqzNxMy4CPkEgMUHwVUpjfx_Q/copy" target="_blank" class="btn-tool" id="btn-template">Открыть шаблон →</a>
-        <a href="https://docs.google.com/spreadsheets/d/1bxBkTUYMqehr57tN6ShqzNxMy4CPkEgMUHwVUpjfx_Q" target="_blank" class="btn-tool-ghost" id="btn-example">Посмотреть пример</a>
+        <a href="https://docs.google.com/spreadsheets/d/15IwQJSFvZP5ypgkQBLpmq6bTUYqp9S7X6LYJABMOK9U/edit?gid=1465923598#gid=1465923598&range=A1:C1" target="_blank" class="btn-tool-ghost" id="btn-example">Посмотреть пример</a>
+        <a href="https://docs.google.com/spreadsheets/d/1bxBkTUYMqehr57tN6ShqzNxMy4CPkEgMUHwVUpjfx_Q/&range=A1:B1copy" target="_blank" class="btn-tool" id="btn-template">Сохранить себе шаблон →</a>
         <div class="tool-cta-hint" id="btn-hint">Шаблон — пустой для работы<br>Пример — заполненный, только просмотр</div>
       </div>
     </div>
@@ -412,7 +412,7 @@
   <div class="cta-block">
     <div>
       <div class="cta-block-title" id="cta-title">Нужна матрица под вашу роль или контекст?</div>
-      <div class="cta-block-sub" id="cta-sub">Матрица PM — пример того, как может выглядеть описание роли. Разрабатываю кастомные матрицы для любых ролей: аналитики, дизайнеры, инженеры, продакты.</div>
+      <div class="cta-block-sub" id="cta-sub">Эта Матрица PM — пример того, как может выглядеть описание роли. Помогу с разработкой кастомной матрицы для вашей команды для любых ролей: аналитики, дизайнеры, инженеры, продакты.</div>
     </div>
     <a href="#" data-contact-trigger class="btn-primary" id="cta-btn">Обсудить проект →</a>
   </div>
@@ -514,7 +514,7 @@
       btnExample: 'Посмотреть пример',
       btnHint: 'Шаблон — пустой для работы<br>Пример — заполненный, только просмотр',
       ctaTitle: 'Нужна матрица под вашу роль или контекст?',
-      ctaSub: 'Матрица PM — пример того, как может выглядеть описание роли. Разрабатываю кастомные матрицы для любых ролей: аналитики, дизайнеры, инженеры, продакты.',
+      ctaSub: 'Эта Матрица PM — пример того, как может выглядеть описание роли. Помогу с разработкой кастомной матрицы для вашей команды для любых ролей: аналитики, дизайнеры, инженеры, продакты.',
       ctaBtn: 'Обсудить проект →',
       fCopy: 'Инструменты для людей,<br>которые строят команды.',
     },
@@ -574,7 +574,7 @@
       btnExample: 'View example',
       btnHint: 'Template — blank for use<br>Example — filled in, view only',
       ctaTitle: 'Need a matrix for your role or context?',
-      ctaSub: 'The PM matrix is an example of what a role description can look like. I develop custom matrices for any roles: analysts, designers, engineers, product managers.',
+      ctaSub: 'This PM matrix is an example of what a role description can look like. I develop custom matrices for your team any roles: analysts, designers, engineers, product managers.',
       ctaBtn: 'Discuss the project →',
       fCopy: 'Tools for people<br>who build teams.',
     }
@@ -652,7 +652,29 @@
     set('f-copy', l.fCopy, true);
   }
 
-  function changePageLang(lang) { App.setLanguage(lang, applyPageLang); }
+  function changePageLang(lang) {
+    // Обновляем кнопки языка
+    ['ru','en'].forEach(l => {
+      const btn = document.getElementById('btn-lang-' + l);
+      if (btn) btn.classList.toggle('active', l === lang);
+    });
+    // Обновляем lang в URL без перезагрузки
+    const url = new URL(window.location);
+    url.searchParams.set('lang', lang);
+    window.history.pushState({}, '', url);
+    // Обновляем cross-links
+    document.querySelectorAll('.cross-link').forEach(link => {
+      if (link.getAttribute('href') && link.getAttribute('href') !== '#') {
+        try {
+          const u = new URL(link.href, window.location.origin);
+          u.searchParams.set('lang', lang);
+          link.href = u.toString();
+        } catch(e) {}
+      }
+    });
+    // Применяем переводы
+    applyPageLang(lang);
+  }
 
   document.addEventListener('DOMContentLoaded', () => {
     const lang = new URLSearchParams(window.location.search).get('lang') === 'en' ? 'en' : 'ru';
