@@ -157,7 +157,7 @@ body { font-family: 'Golos Text', sans-serif; background: var(--paper); color: v
 .case-body { padding: 20px 24px; background: var(--cream); }
 .case-scenario { font-size: 13px; color: var(--muted); line-height: 1.6; margin-bottom: 12px; }
 .case-result { font-size: 13px; color: var(--accent2); font-weight: 500; }
-.case-link { font-family: 'Unbounded', sans-serif; font-size: 10px; font-weight: 700; letter-spacing: 1px; color: var(--ink); margin-top: 14px; display: block; }  */
+.case-link { font-family: 'Unbounded', sans-serif; font-size: 10px; font-weight: 700; letter-spacing: 1px; color: var(--ink); margin-top: 14px; display: block; } */
 
 /* FOOTER */
 .site-footer { background: var(--ink); color: white; padding: 40px; }
@@ -699,35 +699,24 @@ body { font-family: 'Golos Text', sans-serif; background: var(--paper); color: v
         <div style="font-family:'Unbounded',sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--accent);margin-bottom:12px;">The Telescope · Role Lens Framework</div>
         <div style="font-family:'Unbounded',sans-serif;font-size:22px;font-weight:700;color:#fff;line-height:1.2;margin-bottom:16px;">Пять линз.<br>Одна чёткая картина.</div>
 
-        <!-- PDF Preview via Google Docs viewer -->
-        <div style="position:relative;margin-bottom:20px;border-radius:10px;overflow:hidden;cursor:pointer;"
-             onclick="document.getElementById('telescope-modal').style.display='flex'">
-          <iframe
-            src="https://docs.google.com/viewer?url=https://raw.githubusercontent.com/susperias/odhr/main/Lens%20(adapt-eng).pdf&embedded=true"
-            style="width:100%;height:260px;border:none;border-radius:10px;pointer-events:none;"
-            scrolling="no">
-          </iframe>
-          <div style="position:absolute;inset:0;background:rgba(28,42,62,0.1);display:flex;align-items:flex-end;justify-content:flex-end;padding:12px 16px;border-radius:10px;">
-            <span style="font-family:'Unbounded',sans-serif;font-size:9px;font-weight:700;letter-spacing:1px;color:rgba(255,255,255,0.6);">нажми чтобы открыть ↗</span>
+        <!-- Preview — PNG thumbnail, click opens PDF in new tab -->
+        <a href="https://raw.githubusercontent.com/susperias/odhr/main/Lens%20(adapt-eng).pdf"
+           target="_blank"
+           style="display:block;margin-bottom:20px;border-radius:10px;overflow:hidden;position:relative;text-decoration:none;cursor:zoom-in;">
+          <img src="Lens__adapt-eng_.png"
+               alt="Telescope — Role Lens Framework"
+               style="width:100%;display:block;border-radius:10px;"/>
+          <div style="position:absolute;bottom:12px;right:14px;background:rgba(240,168,48,0.15);border-radius:6px;padding:5px 12px;">
+            <span style="font-family:'Unbounded',sans-serif;font-size:8px;font-weight:700;letter-spacing:1px;color:rgba(240,168,48,0.9);">открыть ↗</span>
           </div>
-        </div>
+        </a>
 
-        <a href="https://github.com/susperias/odhr/raw/main/Lens%20(adapt-eng).pdf"
-           download
+        <a href="https://raw.githubusercontent.com/susperias/odhr/main/Lens%20(adapt-eng).pdf"
+           download="Telescope_Role_Lens.pdf"
            class="btn-primary"
            style="display:inline-flex;gap:8px;align-items:center;">
           ↓ Скачать инфографику (PDF)
         </a>
-
-        <!-- MODAL -->
-        <div id="telescope-modal"
-             onclick="this.style.display='none'"
-             style="display:none;position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,0.95);align-items:center;justify-content:center;cursor:zoom-out;">
-          <iframe
-            src="https://docs.google.com/viewer?url=https://raw.githubusercontent.com/susperias/odhr/main/Lens%20(adapt-eng).pdf&embedded=true"
-            style="width:95vw;height:92vh;border:none;border-radius:8px;pointer-events:none;">
-          </iframe>
-        </div>
       </div>
 
       <!-- DECORATIVE RIGHT -->
@@ -823,77 +812,61 @@ body { font-family: 'Golos Text', sans-serif; background: var(--paper); color: v
         <div style="font-family:'Unbounded',sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:12px;">Фаза 1 · Аудит</div>
         <div class="role-name">Диагностическая карта</div>
         <div class="role-desc">Визуализация текущего состояния — где система здорова, где сломана, где узкие горлышки. Карта ролей с паттернами дисфункции по каждой.</div>
-        <div style="margin-top:10px;display:flex;flex-wrap:wrap;gap:4px;">
-          <span class="tag">Карта ролей · </span>
-          <span class="tag">Паттерны · </span>
-          <span class="tag">Красные флаги</span>
-        </div>
+        <div style="margin-top:12px;font-size:11px;color:var(--accent2);font-weight:500;">Карта ролей · Паттерны · Красные флаги</div>
       </div>
 
       <div class="role-card" style="border-radius:14px;">
         <div style="font-family:'Unbounded',sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:12px;">Фаза 1 · Аудит</div>
         <div class="role-name">Матрица ролей</div>
         <div class="role-desc">Каждая роль через пять линз — таблица с выводами по Purpose, Accountability, Outcomes, Capabilities, Fit. Гипотезы верифицированные данными клиента.</div>
-        <div style="margin-top:10px;display:flex;flex-wrap:gap:4px;">
-          <span class="tag">Пять линз · </span>
-          <span class="tag">Decision rights · </span>
-          <span class="tag">Выводы</span>
-        </div>
+        <div style="margin-top:12px;font-size:11px;color:var(--accent2);font-weight:500;">Пять линз · Decision rights · Выводы</div>
       </div>
 
       <div class="role-card" style="border-radius:14px;">
         <div style="font-family:'Unbounded',sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:12px;">Фаза 2 · Редизайн</div>
         <div class="role-name">Сценарии структуры</div>
         <div class="role-desc">2–3 варианта новой оргструктуры с плюсами, рисками и скоростью внедрения каждого. Рекомендация обоснованная данными аудита, а не интуицией.</div>
-        <div style="margin-top:10px;display:flex;flex-wrap:wrap;gap:4px;">
-          <span class="tag">2–3 сценария · </span>
-          <span class="tag">Риски · </span>
-          <span class="tag">Roadmap</span>
-        </div>
+        <div style="margin-top:12px;font-size:11px;color:var(--accent2);font-weight:500;">2–3 сценария · Риски · Roadmap</div>
       </div>
 
       <div class="role-card" style="border-radius:14px;">
         <div style="font-family:'Unbounded',sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:12px;">Фаза 2 · Редизайн</div>
         <div class="role-name">RACI и карта связей</div>
         <div class="role-desc">Кто за что отвечает в новой структуре. Матрица decision rights по ролям. Карта взаимодействий — кто с кем, в каком режиме и как часто.</div>
-        <div style="margin-top:10px;display:flex;flex-wrap:wrap;gap:4px;">
-          <span class="tag">RACI · </span>
-          <span class="tag">Decision rights · </span>
-          <span class="tag">Связи</span>
-        </div>
+        <div style="margin-top:12px;font-size:11px;color:var(--accent2);font-weight:500;">RACI · Decision rights · Карта связей</div>
       </div>
 
       <div class="role-card" style="border-radius:14px;">
         <div style="font-family:'Unbounded',sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:12px;">Фаза 3 · Найм</div>
         <div class="role-name">Профиль роли</div>
         <div class="role-desc">Суть роли, Accountability, Outcomes и Capabilities в одном документе. Must Have на входе отделён от того что развивается внутри. Готов к использованию в найме.</div>
-        <div style="margin-top:10px;display:flex;flex-wrap:wrap;gap:4px;">
-          <span class="tag">Must Have · </span>
-          <span class="tag">Mindset · </span>
-          <span class="tag">Outcomes</span>
-        </div>
+        <div style="margin-top:12px;font-size:11px;color:var(--accent2);font-weight:500;">Must Have · Mindset · Outcomes</div>
       </div>
 
       <div class="role-card" style="border-radius:14px;">
         <div style="font-family:'Unbounded',sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:12px;">Фаза 3 · Найм</div>
         <div class="role-name">Карта людей</div>
         <div class="role-desc">Кто fit в новой структуре, у кого gap, кто вырастет в роль. Для каждого — вывод: остаётся, переходит, или ищем снаружи. С планом развития или перехода.</div>
-        <div style="margin-top:10px;display:flex;flex-wrap:wrap;gap:4px;">
-          <span class="tag">Fit / Gap · </span>
-          <span class="tag">План развития · </span>
-          <span class="tag">Найм</span>
-        </div>
+        <div style="margin-top:12px;font-size:11px;color:var(--accent2);font-weight:500;">Fit / Gap · План развития · Найм</div>
+      </div>
+
+    </div>
+          <span class="tag">Fit / Gap</span>
       </div>
 
     </div>
 
-    <div style="background:var(--ink);border-radius:14px;padding:28px 32px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:20px;">
-      <div>
-        <div style="font-family:'Unbounded',sans-serif;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--accent);margin-bottom:8px;">Хотите разобраться в своей ситуации?</div>
-        <div style="font-size:15px;color:rgba(255,255,255,0.75);max-width:480px;line-height:1.6;">Начнём с бесплатной встречи — разберёмся что происходит и есть ли смысл работать дальше.</div>
-      </div>
-      <a href="https://susperias.github.io/odhr/home.html#formats" style="font-family:'Unbounded',sans-serif;font-size:11px;font-weight:700;letter-spacing:1px;padding:14px 28px;background:var(--accent);color:var(--ink);border-radius:8px;text-decoration:none;white-space:nowrap;">Форматы работы →</a>
+  </div>
+</section>
+
+<!-- CTA -->
+<section style="background:var(--ink);padding:40px 56px;">
+  <div style="max-width:920px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:20px;">
+    <div>
+      <div style="font-family:'Unbounded',sans-serif;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--accent);margin-bottom:8px;">Хотите разобраться в своей ситуации?</div>
+      <div style="font-size:15px;color:rgba(255,255,255,0.75);max-width:480px;line-height:1.6;">Начнём с бесплатной встречи — разберёмся что происходит и есть ли смысл работать дальше.</div>
     </div>
+    <a href="https://susperias.github.io/odhr/home.html#formats" style="font-family:'Unbounded',sans-serif;font-size:11px;font-weight:700;letter-spacing:1px;padding:14px 28px;background:var(--accent);color:var(--ink);border-radius:8px;text-decoration:none;white-space:nowrap;">Форматы работы →</a>
   </div>
 </section>
 
