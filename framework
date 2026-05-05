@@ -1,0 +1,879 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Role Lens Framework | ODHR Journal</title>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@300;400;600;700&family=Golos+Text:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="global.css">
+<style>
+:root {
+  --ink: #2d3f5c;
+  --paper: #f5f2ea;
+  --cream: #faf8f2;
+  --accent: #f0a830;
+  --accent2: #5a7a8a;
+  --muted: #7a8a9a;
+  --border: #d4d0c8;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Golos Text', sans-serif; background: var(--paper); color: var(--ink); min-height: 100vh; overflow-x: hidden; }
+
+.container { max-width: 920px; margin: 0 auto; padding: 0 32px; }
+
+/* NAV */
+.site-nav { background: var(--ink); padding: 0 40px; display: flex; justify-content: space-between; align-items: center; height: 64px; position: sticky; top: 0; z-index: 1000; border-bottom: 1px solid rgba(255,255,255,0.05); }
+.nav-brand { font-family: 'Unbounded', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 2px; color: var(--accent); text-decoration: none; }
+.nav-menu { display: flex; gap: 24px; align-items: center; }
+.nav-link { font-family: 'Unbounded', sans-serif; font-size: 9px; font-weight: 600; letter-spacing: 1px; color: rgba(255,255,255,0.55); text-decoration: none; transition: color 0.2s; text-transform: uppercase; }
+.nav-link:hover { color: white; }
+.nav-link.active { color: var(--accent); }
+.menu-toggle { display: none; background: none; border: none; color: white; font-size: 20px; cursor: pointer; }
+
+/* HERO */
+.hero { background: var(--ink); color: var(--paper); padding: 64px 40px 72px; position: relative; overflow: hidden; }
+.hero::before { content: 'RL'; position: absolute; right: -20px; top: -30px; font-family: 'Unbounded', sans-serif; font-size: 280px; font-weight: 700; opacity: 0.035; line-height: 1; pointer-events: none; color: white; }
+.hero-tag { font-family: 'Unbounded', sans-serif; font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--accent); margin-bottom: 20px; display: inline-block; }
+.hero h1 { font-family: 'Unbounded', sans-serif; font-size: clamp(26px, 5vw, 52px); font-weight: 700; line-height: 1.1; max-width: 680px; margin-bottom: 20px; position: relative; z-index: 10; }
+.hero-lead { font-size: 16px; color: #8fa0b8; max-width: 560px; line-height: 1.7; position: relative; z-index: 10; margin-bottom: 40px; }
+.hero-claim { display: inline-block; background: rgba(240,168,48,0.12); border: 1px solid rgba(240,168,48,0.3); border-radius: 10px; padding: 16px 24px; font-size: 14px; color: rgba(255,255,255,0.8); line-height: 1.6; max-width: 560px; position: relative; z-index: 10; }
+.hero-claim strong { color: var(--accent); }
+
+/* SECTION */
+.section { padding: 72px 0; border-top: 1px solid var(--border); }
+.section.alt { background: var(--cream); }
+.section-label { font-family: 'Unbounded', sans-serif; font-size: 9px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--muted); margin-bottom: 12px; display: block; }
+.section-title { font-family: 'Unbounded', sans-serif; font-size: clamp(18px, 3vw, 28px); font-weight: 700; line-height: 1.25; margin-bottom: 12px; }
+.section-lead { font-size: 15px; color: var(--muted); max-width: 600px; line-height: 1.75; margin-bottom: 48px; }
+
+/* IDEA BLOCK */
+.idea-block { background: var(--ink); color: white; border-radius: 16px; padding: 40px 48px; margin-bottom: 40px; position: relative; overflow: hidden; }
+.idea-block::before { content: '"'; position: absolute; top: -20px; left: 32px; font-family: 'Unbounded', sans-serif; font-size: 180px; opacity: 0.05; line-height: 1; }
+.idea-label { font-family: 'Unbounded', sans-serif; font-size: 9px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--accent); margin-bottom: 16px; display: block; }
+.idea-text { font-size: 18px; line-height: 1.65; color: rgba(255,255,255,0.88); position: relative; z-index: 1; max-width: 640px; }
+
+/* LEVELS */
+.levels-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 40px; }
+.level-card { border: 1.5px solid var(--border); border-radius: 14px; padding: 28px 24px; background: var(--cream); position: relative; overflow: hidden; }
+.level-num { font-family: 'Unbounded', sans-serif; font-size: 48px; font-weight: 700; color: var(--border); position: absolute; top: 12px; right: 20px; line-height: 1; }
+.level-tag { font-family: 'Unbounded', sans-serif; font-size: 9px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); margin-bottom: 10px; display: block; }
+.level-name { font-family: 'Unbounded', sans-serif; font-size: 16px; font-weight: 700; margin-bottom: 10px; }
+.level-desc { font-size: 13px; color: var(--muted); line-height: 1.65; }
+.level-q { font-size: 13px; color: var(--ink); line-height: 1.6; margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--border); font-style: italic; }
+
+/* VECTORS */
+.vectors { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 40px; }
+.vector-card { border: 1.5px solid var(--border); border-radius: 14px; padding: 24px; background: var(--cream); }
+.vector-card.highlight { border-color: var(--accent2); background: rgba(90,122,138,0.06); }
+.vector-arrow { font-family: 'Unbounded', sans-serif; font-size: 20px; font-weight: 700; color: var(--accent); margin-bottom: 10px; display: block; }
+.vector-name { font-family: 'Unbounded', sans-serif; font-size: 13px; font-weight: 700; margin-bottom: 8px; }
+.vector-desc { font-size: 13px; color: var(--muted); line-height: 1.65; }
+
+/* ENTRY TABLE */
+.entry-table { width: 100%; border-collapse: collapse; margin-bottom: 40px; }
+.entry-table th { text-align: left; padding: 12px 16px; font-family: 'Unbounded', sans-serif; font-size: 9px; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); border-bottom: 2px solid var(--border); }
+.entry-table td { padding: 16px; border-bottom: 1px solid var(--border); font-size: 14px; vertical-align: top; line-height: 1.6; }
+.entry-table tr:last-child td { border-bottom: none; }
+.entry-table tr:hover td { background: rgba(240,168,48,0.04); }
+.entry-q-text { font-weight: 600; color: var(--ink); }
+.entry-gives { font-size: 12px; color: var(--accent2); font-weight: 500; }
+
+/* LENSES */
+.lenses-list { display: flex; flex-direction: column; gap: 0; border: 1.5px solid var(--border); border-radius: 14px; overflow: hidden; margin-bottom: 40px; }
+.lens-item { border-bottom: 1px solid var(--border); }
+.lens-item:last-child { border-bottom: none; }
+.lens-header { display: grid; grid-template-columns: 56px 1fr auto; align-items: center; gap: 20px; padding: 20px 24px; cursor: pointer; transition: background 0.2s; }
+.lens-header:hover { background: rgba(240,168,48,0.05); }
+.lens-header.open { background: var(--ink); color: white; }
+.lens-num { font-family: 'Unbounded', sans-serif; font-size: 22px; font-weight: 700; color: var(--border); line-height: 1; }
+.lens-header.open .lens-num { color: rgba(255,255,255,0.25); }
+.lens-title-wrap {}
+.lens-name { font-family: 'Unbounded', sans-serif; font-size: 14px; font-weight: 700; margin-bottom: 3px; }
+.lens-header.open .lens-name { color: var(--accent); }
+.lens-question { font-size: 13px; color: var(--muted); }
+.lens-header.open .lens-question { color: rgba(255,255,255,0.6); }
+.lens-chevron { font-size: 18px; color: var(--muted); transition: transform 0.3s; }
+.lens-header.open .lens-chevron { transform: rotate(180deg); color: white; }
+.lens-body { display: none; padding: 28px 24px 32px; background: var(--cream); border-top: 1px solid var(--border); }
+.lens-body.open { display: block; }
+
+.lens-sub { font-family: 'Unbounded', sans-serif; font-size: 9px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); margin: 20px 0 10px; display: block; }
+.lens-sub:first-child { margin-top: 0; }
+
+.lens-flags { display: flex; flex-direction: column; gap: 6px; }
+.lens-flag { display: flex; gap: 10px; font-size: 13px; color: var(--muted); line-height: 1.5; align-items: flex-start; }
+.lens-flag::before { content: '—'; color: var(--accent); flex-shrink: 0; font-weight: 700; }
+
+.lens-patterns { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.pattern-card { border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; background: white; }
+.pattern-name { font-family: 'Unbounded', sans-serif; font-size: 10px; font-weight: 700; letter-spacing: 1px; color: var(--ink); margin-bottom: 5px; }
+.pattern-desc { font-size: 12px; color: var(--muted); line-height: 1.5; }
+
+.mini-table { width: 100%; border-collapse: collapse; margin: 8px 0; font-size: 13px; }
+.mini-table th { text-align: left; padding: 8px 12px; font-family: 'Unbounded', sans-serif; font-size: 9px; letter-spacing: 1px; text-transform: uppercase; color: var(--muted); border-bottom: 1px solid var(--border); background: rgba(212,208,200,0.2); }
+.mini-table td { padding: 10px 12px; border-bottom: 1px solid var(--border); vertical-align: top; line-height: 1.5; }
+.mini-table tr:last-child td { border-bottom: none; }
+.must { font-family: 'Unbounded', sans-serif; font-size: 9px; font-weight: 700; letter-spacing: 1px; color: var(--accent); }
+
+/* PHASES */
+.phases-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; border: 1.5px solid var(--border); border-radius: 14px; overflow: hidden; margin-bottom: 40px; align-items: stretch; }
+.phase-card { padding: 28px 24px; border-right: 1px solid var(--border); display: flex; flex-direction: column; }
+.phase-card:last-child { border-right: none; }
+.phase-num { font-family: 'Unbounded', sans-serif; font-size: 9px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); margin-bottom: 10px; display: block; }
+.phase-name { font-family: 'Unbounded', sans-serif; font-size: 16px; font-weight: 700; margin-bottom: 10px; }
+.phase-q { font-size: 14px; color: var(--muted); margin-bottom: 14px; font-style: italic; line-height: 1.5; }
+.phase-steps { display: flex; flex-direction: column; gap: 6px; flex: 1; }
+.phase-step { font-size: 13px; color: var(--ink); line-height: 1.5; padding-left: 14px; position: relative; }
+.phase-step::before { content: '·'; position: absolute; left: 0; color: var(--accent); font-weight: 700; font-size: 16px; line-height: 1.2; }
+.phase-out { margin-top: 16px; padding-top: 14px; border-top: 1px solid var(--border); font-size: 12px; color: var(--accent2); font-weight: 500; }
+
+/* SCENARIOS */
+.scenarios-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 40px; }
+.scenario-card { border: 1.5px solid var(--border); border-radius: 14px; overflow: hidden; }
+.scenario-top { background: var(--ink); padding: 20px 22px; }
+.scenario-badge { font-family: 'Unbounded', sans-serif; font-size: 9px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--accent); margin-bottom: 8px; display: block; }
+.scenario-name { font-family: 'Unbounded', sans-serif; font-size: 13px; font-weight: 700; color: white; line-height: 1.3; }
+.scenario-body { padding: 20px 22px; background: var(--cream); }
+.scenario-trigger { font-size: 13px; color: var(--muted); line-height: 1.6; margin-bottom: 12px; }
+.scenario-vector { font-family: 'Unbounded', sans-serif; font-size: 10px; font-weight: 700; letter-spacing: 1px; color: var(--accent2); }
+
+/* DEPENDENCY */
+.dep-block { background: var(--ink); border-radius: 14px; padding: 32px 36px; margin-bottom: 40px; }
+.dep-title { font-family: 'Unbounded', sans-serif; font-size: 9px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--accent); margin-bottom: 20px; display: block; }
+.dep-chain { display: flex; flex-direction: column; gap: 8px; }
+.dep-row { display: flex; align-items: center; gap: 12px; font-size: 14px; color: rgba(255,255,255,0.75); }
+.dep-lens { font-family: 'Unbounded', sans-serif; font-size: 11px; font-weight: 700; color: var(--accent); min-width: 140px; }
+.dep-arrow { color: rgba(255,255,255,0.25); font-size: 16px; }
+.dep-desc { font-size: 13px; color: rgba(255,255,255,0.55); }
+
+/* CASES */
+.cases-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.case-card { border: 1.5px solid var(--border); border-radius: 14px; overflow: hidden; text-decoration: none; transition: all 0.2s; display: block; }
+.case-card:hover { border-color: var(--ink); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.08); }
+.case-top { background: var(--ink); padding: 20px 24px; }
+.case-industry { font-family: 'Unbounded', sans-serif; font-size: 9px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--accent); margin-bottom: 8px; display: block; }
+.case-title { font-family: 'Unbounded', sans-serif; font-size: 14px; font-weight: 700; color: white; line-height: 1.3; }
+.case-body { padding: 20px 24px; background: var(--cream); }
+.case-scenario { font-size: 13px; color: var(--muted); line-height: 1.6; margin-bottom: 12px; }
+.case-result { font-size: 13px; color: var(--accent2); font-weight: 500; }
+.case-link { font-family: 'Unbounded', sans-serif; font-size: 10px; font-weight: 700; letter-spacing: 1px; color: var(--ink); margin-top: 14px; display: block; }
+
+/* FOOTER */
+.site-footer { background: var(--ink); color: white; padding: 40px; }
+.footer-inner { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 24px; }
+.footer-brand { font-family: 'Unbounded', sans-serif; font-size: 13px; font-weight: 700; letter-spacing: 2px; color: var(--accent); }
+.footer-brand span { display: block; font-size: 10px; font-weight: 400; color: #8fa0b8; margin-top: 4px; letter-spacing: 1px; }
+.footer-copy { font-size: 11px; color: #8fa0b8; text-align: right; line-height: 1.7; }
+
+@media (max-width: 768px) {
+  .site-nav { padding: 0 20px; }
+  .menu-toggle { display: block; }
+  .nav-menu { display: none; position: absolute; top: 64px; left: 0; width: 100%; background: var(--ink); flex-direction: column; padding: 20px 0; border-bottom: 1px solid rgba(255,255,255,0.1); }
+  .nav-menu.open { display: flex; }
+  .hero { padding: 48px 24px 56px; }
+  .section { padding: 48px 0; }
+  .container { padding: 0 20px; }
+  .levels-grid { grid-template-columns: 1fr; }
+  .vectors { grid-template-columns: 1fr; }
+  .phases-grid { grid-template-columns: 1fr; }
+  .phase-card { border-right: none; border-bottom: 1px solid var(--border); }
+  .phase-card:last-child { border-bottom: none; }
+  .scenarios-grid { grid-template-columns: 1fr; }
+  .cases-grid { grid-template-columns: 1fr; }
+  .lens-patterns { grid-template-columns: 1fr; }
+  .idea-block { padding: 28px 24px; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="site-nav">
+  <a href="home.html" class="nav-brand">ODHR</a>
+  <div class="nav-menu" id="nav-menu">
+    <a href="home.html" class="nav-link cross-link" id="nav-home">Главная</a>
+    <a href="index.html" class="nav-link cross-link" id="nav-diag">Диагностика</a>
+    <a href="hr_roles_guide.html" class="nav-link cross-link" id="nav-guide">Роли в HR</a>
+    <a href="pm_skillset.html" class="nav-link cross-link" id="nav-pm">Роль PM</a>
+    <a href="framework.html" class="nav-link active cross-link" id="nav-fw">Фреймворк</a>
+    <a href="structure.html" class="nav-link cross-link" id="nav-str">Структуры</a>
+  </div>
+  <div class="nav-actions">
+    <div class="lang-toggle">
+      <button class="lang-btn active" onclick="changePageLang('ru')" id="btn-lang-ru">RU</button>
+      <button class="lang-btn" onclick="changePageLang('en')" id="btn-lang-en">EN</button>
+    </div>
+    <button class="menu-toggle" id="mobile-menu-btn">☰</button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="container">
+    <span class="hero-tag">Role Lens Framework</span>
+    <h1>Инструмент для проектирования организаций</h1>
+    <p class="hero-lead">Системный подход к оценке ролей и структур. Делает логику организационных решений видимой — не только что рекомендуется, но почему.</p>
+    <div class="hero-claim">
+      <strong>Главная идея:</strong> роль — это не должность и не человек. Это узел в живой системе. Сначала понимаешь систему, потом проектируешь узлы, потом наполняешь их людьми.
+    </div>
+  </div>
+</section>
+
+<!-- WHY -->
+<section class="section">
+  <div class="container">
+    <span class="section-label">Зачем этот фреймворк</span>
+    <h2 class="section-title">Одна роль — пять измерений</h2>
+    <p class="section-lead">Большинство методологий смотрят на роль с одной стороны: через задачи, компетенции или вес в структуре. Role Lens строится на том, что роль — многомерный объект.</p>
+
+    <div class="idea-block">
+      <span class="idea-label">Ключевое отличие</span>
+      <p class="idea-text">Фреймворк не даёт готовый ответ — он делает логику решений видимой для клиента. Человек который ведёт по фреймворку читает сигналы которые в него не укладываются и принимает решения которые данные не могут принять за него.</p>
+    </div>
+
+    <div class="levels-grid">
+      <div class="level-card">
+        <span class="level-num">1</span>
+        <span class="level-tag">Уровень</span>
+        <div class="level-name">Компания</div>
+        <div class="level-desc">Вся система целиком. Как части организации связаны между собой, за что отвечают, что создают.</div>
+        <div class="level-q">Как устроена система и где она сломана?</div>
+      </div>
+      <div class="level-card">
+        <span class="level-num">2</span>
+        <span class="level-tag">Уровень</span>
+        <div class="level-name">Функция</div>
+        <div class="level-desc">Кластер ролей внутри направления или блока. Что этот блок делает для системы и что можно централизовать.</div>
+        <div class="level-q">Как функция вписывается в систему?</div>
+      </div>
+      <div class="level-card">
+        <span class="level-num">3</span>
+        <span class="level-tag">Уровень</span>
+        <div class="level-name">Роль</div>
+        <div class="level-desc">Один узел — его смысл, ответственность, результаты, требования к человеку и место среди других ролей.</div>
+        <div class="level-q">Зачем этот человек в этом месте?</div>
+      </div>
+    </div>
+
+    <div class="vectors">
+      <div class="vector-card">
+        <span class="vector-arrow">→</span>
+        <div class="vector-name">Общее к частному</div>
+        <div class="vector-desc">От стратегии компании к структуре, от структуры к ролям. Используется когда болит система целиком — цели не достигаются, структура мешает.</div>
+      </div>
+      <div class="vector-card highlight">
+        <span class="vector-arrow">←</span>
+        <div class="vector-name">Частное к общему</div>
+        <div class="vector-desc">От конкретной роли или команды к пониманию системы вокруг. Используется когда болит конкретное место — роль, стык между функциями, перегруженный мидл.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ENTRY DIAGNOSIS -->
+<section class="section alt">
+  <div class="container">
+    <span class="section-label">Шаг 0</span>
+    <h2 class="section-title">Диагностика входа</h2>
+    <p class="section-lead">Три вопроса прежде чем начинать работу. Они определяют уровень, вектор и глубину анализа.</p>
+
+    <table class="entry-table">
+      <thead>
+        <tr>
+          <th>Вопрос</th>
+          <th>Что даёт</th>
+          <th>Варианты ответа</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="entry-q-text">Где болит — роль или система?</span><br><span class="entry-gives">Определяет уровень с которого начинать</span></td>
+          <td>Масштаб проблемы и точку входа в анализ</td>
+          <td style="font-size:13px;color:var(--muted);">Конкретное место → начинаем с Роли<br>Система в целом → начинаем с Компании</td>
+        </tr>
+        <tr>
+          <td><span class="entry-q-text">Какой вектор — общее к частному или наоборот?</span><br><span class="entry-gives">Определяет направление движения</span></td>
+          <td>Порядок работы с уровнями анализа</td>
+          <td style="font-size:13px;color:var(--muted);">Стратегия → структура → роли<br>Роли → паттерны → система</td>
+        </tr>
+        <tr>
+          <td><span class="entry-q-text">Какая фаза нужна?</span><br><span class="entry-gives">Определяет глубину работы</span></td>
+          <td>Набор инструментов и ожидаемый результат</td>
+          <td style="font-size:13px;color:var(--muted);">Аудит / Редизайн / Найм и развитие<br>Чаще всего — все три последовательно</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- FIVE LENSES -->
+<section class="section">
+  <div class="container">
+    <span class="section-label">Сердце фреймворка</span>
+    <h2 class="section-title">Пять линз</h2>
+    <p class="section-lead">Каждая линза — конкретный угол зрения на роль или функцию. Работают на всех трёх уровнях анализа. Нажми чтобы раскрыть.</p>
+
+    <div class="lenses-list">
+
+      <!-- LENS 1: PURPOSE -->
+      <div class="lens-item">
+        <div class="lens-header" onclick="toggleLens(this)">
+          <div class="lens-num">1</div>
+          <div class="lens-title-wrap">
+            <div class="lens-name">Purpose</div>
+            <div class="lens-question">Зачем роль существует в системе?</div>
+          </div>
+          <span class="lens-chevron">▾</span>
+        </div>
+        <div class="lens-body">
+          <span class="lens-sub">Четыре элемента</span>
+          <table class="mini-table">
+            <thead><tr><th>Элемент</th><th>Вопрос</th></tr></thead>
+            <tbody>
+              <tr><td><strong>Суть роли</strong></td><td>Одно предложение: [Роль] существует чтобы [глагол] [объект] так чтобы [результат для системы]</td></tr>
+              <tr><td><strong>Проблема бизнеса</strong></td><td>Рост, риск или эффективность — что решает эта роль?</td></tr>
+              <tr><td><strong>Тип ценности</strong></td><td>Revenue, Protection, Enablement или Direction — что доминирует?</td></tr>
+              <tr><td><strong>Внутренний клиент</strong></td><td>Кто страдает первым когда роль работает плохо?</td></tr>
+            </tbody>
+          </table>
+          <span class="lens-sub">Красные флаги</span>
+          <div class="lens-flags">
+            <div class="lens-flag">Purpose сформулирован через активности, не через результат</div>
+            <div class="lens-flag">Разные стейкхолдеры описывают роль по-разному</div>
+            <div class="lens-flag">Роль существует «потому что всегда была»</div>
+            <div class="lens-flag">Внутренний клиент не определён или их слишком много</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- LENS 2: ACCOUNTABILITY -->
+      <div class="lens-item">
+        <div class="lens-header" onclick="toggleLens(this)">
+          <div class="lens-num">2</div>
+          <div class="lens-title-wrap">
+            <div class="lens-name">Accountability</div>
+            <div class="lens-question">За что эта роль отвечает по-настоящему?</div>
+          </div>
+          <span class="lens-chevron">▾</span>
+        </div>
+        <div class="lens-body">
+          <span class="lens-sub">Decision rights — уровни автономии</span>
+          <table class="mini-table">
+            <thead><tr><th>Уровень</th><th>Что означает</th></tr></thead>
+            <tbody>
+              <tr><td><strong>Decide</strong></td><td>Принимает решение самостоятельно — полный ownership</td></tr>
+              <tr><td><strong>Approve</strong></td><td>Финальное согласование чужого решения</td></tr>
+              <tr><td><strong>Recommend</strong></td><td>Предлагает, кто-то другой решает</td></tr>
+              <tr><td><strong>Input</strong></td><td>Даёт информацию, не влияет на решение</td></tr>
+              <tr><td><strong>Inform</strong></td><td>Получает информацию после решения</td></tr>
+            </tbody>
+          </table>
+          <span class="lens-sub">Паттерны дисфункции</span>
+          <div class="lens-patterns">
+            <div class="pattern-card">
+              <div class="pattern-name">Vacuum</div>
+              <div class="pattern-desc">Зона есть, ownership нет. Никто не принимает решения — либо все, либо никто.</div>
+            </div>
+            <div class="pattern-card">
+              <div class="pattern-name">Overlap</div>
+              <div class="pattern-desc">Две роли считают одну зону своей. Постоянное трение и дублирование.</div>
+            </div>
+            <div class="pattern-card">
+              <div class="pattern-name">Overload</div>
+              <div class="pattern-desc">Одна роль держит слишком много зон. Человек тащит, система хрупкая.</div>
+            </div>
+            <div class="pattern-card">
+              <div class="pattern-name">Phantom</div>
+              <div class="pattern-desc">Формально отвечает, реально не влияет. Ownership без власти.</div>
+            </div>
+          </div>
+          <span class="lens-sub" style="margin-top:20px;">Красные флаги</span>
+          <div class="lens-flags">
+            <div class="lens-flag">Мидл-менеджер не может назвать ни одного решения которое принял самостоятельно</div>
+            <div class="lens-flag">Одна и та же зона «принадлежит» двум людям</div>
+            <div class="lens-flag">Роль отвечает за результат но не влияет на процесс его достижения</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- LENS 3: OUTCOMES -->
+      <div class="lens-item">
+        <div class="lens-header" onclick="toggleLens(this)">
+          <div class="lens-num">3</div>
+          <div class="lens-title-wrap">
+            <div class="lens-name">Outcomes</div>
+            <div class="lens-question">Как выглядит успех этой роли?</div>
+          </div>
+          <span class="lens-chevron">▾</span>
+        </div>
+        <div class="lens-body">
+          <span class="lens-sub">Output vs Outcome — ключевое различие</span>
+          <table class="mini-table">
+            <thead><tr><th></th><th>Output</th><th>Outcome</th></tr></thead>
+            <tbody>
+              <tr><td><strong>Что это</strong></td><td>Результат активности</td><td>Результат для системы</td></tr>
+              <tr><td><strong>Вопрос</strong></td><td>Что сделано?</td><td>Что изменилось?</td></tr>
+              <tr><td><strong>Пример</strong></td><td>Провёл 20 встреч</td><td>Конверсия выросла на 15%</td></tr>
+            </tbody>
+          </table>
+          <span class="lens-sub">Горизонты оценки</span>
+          <table class="mini-table">
+            <thead><tr><th>Горизонт</th><th>Когда виден результат</th><th>Типичные роли</th></tr></thead>
+            <tbody>
+              <tr><td><strong>Тактический</strong></td><td>Недели, месяц</td><td>Operations, Support, Sales</td></tr>
+              <tr><td><strong>Квартальный</strong></td><td>3–6 месяцев</td><td>Product, Marketing, HR</td></tr>
+              <tr><td><strong>Стратегический</strong></td><td>1–2 года</td><td>C-level, Org Design, R&D</td></tr>
+            </tbody>
+          </table>
+          <span class="lens-sub">Красные флаги</span>
+          <div class="lens-flags">
+            <div class="lens-flag">Успех роли описывают через активности, не результаты</div>
+            <div class="lens-flag">Горизонт оценки не совпадает с горизонтом реального результата</div>
+            <div class="lens-flag">Никто не может назвать как выглядит провал в этой роли</div>
+            <div class="lens-flag">Два outcomes одной роли противоречат друг другу</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- LENS 4: CAPABILITIES -->
+      <div class="lens-item">
+        <div class="lens-header" onclick="toggleLens(this)">
+          <div class="lens-num">4</div>
+          <div class="lens-title-wrap">
+            <div class="lens-name">Capabilities</div>
+            <div class="lens-question">Что должен знать, уметь и как мыслить человек в этой роли?</div>
+          </div>
+          <span class="lens-chevron">▾</span>
+        </div>
+        <div class="lens-body">
+          <span class="lens-sub">Три уровня — все обязательны</span>
+          <table class="mini-table">
+            <thead><tr><th>Уровень</th><th>Что это</th><th>Развиваемость</th></tr></thead>
+            <tbody>
+              <tr><td><strong>Knowledge</strong></td><td>Что знает — domain, functional, contextual</td><td>Высокая — 3–6 мес</td></tr>
+              <tr><td><strong>Skills</strong></td><td>Что умеет делать в наблюдаемых ситуациях</td><td>Средняя — 6–12 мес</td></tr>
+              <tr><td><strong>Mindset</strong></td><td>Как мыслит и реагирует под давлением</td><td>Низкая — нужен на входе</td></tr>
+            </tbody>
+          </table>
+          <span class="lens-sub">Пять осей Mindset</span>
+          <table class="mini-table">
+            <thead><tr><th>Ось</th><th>Полюс А</th><th>Полюс Б</th></tr></thead>
+            <tbody>
+              <tr><td>Неопределённость</td><td>Нужна ясность чтобы двигаться</td><td>Движется создавая ясность</td></tr>
+              <tr><td>Ответственность</td><td>Берёт когда дают</td><td>Берёт сам когда видит gap</td></tr>
+              <tr><td>Обратная связь</td><td>Воспринимает как угрозу</td><td>Воспринимает как данные</td></tr>
+              <tr><td>Масштаб</td><td>Комфортен в стабильной среде</td><td>Энергизируется от сложности</td></tr>
+              <tr><td>Система vs люди</td><td>Оптимизирует процессы</td><td>Оптимизирует отношения</td></tr>
+            </tbody>
+          </table>
+          <span class="lens-sub">Красные флаги</span>
+          <div class="lens-flags">
+            <div class="lens-flag">Capabilities описаны как абстрактные качества без наблюдаемых проявлений</div>
+            <div class="lens-flag">Список нереалистичен — такого человека не существует</div>
+            <div class="lens-flag">Mindset не описан или описан как «командный игрок»</div>
+            <div class="lens-flag">Capabilities не выведены из Outcomes роли</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- LENS 5: FIT IN SYSTEM -->
+      <div class="lens-item">
+        <div class="lens-header" onclick="toggleLens(this)">
+          <div class="lens-num">5</div>
+          <div class="lens-title-wrap">
+            <div class="lens-name">Fit in System</div>
+            <div class="lens-question">Как роль живёт в системе других ролей?</div>
+          </div>
+          <span class="lens-chevron">▾</span>
+        </div>
+        <div class="lens-body">
+          <span class="lens-sub">Системные функции роли</span>
+          <table class="mini-table">
+            <thead><tr><th>Функция</th><th>Описание</th><th>Риск</th></tr></thead>
+            <tbody>
+              <tr><td><strong>Connector</strong></td><td>Связывает части системы между собой</td><td>Если уйдёт — система распадается</td></tr>
+              <tr><td><strong>Gatekeeper</strong></td><td>Контролирует поток через себя</td><td>Bottleneck при перегрузке</td></tr>
+              <tr><td><strong>Enabler</strong></td><td>Создаёт условия для работы других</td><td>Невидима пока не сломается</td></tr>
+              <tr><td><strong>Driver</strong></td><td>Тянет систему вперёд</td><td>Выгорание если система сопротивляется</td></tr>
+              <tr><td><strong>Stabilizer</strong></td><td>Удерживает систему от хаоса</td><td>Тормозит изменения</td></tr>
+            </tbody>
+          </table>
+          <span class="lens-sub">Паттерны дисфункции в системе</span>
+          <div class="lens-patterns">
+            <div class="pattern-card">
+              <div class="pattern-name">Bottleneck node</div>
+              <div class="pattern-desc">Все потоки через одну роль. Система зависит от пропускной способности одного человека.</div>
+            </div>
+            <div class="pattern-card">
+              <div class="pattern-name">Isolated node</div>
+              <div class="pattern-desc">Роль слабо связана с системой. Работает в вакууме, влияние минимально.</div>
+            </div>
+            <div class="pattern-card">
+              <div class="pattern-name">Boundary conflict</div>
+              <div class="pattern-desc">Постоянное трение на стыке двух ролей — структурная проблема, не личная.</div>
+            </div>
+            <div class="pattern-card">
+              <div class="pattern-name">Dependency trap</div>
+              <div class="pattern-desc">Роль не может двигаться без постоянного input от другой. Автономия нулевая.</div>
+            </div>
+          </div>
+          <span class="lens-sub" style="margin-top:20px;">Красные флаги</span>
+          <div class="lens-flags">
+            <div class="lens-flag">Карты связей у соседних ролей не совпадают</div>
+            <div class="lens-flag">Есть зоны которые никто не считает своими</div>
+            <div class="lens-flag">Постоянные конфликты на стыке одних и тех же ролей</div>
+            <div class="lens-flag">Одна роль — единственная точка входа для критического потока</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="dep-block">
+      <span class="dep-title">Зависимости между линзами</span>
+      <div class="dep-chain">
+        <div class="dep-row">
+          <span class="dep-lens">Purpose</span>
+          <span class="dep-arrow">→</span>
+          <span>определяет</span>
+          <span class="dep-arrow">→</span>
+          <span class="dep-lens">Outcomes</span>
+          <span class="dep-arrow">→</span>
+          <span>определяет</span>
+          <span class="dep-arrow">→</span>
+          <span class="dep-lens">Capabilities</span>
+        </div>
+        <div class="dep-row">
+          <span class="dep-lens">Accountability</span>
+          <span class="dep-arrow">→</span>
+          <span>определяет</span>
+          <span class="dep-arrow">→</span>
+          <span class="dep-lens">Fit in System</span>
+        </div>
+        <div class="dep-row" style="margin-top:4px;">
+          <span class="dep-lens">Fit in System</span>
+          <span class="dep-arrow">→</span>
+          <span class="dep-desc">валидирует все остальные линзы. Если что-то не сходится — возвращаешься к соответствующей линзе.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- THREE PHASES -->
+<section class="section alt">
+  <div class="container">
+    <span class="section-label">Маршрут</span>
+    <h2 class="section-title">Три фазы</h2>
+    <p class="section-lead">Консультант ведёт клиента по всем трём фазам последовательно. Пять линз работают на каждой — но с разным фокусом.</p>
+
+    <div class="phases-grid">
+      <div class="phase-card">
+        <span class="phase-num">Фаза 1</span>
+        <div class="phase-name">Аудит</div>
+        <div class="phase-q">Что реально происходит и почему это не работает?</div>
+        <div class="phase-steps">
+          <div class="phase-step">Картируешь существующие роли — не должности, а роли</div>
+          <div class="phase-step">Смотришь на каждую через пять линз</div>
+          <div class="phase-step">Находишь разрывы где линзы не совпадают с реальностью</div>
+          <div class="phase-step">Выявляешь паттерны дисфункции</div>
+        </div>
+        <div class="phase-out">→ Диагностическая карта: где здорово, где сломано</div>
+      </div>
+      <div class="phase-card">
+        <span class="phase-num">Фаза 2</span>
+        <div class="phase-name">Редизайн</div>
+        <div class="phase-q">Как должна выглядеть система чтобы достигать целей?</div>
+        <div class="phase-steps">
+          <div class="phase-step">Возвращаешься к бизнес-целям — это всегда якорь</div>
+          <div class="phase-step">Проектируешь функции которые нужны системе</div>
+          <div class="phase-step">Из функций выводишь роли с чёткими границами</div>
+          <div class="phase-step">Строишь несколько сценариев — не один правильный ответ</div>
+        </div>
+        <div class="phase-out">→ Карта ролей + 2–3 сценария с плюсами и рисками</div>
+      </div>
+      <div class="phase-card">
+        <span class="phase-num">Фаза 3</span>
+        <div class="phase-name">Найм и развитие</div>
+        <div class="phase-q">Кто нужен в каждый узел и что с теми кто уже есть?</div>
+        <div class="phase-steps">
+          <div class="phase-step">Из редизайна берёшь профиль → разворачиваешь в требования</div>
+          <div class="phase-step">Смотришь на текущих людей — кто fit, кто gap, кто вырастет</div>
+          <div class="phase-step">Для новых ролей строишь профиль найма</div>
+          <div class="phase-step">Для существующих — план развития или перехода</div>
+        </div>
+        <div class="phase-out">→ Профили ролей + карта людей</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SCENARIOS -->
+<section class="section">
+  <div class="container">
+    <span class="section-label">Применение</span>
+    <h2 class="section-title">Три сценария использования</h2>
+    <p class="section-lead">Фреймворк закрывает три типовые ситуации. В реальности они часто пересекаются.</p>
+
+    <div class="scenarios-grid">
+      <div class="scenario-card">
+        <div class="scenario-top">
+          <span class="scenario-badge">Сценарий 1</span>
+          <div class="scenario-name">Аудит хаоса</div>
+        </div>
+        <div class="scenario-body">
+          <div class="scenario-trigger">Компания выросла хаотично. Структура сломана. Мидл-менеджмент не работает. Одни тащат, другие не хотят делать больше.</div>
+          <div class="scenario-vector">Частное → общее · Главная фаза: Аудит</div>
+        </div>
+      </div>
+      <div class="scenario-card">
+        <div class="scenario-top">
+          <span class="scenario-badge">Сценарий 2</span>
+          <div class="scenario-name">Найм под рост</div>
+        </div>
+        <div class="scenario-body">
+          <div class="scenario-trigger">Компания масштабируется. Нужно понять какие компетенции нужны, в какие роли они помещаются и как выглядит новая оргструктура.</div>
+          <div class="scenario-vector">Общее → частное · Фазы: Редизайн + Найм</div>
+        </div>
+      </div>
+      <div class="scenario-card">
+        <div class="scenario-top">
+          <span class="scenario-badge">Сценарий 3</span>
+          <div class="scenario-name">Редизайн структуры</div>
+        </div>
+        <div class="scenario-body">
+          <div class="scenario-trigger">Текущая структура не помогает достигать целей бизнеса. Нужна карта ролей и дизайн организации чтобы исправить ситуацию.</div>
+          <div class="scenario-vector">Общее → частное · Фазы: Аудит + Редизайн</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CASES -->
+<section class="section alt">
+  <div class="container">
+    <span class="section-label">Кейсы</span>
+    <h2 class="section-title">Фреймворк в действии</h2>
+    <p class="section-lead">Два реальных кейса разобранных пошагово через все фазы и линзы.</p>
+
+    <div class="cases-grid">
+      <a class="case-card" href="edtech_case_v2.html">
+        <div class="case-top">
+          <span class="case-industry">EdTech · Сценарий 3</span>
+          <div class="case-title">Когда структура мешает расти</div>
+        </div>
+        <div class="case-body">
+          <div class="case-scenario">Три направления, три параллельных стека ролей. Производство курса — 9 месяцев. Все говорят что оптимизировать нечего.</div>
+          <div class="case-result">→ Реализован Shared Services Center</div>
+          <span class="case-link">Читать кейс →</span>
+        </div>
+      </a>
+      <a class="case-card" href="neginski_case.html">
+        <div class="case-top">
+          <span class="case-industry">Недвижимость · Сценарий 2</span>
+          <div class="case-title">Строим HR-функцию с нуля</div>
+        </div>
+        <div class="case-body">
+          <div class="case-scenario">Международная компания ~200 человек. HR-задачи размазаны по финансам, операционке и рекрутменту без единого центра.</div>
+          <div class="case-result">→ Модель OIS + PCI, roadmap 90 дней</div>
+          <span class="case-link">Читать кейс →</span>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- THEORETICAL FOUNDATIONS -->
+<section class="section">
+  <div class="container">
+    <span class="section-label">Теоретические основы</span>
+    <h2 class="section-title">На чём стоит фреймворк</h2>
+    <p class="section-lead">Role Lens не создан с нуля — он синтезирует идеи из нескольких устоявшихся методологий и добавляет то чего в них не хватает.</p>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:40px;">
+
+      <div class="func-block" style="border-radius:14px;">
+        <div class="func-block-header" style="cursor:default;border-radius:14px 14px 0 0;">
+          <span>Galbraith Star Model</span>
+          <span style="font-size:11px;color:rgba(255,255,255,0.45);font-weight:400;letter-spacing:0;">1960-е · Jay Galbraith</span>
+        </div>
+        <div style="padding:20px 24px;background:var(--cream);">
+          <p style="font-size:13px;color:var(--muted);line-height:1.7;margin-bottom:14px;">Один из базовых фреймворков org design. Пять элементов — стратегия, структура, процессы, люди, вознаграждения — должны усиливать друг друга. Misalignment в одном элементе подрывает всю систему.</p>
+          <div style="font-size:12px;color:var(--accent2);font-weight:500;">→ Role Lens берёт: системный взгляд и идею взаимозависимости элементов</div>
+          <div style="font-size:12px;color:var(--muted);margin-top:6px;">→ Role Lens добавляет: операционализацию до уровня конкретной роли</div>
+        </div>
+      </div>
+
+      <div class="func-block" style="border-radius:14px;">
+        <div class="func-block-header" style="cursor:default;border-radius:14px 14px 0 0;">
+          <span>McKinsey 7S Framework</span>
+          <span style="font-size:11px;color:rgba(255,255,255,0.45);font-weight:400;letter-spacing:0;">1980-е · Peters & Waterman</span>
+        </div>
+        <div style="padding:20px 24px;background:var(--cream);">
+          <p style="font-size:13px;color:var(--muted);line-height:1.7;margin-bottom:14px;">Skills в 7S определяются через competency framework — знания, навыки и способности людей внутри организации. Прямой предшественник линзы Capabilities.</p>
+          <div style="font-size:12px;color:var(--accent2);font-weight:500;">→ Role Lens берёт: трёхуровневую структуру capabilities</div>
+          <div style="font-size:12px;color:var(--muted);margin-top:6px;">→ Role Lens добавляет: Mindset как отдельный уровень которого в 7S нет явно</div>
+        </div>
+      </div>
+
+      <div class="func-block" style="border-radius:14px;">
+        <div class="func-block-header" style="cursor:default;border-radius:14px 14px 0 0;">
+          <span>Creating Agile Organizations</span>
+          <span style="font-size:11px;color:rgba(255,255,255,0.45);font-weight:400;letter-spacing:0;">2022 · Ramos & Pavlichenko</span>
+        </div>
+        <div style="padding:20px 24px;background:var(--cream);">
+          <p style="font-size:13px;color:var(--muted);line-height:1.7;margin-bottom:14px;">Accountability + authority вместе, Shared Services для низкоконтекстных зависимостей, decoupling как принцип проектирования. Product group как единица изменений — всё что нужно для масштабирования.</p>
+          <div style="font-size:12px;color:var(--accent2);font-weight:500;">→ Role Lens берёт: принципы accountability и decoupling</div>
+          <div style="font-size:12px;color:var(--muted);margin-top:6px;">→ Role Lens добавляет: спуск с уровня product group до уровня роли</div>
+        </div>
+      </div>
+
+      <div class="func-block" style="border-radius:14px;">
+        <div class="func-block-header" style="cursor:default;border-radius:14px 14px 0 0;">
+          <span>Korn Ferry & Hay Method</span>
+          <span style="font-size:11px;color:rgba(255,255,255,0.45);font-weight:400;letter-spacing:0;">Job evaluation · Role profiling</span>
+        </div>
+        <div style="padding:20px 24px;background:var(--cream);">
+          <p style="font-size:13px;color:var(--muted);line-height:1.7;margin-bottom:14px;">Know-how, problem solving, accountability как три фактора оценки роли. Success profiles для конкретных позиций. Богатая библиотека компетенций для разных уровней.</p>
+          <div style="font-size:12px;color:var(--accent2);font-weight:500;">→ Role Lens берёт: логику оценки роли через несколько факторов</div>
+          <div style="font-size:12px;color:var(--muted);margin-top:6px;">→ Role Lens добавляет: гибкий вектор входа и масштабируемость уровней</div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="idea-block">
+      <span class="idea-label">Чем Role Lens отличается</span>
+      <p class="idea-text">Существующие методологии работают либо на уровне всей организации (Star Model, 7S, CAO), либо на уровне отдельной роли (Korn Ferry, Hay). Role Lens — единственный инструмент который масштабируется между уровнями и позволяет идти в любом направлении в зависимости от того где болит.</p>
+    </div>
+  </div>
+</section>
+
+<!-- TOOLS -->
+<section class="section alt">
+  <div class="container">
+    <span class="section-label">Инструменты</span>
+    <h2 class="section-title">Что остаётся у клиента</h2>
+    <p class="section-lead">Каждая фаза даёт конкретные артефакты — не презентации для галочки, а рабочие документы которые команда использует без консультанта.</p>
+
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:40px;">
+
+      <div class="role-card" style="border-radius:14px;">
+        <div style="font-family:'Unbounded',sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:12px;">Фаза 1 · Аудит</div>
+        <div class="role-name">Диагностическая карта</div>
+        <div class="role-desc">Визуализация текущего состояния — где система здорова, где сломана, где узкие горлышки. Карта ролей с паттернами дисфункции по каждой.</div>
+        <div style="margin-top:12px;display:flex;flex-wrap:wrap;gap:4px;">
+          <span class="tag">Карта ролей</span>
+          <span class="tag">Паттерны</span>
+          <span class="tag">Красные флаги</span>
+        </div>
+      </div>
+
+      <div class="role-card" style="border-radius:14px;">
+        <div style="font-family:'Unbounded',sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:12px;">Фаза 1 · Аудит</div>
+        <div class="role-name">Матрица ролей</div>
+        <div class="role-desc">Каждая роль через пять линз — таблица с выводами по Purpose, Accountability, Outcomes, Capabilities, Fit. Гипотезы верифицированные данными клиента.</div>
+        <div style="margin-top:12px;display:flex;flex-wrap:gap:4px;">
+          <span class="tag">Пять линз</span>
+          <span class="tag">Decision rights</span>
+          <span class="tag">Выводы</span>
+        </div>
+      </div>
+
+      <div class="role-card" style="border-radius:14px;">
+        <div style="font-family:'Unbounded',sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:12px;">Фаза 2 · Редизайн</div>
+        <div class="role-name">Сценарии структуры</div>
+        <div class="role-desc">2–3 варианта новой оргструктуры с плюсами, рисками и скоростью внедрения каждого. Рекомендация обоснованная данными аудита, а не интуицией.</div>
+        <div style="margin-top:12px;display:flex;flex-wrap:wrap;gap:4px;">
+          <span class="tag">2–3 сценария</span>
+          <span class="tag">Риски</span>
+          <span class="tag">Roadmap</span>
+        </div>
+      </div>
+
+      <div class="role-card" style="border-radius:14px;">
+        <div style="font-family:'Unbounded',sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:12px;">Фаза 2 · Редизайн</div>
+        <div class="role-name">RACI и карта связей</div>
+        <div class="role-desc">Кто за что отвечает в новой структуре. Матрица decision rights по ролям. Карта взаимодействий — кто с кем, в каком режиме и как часто.</div>
+        <div style="margin-top:12px;display:flex;flex-wrap:wrap;gap:4px;">
+          <span class="tag">RACI</span>
+          <span class="tag">Decision rights</span>
+          <span class="tag">Связи</span>
+        </div>
+      </div>
+
+      <div class="role-card" style="border-radius:14px;">
+        <div style="font-family:'Unbounded',sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:12px;">Фаза 3 · Найм</div>
+        <div class="role-name">Профиль роли</div>
+        <div class="role-desc">Суть роли, Accountability, Outcomes и Capabilities в одном документе. Must Have на входе отделён от того что развивается внутри. Готов к использованию в найме.</div>
+        <div style="margin-top:12px;display:flex;flex-wrap:wrap;gap:4px;">
+          <span class="tag">Must Have</span>
+          <span class="tag">Mindset</span>
+          <span class="tag">Outcomes</span>
+        </div>
+      </div>
+
+      <div class="role-card" style="border-radius:14px;">
+        <div style="font-family:'Unbounded',sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:12px;">Фаза 3 · Найм</div>
+        <div class="role-name">Карта людей</div>
+        <div class="role-desc">Кто fit в новой структуре, у кого gap, кто вырастет в роль. Для каждого — вывод: остаётся, переходит, или ищем снаружи. С планом развития или перехода.</div>
+        <div style="margin-top:12px;display:flex;flex-wrap:wrap;gap:4px;">
+          <span class="tag">Fit / Gap</span>
+          <span class="tag">План развития</span>
+          <span class="tag">Найм</span>
+        </div>
+      </div>
+
+    </div>
+
+    <div style="background:var(--ink);border-radius:14px;padding:28px 32px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:20px;">
+      <div>
+        <div style="font-family:'Unbounded',sans-serif;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--accent);margin-bottom:8px;">Хотите разобраться в своей ситуации?</div>
+        <div style="font-size:15px;color:rgba(255,255,255,0.75);max-width:480px;line-height:1.6;">Начнём с бесплатной встречи — разберёмся что происходит и есть ли смысл работать дальше.</div>
+      </div>
+      <a href="https://susperias.github.io/odhr/home.html#formats" style="font-family:'Unbounded',sans-serif;font-size:11px;font-weight:700;letter-spacing:1px;padding:14px 28px;background:var(--accent);color:var(--ink);border-radius:8px;text-decoration:none;white-space:nowrap;">Форматы работы →</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div>
+      <div class="footer-brand">ODHR<span>Org Design & HR Journal</span></div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:16px;">
+        <a class="footer-link" href="index.html">Диагностика</a>
+        <a class="footer-link" href="hr_roles_guide.html">Роли</a>
+        <a class="footer-link" href="structure.html">Структуры</a>
+        <a class="footer-link" href="https://t.me/ODHRAMA" target="_blank">Telegram</a>
+      </div>
+    </div>
+    <div class="footer-copy">Role Lens Framework<br>Ольга Гребенюк<br>Org Design Consultant</div>
+  </div>
+</footer>
+
+<script>
+function changePageLang(lang) { App.setLanguage(lang); }
+
+function toggleLens(header) {
+  const isOpen = header.classList.contains('open');
+  document.querySelectorAll('.lens-header').forEach(h => {
+    h.classList.remove('open');
+    h.nextElementSibling.classList.remove('open');
+  });
+  if (!isOpen) {
+    header.classList.add('open');
+    header.nextElementSibling.classList.add('open');
+  }
+}
+
+document.querySelector('.menu-toggle').addEventListener('click', function() {
+  document.querySelector('.nav-menu').classList.toggle('open');
+});
+</script>
+<script src="main.js"></script>
+<script src="contact-form.js"></script>
+</body>
+</html>
