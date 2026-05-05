@@ -147,18 +147,6 @@ body { font-family: 'Golos Text', sans-serif; background: var(--paper); color: v
 .dep-arrow { color: rgba(255,255,255,0.25); font-size: 16px; }
 .dep-desc { font-size: 13px; color: rgba(255,255,255,0.55); }
 
-/* CASES */
-.cases-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-.case-card { border: 1.5px solid var(--border); border-radius: 14px; overflow: hidden; text-decoration: none; transition: all 0.2s; display: block; }
-.case-card:hover { border-color: var(--ink); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.08); }
-.case-top { background: var(--ink); padding: 20px 24px; }
-.case-industry { font-family: 'Unbounded', sans-serif; font-size: 9px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--accent); margin-bottom: 8px; display: block; }
-.case-title { font-family: 'Unbounded', sans-serif; font-size: 14px; font-weight: 700; color: white; line-height: 1.3; }
-.case-body { padding: 20px 24px; background: var(--cream); }
-.case-scenario { font-size: 13px; color: var(--muted); line-height: 1.6; margin-bottom: 12px; }
-.case-result { font-size: 13px; color: var(--accent2); font-weight: 500; }
-.case-link { font-family: 'Unbounded', sans-serif; font-size: 10px; font-weight: 700; letter-spacing: 1px; color: var(--ink); margin-top: 14px; display: block; }
-
 /* FOOTER */
 .site-footer { background: var(--ink); color: white; padding: 40px; }
 .footer-inner { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 24px; }
@@ -647,40 +635,6 @@ body { font-family: 'Golos Text', sans-serif; background: var(--paper); color: v
           <div class="scenario-vector">Общее → частное · Фазы: Аудит + Редизайн</div>
         </div>
       </div>
-    </div>
-  </div>
-</section>
-
-<!-- CASES -->
-<section class="section alt">
-  <div class="container">
-    <span class="section-label">Кейсы</span>
-    <h2 class="section-title">Фреймворк в действии</h2>
-    <p class="section-lead">Два реальных кейса разобранных пошагово через все фазы и линзы.</p>
-
-    <div class="cases-grid">
-      <a class="case-card" href="edtech_case_v2.html">
-        <div class="case-top">
-          <span class="case-industry">EdTech · Сценарий 3</span>
-          <div class="case-title">Когда структура мешает расти</div>
-        </div>
-        <div class="case-body">
-          <div class="case-scenario">Три направления, три параллельных стека ролей. Производство курса — 9 месяцев. Все говорят что оптимизировать нечего.</div>
-          <div class="case-result">→ Реализован Shared Services Center</div>
-          <span class="case-link">Читать кейс →</span>
-        </div>
-      </a>
-      <a class="case-card" href="neginski_case.html">
-        <div class="case-top">
-          <span class="case-industry">Недвижимость · Сценарий 2</span>
-          <div class="case-title">Строим HR-функцию с нуля</div>
-        </div>
-        <div class="case-body">
-          <div class="case-scenario">Международная компания ~200 человек. HR-задачи размазаны по финансам, операционке и рекрутменту без единого центра.</div>
-          <div class="case-result">→ Модель OIS + PCI, roadmap 90 дней</div>
-          <span class="case-link">Читать кейс →</span>
-        </div>
-      </a>
     </div>
   </div>
 </section>
